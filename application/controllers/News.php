@@ -7,6 +7,7 @@ class News extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('tanggal_rupiah');
         
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
@@ -18,6 +19,7 @@ class News extends CI_Controller
     public function index()
     {
         $data['news'] = $this->news->getallnews();
+        $data['blog'] = $this->news->getallblog();
         $data['kategori'] = $this->news->getallkategorinews();
 
         $this->load->view('includes/header');
@@ -59,7 +61,9 @@ class News extends CI_Controller
             }
 
             $data             = [
+                'type'                       => 1,
                 'foto_berita'                => $gambar,
+                'purpose'                    => html_escape($this->input->post('purpose', TRUE)),
                 'title'                      => html_escape($this->input->post('title', TRUE)),
                 'content'                    => $this->input->post('content', TRUE),
                 'id_kategori'                => html_escape($this->input->post('id_kategori', TRUE)),
@@ -72,13 +76,61 @@ class News extends CI_Controller
             } else {
 
                 $this->news->tambahdataberita($data);
-                $this->session->set_flashdata('tambah', 'Category News Has Been Added');
+                $this->session->set_flashdata('tambah', 'News Has Been Added');
                 redirect('news');
             }
         } else {
             $data['news'] = $this->news->getallkategorinews();
             $this->load->view('includes/header');
             $this->load->view('news/addnews', $data);
+            $this->load->view('includes/footer');
+        }
+    }
+
+    public function tambahblog()
+    {
+
+        $this->form_validation->set_rules('title', 'title', 'trim|prep_for_form');
+        $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|prep_for_form');
+
+
+        if ($this->form_validation->run() == TRUE) {
+            $config['upload_path']     = './images/berita/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']         = '10000';
+            $config['file_name']     = 'name';
+            $config['encrypt_name']     = true;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto_berita')) {
+                $gambar = html_escape($this->upload->data('file_name'));
+            } else {
+                $gambar = 'noimage.jpg';
+            }
+
+            $data             = [
+                'type'                       => 2,
+                'foto_berita'                => $gambar,
+                'purpose'                    => html_escape($this->input->post('purpose', TRUE)),
+                'title'                      => html_escape($this->input->post('title', TRUE)),
+                'content'                    => $this->input->post('content', TRUE),
+                'id_kategori'                => html_escape($this->input->post('id_kategori', TRUE)),
+                'status_berita'              => html_escape($this->input->post('status_berita', TRUE))
+            ];
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('news/tambahblog');
+            } else {
+
+                $this->news->tambahdataberita($data);
+                $this->session->set_flashdata('tambah', 'Blog Has Been Added');
+                redirect('news');
+            }
+        } else {
+            $data['news'] = $this->news->getallkategorinews();
+            $this->load->view('includes/header');
+            $this->load->view('news/addblog', $data);
             $this->load->view('includes/footer');
         }
     }
@@ -96,6 +148,23 @@ class News extends CI_Controller
             }
             $this->news->hapusberitaById($id);
             $this->session->set_flashdata('hapus', 'News Has Been Deleted');
+            redirect('news');
+        }
+    }
+
+    public function hapusblog($id)
+    {
+        if (demo == TRUE) {
+            $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+            redirect('news/index');
+        } else {
+            $data = $this->news->getblogById($id);
+            if ($data['foto_berita'] != 'noimage.jpg') {
+                $gambar = $data['foto_berita'];
+                unlink('images/berita/' . $gambar);
+            }
+            $this->news->hapusberitaById($id);
+            $this->session->set_flashdata('hapus', 'Blog Has Been Deleted');
             redirect('news');
         }
     }
@@ -132,6 +201,7 @@ class News extends CI_Controller
             $data             = [
                 'id_berita'                     => html_escape($this->input->post('id_berita', TRUE)),
                 'foto_berita'                   => $gambar,
+                'purpose'                       => html_escape($this->input->post('purpose', TRUE)),
                 'title'                         => html_escape($this->input->post('title', TRUE)),
                 'content'                       => $this->input->post('content'),
                 'id_kategori'                   => html_escape($this->input->post('id_kategori', TRUE)),
@@ -157,6 +227,64 @@ class News extends CI_Controller
         }
     }
 
+    public function ubahblog($id)
+    {
+
+        $this->form_validation->set_rules('title', 'title', 'trim|prep_for_form');
+        $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|prep_for_form');
+
+
+        $data['blog'] = $this->news->getblogById($id);
+        $id  = html_escape($this->input->post('id_berita', TRUE));
+
+
+        if ($this->form_validation->run() == TRUE) {
+            $config['upload_path']     = './images/berita/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']         = '10000';
+            $config['file_name']     = 'name';
+            $config['encrypt_name']     = true;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto_berita')) {
+                if ($data['blog']['foto_berita'] != 'noimage.jpg') {
+                    $gambar = $data['blog']['foto_berita'];
+                    unlink('images/berita/' . $gambar);
+                }
+
+                $gambar = html_escape($this->upload->data('file_name'));
+            } else {
+                $gambar = $data['blog']['foto_berita'];
+            }
+            $data             = [
+                'id_berita'                     => html_escape($this->input->post('id_berita', TRUE)),
+                'foto_berita'                   => $gambar,
+                'purpose'                       => html_escape($this->input->post('purpose', TRUE)),
+                'title'                         => html_escape($this->input->post('title', TRUE)),
+                'content'                       => $this->input->post('content'),
+                'id_kategori'                   => html_escape($this->input->post('id_kategori', TRUE)),
+                'status_berita'                 => html_escape($this->input->post('status_berita', TRUE))
+            ];
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('news/index');
+            } else {
+
+                $this->news->ubahdataberita($data);
+                $this->session->set_flashdata('ubah', 'Blog Has Been Changed');
+                redirect('news');
+            }
+        } else {
+            $data['knews'] = $this->news->getallkategorinews();
+
+
+            $this->load->view('includes/header');
+            $this->load->view('news/editblog', $data);
+            $this->load->view('includes/footer');
+        }
+    }
+
     public function tambahcategory()
     {
 
@@ -173,7 +301,7 @@ class News extends CI_Controller
                 redirect('news/index');
             } else {
                 $this->news->tambahdatakategori($data);
-                $this->session->set_flashdata('tambah', 'Has Been added');
+                $this->session->set_flashdata('tambah', 'Category Has Been added');
                 redirect('news');
             }
         } else {

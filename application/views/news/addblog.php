@@ -9,11 +9,11 @@
               <?php echo $this->session->flashdata('demo'); ?>
             </div>
           <?php endif; ?>
-          <h4 class="card-title">News form</h4>
-          <?= form_open_multipart('news/tambah'); ?>
+          <h4 class="card-title">Blog form</h4>
+          <?= form_open_multipart('news/tambahblog'); ?>
 
           <div class="form-group">
-            <label>News Image</label>
+            <label>Blog Image</label>
             <input type="file" class="dropify" name="foto_berita" id="foto_berita" data-max-file-size="3mb" required />
           </div>
           <div class="form-group">
@@ -26,7 +26,7 @@
           </div>
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" id="title" placeholder="enter news title" required>
+            <input type="text" class="form-control" name="title" id="title" placeholder="enter blog title" required>
           </div>
           <div class="form-group">
             <label for="id_kategori">Category</label>
@@ -37,14 +37,14 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="status_berita">News Status</label>
+            <label for="status_berita">Blog Status</label>
             <select class="js-example-basic-single" style="width:100%" name="status_berita" id="status_berita">
               <option value="1">Active</option>
               <option value="0">NonActive</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="newscontent">News Content</label>
+            <label for="blogcontent">Blog Content</label>
             <textarea name="content" type="text" class="form-control" id="summernoteExample1" placeholder="Location" required></textarea>
           </div>
           <button type="submit" class="btn btn-success mr-2">Submit</button>

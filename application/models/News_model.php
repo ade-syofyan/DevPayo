@@ -8,7 +8,17 @@ class News_model extends CI_model
         // $this->db->select('driver_job.driver_job');
         // $this->db->select('driver.*');
         // $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
-        $this->db->join('kategori_news', 'berita.id_kategori = kategori_news.id_kategori_news', 'left');
+        $this->db->join('kategori_news', 'berita.id_kategori = kategori_news.id_kategori_news', 'left')->where('berita.type',1);
+        return  $this->db->get('berita')->result_array();
+    }
+
+    public function getAllblog()
+    {
+        // $this->db->select('config_driver.status as status_job');
+        // $this->db->select('driver_job.driver_job');
+        // $this->db->select('driver.*');
+        // $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
+        $this->db->join('kategori_news', 'berita.id_kategori = kategori_news.id_kategori_news', 'left')->where('berita.type',2);
         return  $this->db->get('berita')->result_array();
     }
 
@@ -23,6 +33,11 @@ class News_model extends CI_model
     }
 
     public function getnewsbyid($id)
+    {
+        return $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+    }
+
+    public function getblogbyid($id)
     {
         return $this->db->get_where('berita', ['id_berita' => $id])->row_array();
     }
@@ -42,6 +57,21 @@ class News_model extends CI_model
     {
 
         $this->db->set('foto_berita', $data['foto_berita']);
+        $this->db->set('purpose', $data['purpose']);
+        $this->db->set('title', $data['title']);
+        $this->db->set('content', $data['content']);
+        $this->db->set('id_kategori', $data['id_kategori']);
+        $this->db->set('status_berita', $data['status_berita']);
+
+        $this->db->where('id_berita', $data['id_berita']);
+        $this->db->update('berita', $data);
+    }
+
+    public function ubahdatablog($data)
+    {
+
+        $this->db->set('foto_berita', $data['foto_berita']);
+        $this->db->set('purpose', $data['purpose']);
         $this->db->set('title', $data['title']);
         $this->db->set('content', $data['content']);
         $this->db->set('id_kategori', $data['id_kategori']);
