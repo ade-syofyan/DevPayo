@@ -23,9 +23,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-$config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
-$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+
+// $config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+// $config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
+// $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+$config['base_url'] = 'http://payoapp.net/payo/';
 
 define('firebaseDb', 'https://payoapp-5adef.firebaseio.com/');
 define('keyfcm', 'AAAArvgc6OA:APA91bHLlZpnIyqkMpJirFjsFC-kY0Tdbp7i_0D5U8tO1ntHoUN6OVJ_yNdoYWxDii08-0FDPTVb5CniKW949yKK5RfIJ5eFwRw1nT2e9iwCCrIYWRO5Z2V0X5Is2IA_qppNigM0yGXV');
