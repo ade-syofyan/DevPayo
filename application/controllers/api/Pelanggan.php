@@ -8,7 +8,7 @@ class Pelanggan extends REST_Controller
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->load->helper("url");
         $this->load->database();
         $this->load->model('Pelanggan_model');
@@ -193,45 +193,55 @@ class Pelanggan extends REST_Controller
             );
             $this->response($message, 201);
         } else {
-                $image = $dec_data->fotopelanggan;
-                $namafoto = time() . '-' . rand(0, 99999) . ".jpg";
-                $path = "images/pelanggan/" . $namafoto;
-                file_put_contents($path, base64_decode($image));
-                $data_signup = array(
-                    'id' => 'P' . time(),
-                    'fullnama' => $dec_data->fullnama,
-                    'email' => $dec_data->email,
-                    'no_telepon' => $dec_data->no_telepon,
-                    'phone' => $dec_data->phone,
+            $image = $dec_data->fotopelanggan;
+            $namafoto = time() . '-' . rand(0, 99999) . ".jpg";
+            $path = "images/pelanggan/" . $namafoto;
+            file_put_contents($path, base64_decode($image));
+            $data_signup = array(
+                'id' => 'P' . time(),
+                'fullnama' => $dec_data->fullnama,
+                'email' => $dec_data->email,
+                'no_telepon' => $dec_data->no_telepon,
+                'phone' => $dec_data->phone,
+                'password' => sha1($dec_data->password),
+                'tgl_lahir' => $dec_data->tgl_lahir,
+                'countrycode' => $dec_data->countrycode,
+                'fotopelanggan' => $namafoto,
+                'token' => $dec_data->token,
+            );
+            $signup = $this->Pelanggan_model->signup($data_signup);
+            if ($signup) {
+                $condition = array(
                     'password' => sha1($dec_data->password),
-                    'tgl_lahir' => $dec_data->tgl_lahir,
-                    'countrycode' => $dec_data->countrycode,
-                    'fotopelanggan' => $namafoto,
-                    'token' => $dec_data->token,
+                    'email' => $dec_data->email
                 );
-                $signup = $this->Pelanggan_model->signup($data_signup);
-                if ($signup) {
-                    $condition = array(
-                        'password' => sha1($dec_data->password),
-                        'email' => $dec_data->email
-                    );
-                    $datauser1 = $this->Pelanggan_model->get_data_pelanggan($condition);
-                    $message = array(
-                        'code' => '200',
-                        'message' => 'success',
-                        'data' => $datauser1->result()
-                    );
-                    $this->response($message, 200);
-                } else {
-                    $message = array(
-                        'code' => '201',
-                        'message' => 'failed',
-                        'data' => []
-                    );
-                    $this->response($message, 201);
-                }
+                $datauser1 = $this->Pelanggan_model->get_data_pelanggan($condition);
+                $message = array(
+                    'code' => '200',
+                    'message' => 'success',
+                    'data' => $datauser1->result()
+                );
+                $this->response($message, 200);
+            } else {
+                $message = array(
+                    'code' => '201',
+                    'message' => 'failed',
+                    'data' => []
+                );
+                $this->response($message, 201);
+            }
         }
     }
+
+    function provinsi_get()
+    {
+        $this->db->select('*');
+        $this->db->from('wa_province');
+        $province = $this->db->get()->result();
+
+        $this->response($province, 200);
+    }
+
 
     function kodepromo_post()
     {
