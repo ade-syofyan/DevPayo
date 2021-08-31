@@ -1,489 +1,249 @@
 <?php
-
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
-
-
 class Driver_model extends CI_model
-
 {
-
-
-
     function __construct()
-
     {
-
         parent::__construct();
-
     }
-
-
-
     public function signup($data_signup, $data_kendaraan, $data_berkas)
-
     {
-
         $inskendaraan = $this->db->insert('kendaraan', $data_kendaraan);
-
         $inserid = $this->db->insert_id();
-
         $datasignup = array(
-
             'id' => $data_signup['id'],
-
             'nama_driver' => $data_signup['nama_driver'],
-
             'no_ktp' => $data_signup['no_ktp'],
-
             'tgl_lahir' => $data_signup['tgl_lahir'],
-
             'no_telepon' => $data_signup['no_telepon'],
-
             'phone' => $data_signup['phone'],
-
             'email' => $data_signup['email'],
-
             'countrycode' => $data_signup['countrycode'],
-
             'foto' => $data_signup['foto'],
-
             'password' => $data_signup['password'],
-
             'job' => $data_signup['job'],
-
             'gender' => $data_signup['gender'],
-
             'alamat_driver' => $data_signup['alamat_driver'],
-
             'reg_id' => '12345',
-
             'kendaraan' => $inserid,
-
             'status' => '0'
-
         );
 
         $signup = $this->db->insert('driver', $datasignup);
 
-
-
-
-
-
-
-
-
         $dataconfig = array(
-
             'id_driver' => $data_signup['id'],
-
             'latitude' => '0',
-
             'longitude' => '0',
-
             'status' => '5'
-
         );
 
         $insconfig = $this->db->insert('config_driver', $dataconfig);
 
-
-
         $databerkas = array(
-
             'id_driver' => $data_signup['id'],
-
             'foto_ktp' => $data_berkas['foto_ktp'],
-
             'foto_sim' => $data_berkas['foto_sim'],
-
             'id_sim' => $data_berkas['id_sim']
-
         );
 
         $insberkas = $this->db->insert('berkas_driver', $databerkas);
 
-
-
         $datasaldo = array(
-
             'id_user' => $data_signup['id'],
-
             'saldo' => 0
-
         );
 
         $insSaldo = $this->db->insert('saldo', $datasaldo);
 
         return $signup;
-
     }
-
-
 
     public function check_exist($email, $phone)
-
     {
-
         $cek = $this->db->query("SELECT id FROM driver where email='$email' AND no_telepon='$phone'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
-
-
 
     public function check_ktp($ktp)
-
     {
-
         $cek = $this->db->query("SELECT id FROM driver where no_ktp='$ktp'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
-
-
 
     public function check_sim($sim)
-
     {
-
         $cek = $this->db->query("SELECT id_berkas FROM berkas_driver where id_sim='$sim'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
-
-
     public function check_exist_phone($phone)
-
     {
-
         $cek = $this->db->query("SELECT id FROM driver where no_telepon='$phone'");
 
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
     public function check_exist_email($email)
-
     {
-
         $cek = $this->db->query("SELECT id FROM driver where email='$email'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
-
-
 
     public function check_banned($phone)
-
     {
-
         $stat =  $this->db->query("SELECT id FROM driver WHERE status='3' AND no_telepon='$phone'");
-
         if ($stat->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
-
-
 
     public function check_exist_phone_edit($id, $phone)
-
     {
-
         $cek = $this->db->query("SELECT no_telepon FROM driver where no_telepon='$phone' AND id!='$id'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
-
-
 
     public function check_exist_email_edit($id, $email)
-
     {
-
         $cek = $this->db->query("SELECT id FROM driver where email='$email' AND id!='$id'");
-
         if ($cek->num_rows() == 1) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
-
-
     public function get_data_pelanggan($condition)
-
     {
-
         $this->db->select('driver.*, saldo.saldo,kendaraan.*');
-
         $this->db->from('driver');
-
         $this->db->join('saldo', 'driver.id = saldo.id_user');
-
         $this->db->join('kendaraan', 'driver.kendaraan = kendaraan.id_k');
-
         $this->db->where($condition);
-
         $this->db->where('status', '1');
 
         return $this->db->get();
-
     }
 
-
-
     public function get_job()
-
     {
-
         $this->db->select('*');
-
         $this->db->from('driver_job');
-
         $this->db->where('status_job', '1');
 
         return $this->db->get()->result();
-
     }
 
-
-
-
-
-
-
     public function get_status_driver($condition)
-
     {
-
         $this->db->select('*');
-
         $this->db->from('config_driver');
-
         $this->db->where($condition);
 
         return $this->db->get();
-
     }
 
-
-
     public function edit_profile($data, $phone)
-
     {
-
-
-
         $this->db->where('no_telepon', $phone);
-
         $this->db->update('driver', $data);
 
         return true;
-
     }
 
-
-
     public function edit_status_login($phone)
-
     {
-
         $phonenumber = array('no_telepon' => $phone);
-
         $datadriver = $this->get_data_driver($phonenumber);
-
         $datas = array('status' => '4');
-
         $this->db->where('id_driver', $datadriver->row('id'));
-
         $this->db->update('config_driver', $datas);
 
         return true;
-
     }
-
-
 
     public function logout($dataEdit, $id)
-
     {
-
-
-
         $this->db->where('id_driver', $id);
-
         $logout = $this->db->update('config_driver', $dataEdit);
-
         if ($this->db->affected_rows() > 0) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
-
-
     public function edit_kendaraan($data, $id)
-
     {
-
-
-
         $this->db->where('id_k', $id);
-
         $this->db->update('kendaraan', $data);
 
         return true;
-
     }
 
-
-
     function my_location($data_l)
-
     {
-
         if ($data_l['bearing'] != '0.0') {
-
             $data = array(
-
                 'latitude' => $data_l['latitude'],
-
                 'longitude' => $data_l['longitude'],
-
                 'bearing' => $data_l['bearing']
-
             );
-
         } else {
-
             $data = array(
-
                 'latitude' => $data_l['latitude'],
-
                 'longitude' => $data_l['longitude']
-
             );
-
         }
 
         $this->db->where('id_driver', $data_l['id_driver']);
-
         $upd = $this->db->update('config_driver', $data);
-
         if ($this->db->affected_rows() > 0) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
-
-
     public function get_data_driver($condition)
-
     {
-
         $this->db->select('driver.*, saldo.saldo');
-
         $this->db->from('driver');
-
         $this->db->join('config_driver', 'driver.id = config_driver.id_driver');
-
         $this->db->join('saldo', 'driver.id = saldo.id_user');
-
         $this->db->where($condition);
 
         return $this->db->get();
-
     }
 
-
-
     function change_status_driver($idD, $stat_order)
-
     {
 
 
@@ -503,13 +263,10 @@ class Driver_model extends CI_model
         if ($this->db->affected_rows() > 0) {
 
             return true;
-
         } else {
 
             return false;
-
         }
-
     }
 
 
@@ -551,7 +308,6 @@ class Driver_model extends CI_model
             'status_order' => $this->check_status_order($id)
 
         );
-
     }
 
 
@@ -589,7 +345,6 @@ class Driver_model extends CI_model
         $check = $this->db->get('history_transaksi', 1, 0);
 
         return $check;
-
     }
 
 
@@ -605,13 +360,10 @@ class Driver_model extends CI_model
         if ($this->db->affected_rows() > 0) {
 
             return true;
-
         } else {
 
             return false;
-
         }
-
     }
 
 
@@ -675,7 +427,6 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             } else {
 
                 return array(
@@ -685,9 +436,7 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         } else {
 
             return array(
@@ -697,9 +446,7 @@ class Driver_model extends CI_model
                 'data' => 'canceled'
 
             );
-
         }
-
     }
 
 
@@ -751,7 +498,6 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             } else {
 
                 return array(
@@ -761,9 +507,7 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         } else {
 
             $datD = array(
@@ -785,9 +529,7 @@ class Driver_model extends CI_model
                 'data' => 'canceled'
 
             );
-
         }
-
     }
 
 
@@ -893,7 +635,6 @@ class Driver_model extends CI_model
                 $this->delete_chat($get_mitra->row('id_merchant'), $last_trans->row('id_pelanggan'));
 
                 $this->delete_chat($get_mitra->row('id_merchant'), $cond['id_driver']);
-
             };
 
 
@@ -939,7 +680,6 @@ class Driver_model extends CI_model
                     'idp' => $last_trans->row('id_pelanggan'),
 
                 );
-
             } else {
 
                 return array(
@@ -949,9 +689,7 @@ class Driver_model extends CI_model
                     'data' => 'false in cutting'
 
                 );
-
             }
-
         } else {
 
             return array(
@@ -961,9 +699,7 @@ class Driver_model extends CI_model
                 'data' => 'abc'
 
             );
-
         }
-
     }
 
 
@@ -981,7 +717,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $id);
 
         return $this->db->get();
-
     }
 
 
@@ -999,7 +734,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $id);
 
         return $this->db->get();
-
     }
 
 
@@ -1041,15 +775,11 @@ class Driver_model extends CI_model
                 $this->db->where('id_user', $dataC['id_pelanggan']);
 
                 $upd = $this->db->update('saldo', array('saldo' => ($saldo - $dataC['biaya_akhir'])));
-
             } else {
 
                 return false;
-
             }
-
         }
-
     }
 
 
@@ -1113,7 +843,6 @@ class Driver_model extends CI_model
                         'data' => array('saldo' => ($saldo + $hasil))
 
                     );
-
                 } else {
 
                     return array(
@@ -1123,9 +852,7 @@ class Driver_model extends CI_model
                         'data' => 'fail in update'
 
                     );
-
                 }
-
             } else {
 
                 return array(
@@ -1135,9 +862,7 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         } else {
 
             $hasil = $data['harga'] * ($persen / 100);
@@ -1175,7 +900,6 @@ class Driver_model extends CI_model
                         'data' => []
 
                     );
-
                 } else {
 
                     return array(
@@ -1185,9 +909,7 @@ class Driver_model extends CI_model
                         'data' => 'fail in update'
 
                     );
-
                 }
-
             } else {
 
                 return array(
@@ -1197,11 +919,8 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         }
-
     }
 
 
@@ -1265,7 +984,6 @@ class Driver_model extends CI_model
                         'data' => array('saldo' => ($saldo + $hasil))
 
                     );
-
                 } else {
 
                     return array(
@@ -1275,9 +993,7 @@ class Driver_model extends CI_model
                         'data' => 'fail in update'
 
                     );
-
                 }
-
             } else {
 
                 return array(
@@ -1287,9 +1003,7 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         } else {
 
             $hasil = $data['harga'] * ($persen / 100);
@@ -1327,7 +1041,6 @@ class Driver_model extends CI_model
                         'data' => []
 
                     );
-
                 } else {
 
                     return array(
@@ -1337,9 +1050,7 @@ class Driver_model extends CI_model
                         'data' => 'fail in update'
 
                     );
-
                 }
-
             } else {
 
                 return array(
@@ -1349,11 +1060,8 @@ class Driver_model extends CI_model
                     'data' => []
 
                 );
-
             }
-
         }
-
     }
 
 
@@ -1391,7 +1099,6 @@ class Driver_model extends CI_model
         $cek = $this->db->get();
 
         return $cek;
-
     }
 
 
@@ -1431,7 +1138,6 @@ class Driver_model extends CI_model
         $trans = $this->db->get();
 
         return $trans;
-
     }
 
     function delete_chat($otherid, $userid)
@@ -1553,7 +1259,6 @@ class Driver_model extends CI_model
 
 
         $json_data = json_decode($return, true);
-
     }
 
 
@@ -1575,7 +1280,6 @@ class Driver_model extends CI_model
         $this->db->join('driver_job', 'driver.job = driver_job.id', 'left');
 
         return  $this->db->get('driver')->result_array();
-
     }
 
 
@@ -1607,7 +1311,6 @@ class Driver_model extends CI_model
         $this->db->join('berkas_driver', 'driver.id = berkas_driver.id_driver', 'left');
 
         return  $this->db->get_where('driver', ['driver.id' => $id])->row_array();
-
     }
 
 
@@ -1621,7 +1324,6 @@ class Driver_model extends CI_model
         $query = $this->db->get_where('transaksi', ['id_driver' => $id])->result_array();
 
         return count($query);
-
     }
 
 
@@ -1633,7 +1335,6 @@ class Driver_model extends CI_model
         $this->db->order_by('wallet.id', 'DESC');
 
         return $this->db->get_where('wallet', ['id_user' => $id])->result_array();
-
     }
 
 
@@ -1661,7 +1362,6 @@ class Driver_model extends CI_model
         $this->db->where('history_transaksi.status != 1');
 
         return $this->db->get_where('transaksi', ['transaksi.id_driver' => $id])->result_array();
-
     }
 
 
@@ -1691,7 +1391,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $data['id']);
 
         $this->db->update('driver', $data);
-
     }
 
 
@@ -1725,7 +1424,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $data2['id']);
 
         $this->db->update('driver', $data2);
-
     }
 
 
@@ -1741,7 +1439,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $data['id']);
 
         $this->db->update('driver', $data);
-
     }
 
 
@@ -1757,7 +1454,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $data['id']);
 
         $this->db->update('driver', $data);
-
     }
 
 
@@ -1779,7 +1475,6 @@ class Driver_model extends CI_model
         $this->db->where('id_driver', $id);
 
         $this->db->update('config_driver');
-
     }
 
 
@@ -1793,7 +1488,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $id);
 
         $this->db->update('driver');
-
     }
 
 
@@ -1821,7 +1515,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $data2['id']);
 
         $this->db->update('driver');
-
     }
 
 
@@ -1831,7 +1524,6 @@ class Driver_model extends CI_model
     {
 
         return $this->db->get('driver_job')->result_array();
-
     }
 
 
@@ -1891,7 +1583,6 @@ class Driver_model extends CI_model
         $this->db->where('id_user', $id);
 
         $this->db->delete('wallet');
-
     }
 
 
@@ -1901,7 +1592,6 @@ class Driver_model extends CI_model
     {
 
         $this->db->insert('driver');
-
     }
 
 
@@ -1915,7 +1605,6 @@ class Driver_model extends CI_model
         $this->db->where('id', $id);
 
         $this->db->update('driver');
-
     }
 
 
@@ -1933,7 +1622,6 @@ class Driver_model extends CI_model
         $this->db->where('id_transaksi', $idtransaksi);
 
         return $this->db->get();
-
     }
 
 
@@ -1949,7 +1637,6 @@ class Driver_model extends CI_model
         $this->db->where($data);
 
         return $this->db->get();
-
     }
 
     public function driver_cancel_request($cond)
@@ -2003,7 +1690,6 @@ class Driver_model extends CI_model
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_pelanggan'));
 
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_driver'));
-
             };
 
             if ($id2->row('home') == 3) {
@@ -2013,7 +1699,6 @@ class Driver_model extends CI_model
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_pelanggan'));
 
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_driver'));
-
             };
 
             $this->db->where($cond);
@@ -2041,7 +1726,6 @@ class Driver_model extends CI_model
                 'idpelanggan' => $id2->row('id_pelanggan')
 
             );
-
         } else {
 
             return array(
@@ -2051,9 +1735,7 @@ class Driver_model extends CI_model
                 'data' => []
 
             );
-
         }
-
     }
 
 
@@ -2072,9 +1754,5 @@ class Driver_model extends CI_model
         $trans = $this->db->get();
 
         return $trans;
-
     }
-    
-
 }
-
