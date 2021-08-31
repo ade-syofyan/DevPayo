@@ -12,14 +12,14 @@ class News extends CI_Controller
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
         }
-        $this->load->model('news_model', 'news');
+        $this->load->model('News_model', 'news');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $data['news'] = $this->news->getallnews();
-        $data['blog'] = $this->news->getallblog();
+        $data['news'] = $this->news->getAllnews();
+        $data['blog'] = $this->news->getAllblog();
         $data['kategori'] = $this->news->getallkategorinews();
 
         $this->load->view('includes/header');

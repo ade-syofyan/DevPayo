@@ -18,7 +18,7 @@ class Driver extends REST_Controller
 
         parent::__construct();
 
-        
+
 
         $this->load->helper("url");
 
@@ -29,7 +29,6 @@ class Driver extends REST_Controller
         $this->load->model('Pelanggan_model');
 
         date_default_timezone_set('Asia/Jakarta');
-
     }
 
 
@@ -39,7 +38,6 @@ class Driver extends REST_Controller
     {
 
         $this->response("Api for Jasaku!", 200);
-
     }
 
 
@@ -55,7 +53,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -75,7 +72,6 @@ class Driver extends REST_Controller
         );
 
         $this->response($message, 200);
-
     }
 
 
@@ -101,7 +97,6 @@ class Driver extends REST_Controller
         );
 
         $this->response($message, 200);
-
     }
 
 
@@ -117,7 +112,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -157,7 +151,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $cek_login = $this->Driver_model->get_data_pelanggan($condition);
@@ -185,7 +178,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -199,11 +191,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         }
-
     }
 
 
@@ -219,7 +208,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
         $data = file_get_contents("php://input");
@@ -253,9 +241,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -271,7 +257,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
         $data = file_get_contents("php://input");
@@ -331,7 +316,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -345,11 +329,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 201);
-
             }
-
         }
-
     }
 
 
@@ -365,7 +346,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -395,7 +375,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -407,9 +386,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -425,7 +402,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -461,15 +437,12 @@ class Driver extends REST_Controller
                     if ($getDataDriver['status_order']->row('status') == 3) {
 
                         $stat = 3;
-
                     } else if ($getDataDriver['status_order']->row('status') == 2) {
 
                         $stat = 2;
-
                     } else {
 
                         $stat = 1;
-
                     }
 
 
@@ -513,7 +486,6 @@ class Driver extends REST_Controller
                     );
 
                     $this->response($message, 200);
-
                 } else {
 
                     $this->Driver_model->change_status_driver($dec_data->id, 1);
@@ -555,9 +527,7 @@ class Driver extends REST_Controller
                     );
 
                     $this->response($message, 200);
-
                 }
-
             } else {
 
                 $message = array(
@@ -571,11 +541,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 201);
-
             }
-
         }
-
     }
 
 
@@ -591,7 +558,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
         $data = file_get_contents("php://input");
@@ -625,7 +591,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -637,9 +602,7 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         } else {
 
             $dataEdit = array(
@@ -661,7 +624,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -673,11 +635,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         }
-
     }
 
 
@@ -693,7 +652,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -743,7 +701,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 if ($acc_req['data'] == 'canceled') {
@@ -757,7 +714,6 @@ class Driver extends REST_Controller
                     );
 
                     $this->response($message, 200);
-
                 } else {
 
                     $message = array(
@@ -769,11 +725,8 @@ class Driver extends REST_Controller
                     );
 
                     $this->response($message, 200);
-
                 }
-
             }
-
         } else {
 
             $message = array(
@@ -785,9 +738,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -803,7 +754,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -837,7 +787,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             if ($acc_req['data'] == 'canceled') {
@@ -851,7 +800,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -863,11 +811,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         }
-
     }
 
 
@@ -883,7 +828,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -927,7 +871,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -939,9 +882,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -957,7 +898,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -987,7 +927,6 @@ class Driver extends REST_Controller
         );
 
         $this->response($message, 200);
-
     }
 
 
@@ -1003,7 +942,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1043,7 +981,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -1055,9 +992,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -1073,7 +1008,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1099,7 +1033,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else if ($check_exist_email) {
 
             $message = array(
@@ -1113,7 +1046,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else {
 
             $condition = array(
@@ -1147,7 +1079,6 @@ class Driver extends REST_Controller
                     'tgl_lahir' => $decoded_data->tgl_lahir
 
                 );
-
             } else {
 
                 $image = $decoded_data->fotodriver;
@@ -1187,7 +1118,6 @@ class Driver extends REST_Controller
                     'tgl_lahir' => $decoded_data->tgl_lahir
 
                 );
-
             }
 
 
@@ -1213,7 +1143,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -1227,11 +1156,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         }
-
     }
 
 
@@ -1247,7 +1173,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1305,7 +1230,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -1319,9 +1243,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -1337,7 +1259,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1395,7 +1316,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -1409,9 +1329,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -1427,7 +1345,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
         $data = file_get_contents("php://input");
@@ -1445,7 +1362,6 @@ class Driver extends REST_Controller
         );
 
         $this->response($message, 200);
-
     }
 
 
@@ -1461,7 +1377,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1507,7 +1422,6 @@ class Driver extends REST_Controller
                         'idKey' => '2'
 
                     );
-
                 }
 
 
@@ -1523,7 +1437,6 @@ class Driver extends REST_Controller
                 $template = $this->Pelanggan_model->template1($item['email_subject'], $item['email_text1'], $item['email_text2'], $item['app_website'], $item['app_name'], $linkbtn, $item['app_linkgoogle'], $item['app_address']);
 
                 $sendmail = $this->Pelanggan_model->emailsend($item['email_subject'] . " [ticket-" . rand(0, 999999) . "]", $decoded_data->email, $template, $item['smtp_host'], $item['smtp_port'], $item['smtp_username'], $item['smtp_password'], $item['smtp_from'], $item['app_name'], $item['smtp_secure']);
-
             }
 
             if ($forgot && $sendmail) {
@@ -1539,7 +1452,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -1553,9 +1465,7 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         } else {
 
             $message = array(
@@ -1569,9 +1479,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -1587,7 +1495,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1625,7 +1532,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else if ($check_exist_phone) {
 
             $message = array(
@@ -1639,7 +1545,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else if ($check_exist_sim) {
 
             $message = array(
@@ -1653,7 +1558,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else if ($check_exist_ktp) {
 
             $message = array(
@@ -1667,7 +1571,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else if ($check_exist_email) {
 
             $message = array(
@@ -1681,135 +1584,115 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 201);
-
         } else {
 
             $image = $dec_data->foto;
 
-                $namafoto = time() . '-' . rand(0, 99999) . ".jpg";
+            $namafoto = time() . '-' . rand(0, 99999) . ".jpg";
 
-                $path = "images/fotodriver/" . $namafoto;
+            $path = "images/fotodriver/" . $namafoto;
 
-                file_put_contents($path, base64_decode($image));
+            file_put_contents($path, base64_decode($image));
 
-                $data_signup = array(
+            $data_signup = array(
 
-                    'id' => 'D' . time(),
+                'id' => 'D' . time(),
+                'nama_driver' => $dec_data->nama_driver,
+                'no_ktp' => $dec_data->no_ktp,
+                'tgl_lahir' => $dec_data->tgl_lahir,
+                'no_telepon' => $dec_data->no_telepon,
+                'phone' => $dec_data->phone,
+                'email' => $dec_data->email,
+                'foto' => $namafoto,
+                'password' => sha1(time()),
+                'job' => $dec_data->job,
+                'countrycode' => $dec_data->countrycode,
+                'gender' => $dec_data->gender,
+                'alamat_driver' => $dec_data->alamat_driver,
+                'provinsi_id' => $dec_data->provinsi_id,
+                'regency_id' => $dec_data->regency_id,
+                'reg_id' => 12345,
+                'status' => 0
+            );
 
-                    'nama_driver' => $dec_data->nama_driver,
+            $data_kendaraan = array(
 
-                    'no_ktp' => $dec_data->no_ktp,
+                'merek' => $dec_data->merek,
 
-                    'tgl_lahir' => $dec_data->tgl_lahir,
+                'tipe' => $dec_data->tipe,
 
-                    'no_telepon' => $dec_data->no_telepon,
+                'nomor_kendaraan' => $dec_data->nomor_kendaraan,
 
-                    'phone' => $dec_data->phone,
+                'warna' => $dec_data->warna
 
-                    'email' => $dec_data->email,
+            );
 
-                    'foto' => $namafoto,
 
-                    'password' => sha1(time()),
 
-                    'job' => $dec_data->job,
+            $imagektp = $dec_data->foto_ktp;
 
-                    'countrycode' => $dec_data->countrycode,
+            $namafotoktp = time() . '-' . rand(0, 99999) . ".jpg";
 
-                    'gender' => $dec_data->gender,
+            $pathktp = "images/fotoberkas/ktp/" . $namafotoktp;
 
-                    'alamat_driver' => $dec_data->alamat_driver,
+            file_put_contents($pathktp, base64_decode($imagektp));
 
-                    'reg_id' => 12345,
 
-                    'status' => 0
+
+            $imagesim = $dec_data->foto_sim;
+
+            $namafotosim = time() . '-' . rand(0, 99999) . ".jpg";
+
+            $pathsim = "images/fotoberkas/sim/" . $namafotosim;
+
+            file_put_contents($pathsim, base64_decode($imagesim));
+
+
+
+            $data_berkas = array(
+
+                'foto_ktp' => $namafotoktp,
+
+                'foto_sim' => $namafotosim,
+
+                'id_sim' => $dec_data->id_sim
+
+            );
+
+
+
+
+
+            $signup = $this->Driver_model->signup($data_signup, $data_kendaraan, $data_berkas);
+
+            if ($signup) {
+
+                $message = array(
+
+                    'code' => '200',
+
+                    'message' => 'success',
+
+                    'data' => 'register has been succesed!'
 
                 );
 
+                $this->response($message, 200);
+            } else {
 
+                $message = array(
 
-                $data_kendaraan = array(
+                    'code' => '201',
 
-                    'merek' => $dec_data->merek,
+                    'message' => 'failed',
 
-                    'tipe' => $dec_data->tipe,
-
-                    'nomor_kendaraan' => $dec_data->nomor_kendaraan,
-
-                    'warna' => $dec_data->warna
-
-                );
-
-
-
-                $imagektp = $dec_data->foto_ktp;
-
-                $namafotoktp = time() . '-' . rand(0, 99999) . ".jpg";
-
-                $pathktp = "images/fotoberkas/ktp/" . $namafotoktp;
-
-                file_put_contents($pathktp, base64_decode($imagektp));
-
-
-
-                $imagesim = $dec_data->foto_sim;
-
-                $namafotosim = time() . '-' . rand(0, 99999) . ".jpg";
-
-                $pathsim = "images/fotoberkas/sim/" . $namafotosim;
-
-                file_put_contents($pathsim, base64_decode($imagesim));
-
-
-
-                $data_berkas = array(
-
-                    'foto_ktp' => $namafotoktp,
-
-                    'foto_sim' => $namafotosim,
-
-                    'id_sim' => $dec_data->id_sim
+                    'data' => ''
 
                 );
 
-
-
-
-
-                $signup = $this->Driver_model->signup($data_signup, $data_kendaraan, $data_berkas);
-
-                if ($signup) {
-
-                    $message = array(
-
-                        'code' => '200',
-
-                        'message' => 'success',
-
-                        'data' => 'register has been succesed!'
-
-                    );
-
-                    $this->response($message, 200);
-
-                } else {
-
-                    $message = array(
-
-                        'code' => '201',
-
-                        'message' => 'failed',
-
-                        'data' => ''
-
-                    );
-
-                    $this->response($message, 201);
-
-                }
-
+                $this->response($message, 201);
+            }
         }
-
     }
 
 
@@ -1825,7 +1708,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -1893,7 +1775,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
 
@@ -1915,7 +1796,6 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             } else {
 
                 $message = array(
@@ -1929,11 +1809,8 @@ class Driver extends REST_Controller
                 );
 
                 $this->response($message, 200);
-
             }
-
         }
-
     }
 
 
@@ -1949,7 +1826,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -2023,7 +1899,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -2037,9 +1912,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
     function driver_cancel_post()
@@ -2053,7 +1926,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
 
@@ -2085,7 +1957,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -2097,9 +1968,7 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
     }
 
 
@@ -2113,7 +1982,6 @@ class Driver extends REST_Controller
             header("HTTP/1.0 401 Unauthorized");
 
             return false;
-
         }
 
         $data = file_get_contents("php://input");
@@ -2132,7 +2000,7 @@ class Driver extends REST_Controller
 
         $getdata = $this->Driver_model->check_minimum_wallet_job($condition);
 
-        if ($getdata->num_rows() > 0) {  
+        if ($getdata->num_rows() > 0) {
 
             $message = array(
 
@@ -2145,7 +2013,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         } else {
 
             $message = array(
@@ -2159,12 +2026,6 @@ class Driver extends REST_Controller
             );
 
             $this->response($message, 200);
-
         }
-
-        
     }
-    
-
 }
-

@@ -8,7 +8,7 @@ class Merchant extends REST_Controller
     public function __construct()
     {
         parent::__construct();
-       
+
         $this->load->helper("url");
         $this->load->database();
         $this->load->model('Merchantapi_model');
@@ -137,7 +137,7 @@ class Merchant extends REST_Controller
             $this->response($message, 201);
         } else {
             if ($dec_data->checked == "true") {
-               $data_signup = array(
+                $data_signup = array(
                     'id_mitra' => 'M' . time(),
                     'nama_mitra' => $dec_data->nama_mitra,
                     'jenis_identitas_mitra' => $dec_data->jenis_identitas,
@@ -148,6 +148,8 @@ class Merchant extends REST_Controller
                     'telepon_mitra' => $dec_data->no_telepon,
                     'phone_mitra' => $dec_data->phone,
                     'country_code_mitra' => $dec_data->countrycode,
+                    'provinsi_id' => $dec_data->provinsi_id,
+                    'regency_id' => $dec_data->regency_id,
                     'partner' => '0',
                     'status_mitra' => '0'
                 );
