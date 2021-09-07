@@ -17,6 +17,28 @@
                     </div>
                 <?php endif; ?>
                 <h4 class="card-title">Drivers</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <label><b>Fliter Province</b></label>
+                            <select class="js-example-basic-single" id="province">
+                                <option value="0">Choice Province</option>
+                                <?php foreach ($province as $prov) : ?>
+                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <!-- <td>
+                            <label><b>Fliter Regency</b></label>
+                            <select name="regency" class="js-example-basic-single" id="regency">
+                                <option>Choice Regency</option>
+                                <?php foreach ($regency as $prov) : ?>
+                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td> -->
+                    </tr>
+                </table>
                 <div class="tab-minimal tab-minimal-success">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -49,78 +71,18 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>drivers Id</th>
+                                                            <th>Drivers ID</th>
                                                             <th>Profile Pic</th>
                                                             <th>Full Name</th>
                                                             <th>Phone</th>
+                                                            <th>From</th>
                                                             <th>Rating</th>
                                                             <th>Job Service</th>
                                                             <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <?php $i = 1;
-                                                        foreach ($driver as $drv) {
-                                                            if ($drv['status'] != 0) { ?>
-                                                                <tr>
-                                                                    <td>
-                                                                        <?= $i ?>
-                                                                    </td>
-                                                                    <td><?= $drv['id'] ?></td>
-                                                                    <td>
-                                                                        <img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>">
-                                                                    </td>
-                                                                    <td><?= $drv['nama_driver'] ?></td>
-                                                                    <td><?= $drv['no_telepon'] ?></td>
-                                                                    <td><?= number_format($drv['rating'], 1) ?></td>
-                                                                    <td><?= $drv['driver_job'] ?></td>
-                                                                    <td>
-                                                                        <?php if ($drv['status'] == 3) { ?>
-                                                                            <label class="badge badge-dark">Banned</label>
-                                                                        <?php } elseif ($drv['status'] == 0) { ?>
-                                                                            <label class="badge badge-secondary text-dark">New Reg</label>
-                                                                            <?php } else {
-                                                                            if ($drv['status_job'] == 1) { ?>
-                                                                                <label class="badge badge-primary">Active</label>
-                                                                            <?php }
-                                                                            if ($drv['status_job'] == 2) { ?>
-                                                                                <label class="badge badge-info">Pick'up</label>
-                                                                            <?php }
-                                                                            if ($drv['status_job'] == 3) { ?>
-                                                                                <label class="badge badge-success">work</label>
-                                                                            <?php }
-                                                                            if ($drv['status_job'] == 4) { ?>
-                                                                                <label class="badge badge-danger">Non Active</label>
-                                                                            <?php }
-                                                                            if ($drv['status_job'] == 5) { ?>
-                                                                                <label class="badge badge-danger">Log Out</label>
-                                                                        <?php }
-                                                                        } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
-                                                                            <button class="btn btn-outline-primary mr-2">View</button>
-                                                                        </a>
-                                                                        <?php
-                                                                        if ($drv['status'] != 0) {
-
-                                                                            if ($drv['status'] != 3) { ?>
-                                                                                <a href="<?= base_url(); ?>driver/block/<?= $drv['id'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
-                                                                            <?php } else { ?>
-                                                                                <a href="<?= base_url(); ?>driver/unblock/<?= $drv['id'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
-                                                                        <?php }
-                                                                        } ?>
-                                                                        <a href="<?= base_url(); ?>driver/hapus/<?= $drv['id'] ?>">
-                                                                            <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
-                                                                        </a>
-
-                                                                    </td>
-                                                                </tr>
-                                                        <?php $i++;
-                                                            }
-                                                        } ?>
-                                                    </tbody>
+                                                    <tbody></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -393,3 +355,55 @@
 
 </div>
 <!-- content-wrapper ends -->
+
+<script>
+    $(document).ready(function() {
+        $('#province').change(function() {
+            let a = $(this).val();
+            // console.log(a);
+            driver();
+        })
+    });
+
+    function driver() {
+        var province = $('#province').val();
+        $.ajax({
+            url: "<?= base_url('Driver/load_province') ?>",
+            data: "id=" + province,
+            success: function(data) {
+                // console.log(data);
+                $("#order-listing").html(data);
+            }
+        })
+    }
+</script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $("#driver").DataTable({
+            aLengthMenu: [
+                [5, 10, 15, -1],
+                [5, 10, 15, "All"]
+            ],
+            iDisplayLength: 5,
+            ordering: false,
+            language: {
+                search: ""
+            }
+        });
+        $("#driver").each(function() {
+            var datatable = $(this);
+            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+            var search_input = datatable
+                .closest(".dataTables_wrapper")
+                .find("div[id$=_filter] input");
+            search_input.attr("placeholder", "Search");
+            search_input.removeClass("form-control-sm");
+            // LENGTH - Inline-Form control
+            var length_sel = datatable
+                .closest(".dataTables_wrapper")
+                .find("div[id$=_length] select");
+            length_sel.removeClass("form-control-sm");
+        });
+    });
+</script> -->

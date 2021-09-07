@@ -18,6 +18,7 @@
                                     <th>Profile Pic</th>
                                     <th>Full Name</th>
                                     <th>Phone</th>
+                                    <th>From</th>
                                     <th>Rating</th>
                                     <th>Job Service</th>
                                     <th>Status</th>
@@ -38,6 +39,7 @@
                                             </td>
                                             <td><?= $drv['nama_driver'] ?></td>
                                             <td><?= $drv['no_telepon'] ?></td>
+                                            <td><?= $drv['province_name'] ?>, <?= $drv['regency_name'] ?></td>
                                             <td><?= number_format($drv['rating'], 1) ?></td>
                                             <td><?= $drv['driver_job'] ?></td>
                                             <td>

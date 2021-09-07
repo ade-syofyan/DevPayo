@@ -7,13 +7,11 @@ class Driver extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-
-
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
         }
         $this->load->model('driver_model', 'driver');
+        $this->load->model('address_model', 'address');
         $this->load->model('appsettings_model', 'app');
         $this->load->model('Pelanggan_model');
         $this->load->library('form_validation');
@@ -22,12 +20,97 @@ class Driver extends CI_Controller
 
     public function index()
     {
-        $data['driver'] = $this->driver->getalldriver();
-
-
+        $data['driver']   = $this->driver->getalldriver();
+        $data['province'] = $this->address->getProvince();
+        // print_r($data['province']);die;
+        $data['regency']  = $this->address->getRegency();
         $this->load->view('includes/header');
-        $this->load->view('drivers/index', $data);
+        $this->load->view('drivers/index', $data, false);
         $this->load->view('includes/footer');
+    }
+
+    public function load_province()
+    {
+        $prov = $_GET['id'];
+        if ($prov != 0) {
+            $driver = $this->db->select('config_driver.status as status_job');
+            $driver = $this->db->select('driver_job.driver_job');
+            $driver = $this->db->select('wa_province.name as province_name');
+            $driver = $this->db->select('wa_regency.name as regency_name');
+            $driver = $this->db->select('driver.*');
+            $driver = $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
+            $driver = $this->db->join('driver_job', 'driver.job = driver_job.id', 'left');
+            $driver = $this->db->join('wa_province', 'driver.provinsi_id = wa_province.id', 'left');
+            $driver = $this->db->join('wa_regency', 'driver.regency_id = wa_regency.id', 'left');
+
+            $driver = $this->db->get_where('driver', ['driver.provinsi_id' => $prov])->result_array();
+        } else {
+            $driver = $this->driver->getalldriver();
+        }
+
+        if (!empty($driver)) { ?>
+            <?php
+            foreach ($driver as $no => $drv) :
+                if ($drv['status'] != 0) { ?>
+                    <tr>
+                        <td><?= $no + 1 ?></td>
+                        <td><?= $drv['id'] ?></td>
+                        <td><img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>"></td>
+                        <td><?= $drv['nama_driver'] ?></td>
+                        <td><?= $drv['no_telepon'] ?></td>
+                        <td><?= $drv['province_name'] ?>, <?= $drv['regency_name'] ?></td>
+                        <td><?= number_format($drv['rating'], 1) ?></td>
+                        <td><?= $drv['driver_job'] ?></td>
+                        <td>
+                            <?php if ($drv['status'] == 3) { ?>
+                                <label class="badge badge-dark">Banned</label>
+                            <?php } elseif ($drv['status'] == 0) { ?>
+                                <label class="badge badge-secondary text-dark">New Reg</label>
+                                <?php } else {
+                                if ($drv['status_job'] == 1) { ?>
+                                    <label class="badge badge-primary">Active</label>
+                                <?php }
+                                if ($drv['status_job'] == 2) { ?>
+                                    <label class="badge badge-info">Pick'up</label>
+                                <?php }
+                                if ($drv['status_job'] == 3) { ?>
+                                    <label class="badge badge-success">work</label>
+                                <?php }
+                                if ($drv['status_job'] == 4) { ?>
+                                    <label class="badge badge-danger">Non Active</label>
+                                <?php }
+                                if ($drv['status_job'] == 5) { ?>
+                                    <label class="badge badge-danger">Log Out</label>
+                            <?php }
+                            } ?>
+                        </td>
+                        <td>
+                            <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
+                                <button class="btn btn-outline-primary mr-2">View</button>
+                            </a>
+                            <?php
+                            if ($drv['status'] != 0) {
+                                if ($drv['status'] != 3) { ?>
+                                    <a href="<?= base_url(); ?>driver/block/<?= $drv['id'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
+                                <?php } else { ?>
+                                    <a href="<?= base_url(); ?>driver/unblock/<?= $drv['id'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
+                            <?php }
+                            } ?>
+                            <a href="<?= base_url(); ?>driver/hapus/<?= $drv['id'] ?>">
+                                <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
+                            </a>
+
+                        </td>
+                    </tr>
+                <?php } ?>
+            <?php endforeach; ?>
+        <?php
+        } else { ?>
+            <tr>
+                <td class="text-center">Data Not Found</td>
+            </tr>
+        <?php } ?>
+<?php
     }
 
     public function tracking_driver()

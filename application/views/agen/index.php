@@ -4,8 +4,8 @@
         <div class="card">
             <div class="card-body">
                 <div>
-                    <a class="btn btn-info" href="<?= base_url(); ?>users/tambah">
-                        <i class="mdi mdi-plus-circle-outline"></i>Add Users</a>
+                    <a class="btn btn-info" href="<?= base_url(); ?>agen/tambah">
+                        <i class="mdi mdi-plus-circle-outline"></i>Add Agent</a>
                 </div>
                 <br>
                 <?php if ($this->session->flashdata('demo') or $this->session->flashdata('hapus')) : ?>
@@ -20,16 +20,16 @@
                         <?php echo $this->session->flashdata('tambah'); ?>
                     </div>
                 <?php endif; ?>
-                <h4 class="card-title">Users</h4>
+                <h4 class="card-title">Agent</h4>
                 <table class="table">
                     <tr>
                         <td>
                             <label><b>Fliter Province</b></label>
                             <select class="js-example-basic-single" id="province">
                                 <option value="0">Choice Province</option>
-                                <?php foreach ($province as $prov) : ?>
+                                <!-- <?php foreach ($province as $prov) : ?>
                                     <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </select>
                         </td>
                         <!-- <td>
@@ -47,7 +47,7 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="tab-2-1" data-toggle="tab" href="#allusers-2-1" role="tab" aria-controls="allusers-2-1" aria-selected="true">
-                                <i class="mdi mdi-account"></i>All Users</a>
+                                <i class="mdi mdi-account"></i>All Agent</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="tab-2-2" data-toggle="tab" href="#blocked-2-2" role="tab" aria-controls="blocked-2-2" aria-selected="false">
@@ -80,38 +80,38 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1;
-                                                        foreach ($user as $us) { ?>
+                                                        foreach ($agen as $ag) { ?>
                                                             <tr>
                                                                 <td><?= $i ?></td>
-                                                                <td><?= $us['id'] ?></td>
+                                                                <td><?= $ag['id'] ?></td>
                                                                 <td>
-                                                                    <img src="<?= base_url('images/pelanggan/') . $us['fotopelanggan']; ?>">
+                                                                    <img src="<?= base_url('images/pelanggan/') . $ag['fotopelanggan']; ?>">
                                                                 </td>
-                                                                <td><?= $us['fullnama'] ?></td>
-                                                                <td><?= $us['email'] ?></td>
-                                                                <td><?= $us['no_telepon'] ?></td>
-                                                                <td><?= $us['province_name'] ?>, <?= $us['regency_name'] ?></td>
+                                                                <td><?= $ag['fullnama'] ?></td>
+                                                                <td><?= $ag['email'] ?></td>
+                                                                <td><?= $ag['no_telepon'] ?></td>
+                                                                <td><?= $ag['province_name'] ?>, <?= $ag['regency_name'] ?></td>
                                                                 <td>
-                                                                    <?php if ($us['status'] == 1) { ?>
+                                                                    <?php if ($ag['status'] == 1) { ?>
                                                                         <label class="badge badge-success">Active</label>
                                                                     <?php } else { ?>
                                                                         <label class="badge badge-dark">Blocked</label>
                                                                     <?php } ?>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="<?= base_url(); ?>users/detail/<?= $us['id'] ?>">
+                                                                    <a href="<?= base_url(); ?>users/detail/<?= $ag['id'] ?>">
                                                                         <button class="btn btn-outline-primary mr-2">View</button>
                                                                     </a>
-                                                                    <?php if ($us['status'] == 0) { ?>
-                                                                        <a href="<?= base_url(); ?>users/userunblock/<?= $us['id'] ?>">
+                                                                    <?php if ($ag['status'] == 0) { ?>
+                                                                        <a href="<?= base_url(); ?>users/userunblock/<?= $ag['id'] ?>">
                                                                             <button class="btn btn-outline-success text-red mr-2">Unblock</button>
                                                                         </a>
                                                                     <?php } else { ?>
-                                                                        <a href="<?= base_url(); ?>users/userblock/<?= $us['id'] ?>">
+                                                                        <a href="<?= base_url(); ?>users/userblock/<?= $ag['id'] ?>">
                                                                             <button class="btn btn-outline-dark text-dark mr-2">Block</button>
                                                                         </a>
                                                                     <?php } ?>
-                                                                    <a href="<?= base_url(); ?>users/hapususers/<?= $us['id'] ?>">
+                                                                    <a href="<?= base_url(); ?>users/hapususers/<?= $ag['id'] ?>">
                                                                         <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
                                                                     </a>
                                                                 </td>
@@ -130,7 +130,7 @@
                         <!-- end of all users -->
 
                         <!-- blocked users -->
-                        <div class="tab-pane fade" id="blocked-2-2" role="tabpanel" aria-labelledby="tab-2-2">
+                        <!-- <div class="tab-pane fade" id="blocked-2-2" role="tabpanel" aria-labelledby="tab-2-2">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">All Users</h4>
@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end of blocked -->
 
                     </div>

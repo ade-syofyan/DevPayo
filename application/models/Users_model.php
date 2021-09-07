@@ -1,6 +1,4 @@
 <?php
-
-
 class Users_model extends CI_model
 {
     public function getAllusers()
@@ -13,6 +11,12 @@ class Users_model extends CI_model
         // $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id', 'left');
         // $this->db->where('history_transaksi.status != 1');
         // $this->db->order_by('transaksi.id', 'DESC');
+        $this->db->select('wa_province.name as province_name');
+        $this->db->select('wa_regency.name as regency_name');
+        $this->db->select('pelanggan.*');
+        $this->db->join('wa_province', 'pelanggan.provinsi_id = wa_province.id', 'left');
+        $this->db->join('wa_regency', 'pelanggan.regency_id = wa_regency.id', 'left');
+
         return $this->db->get('pelanggan')->result_array();
     }
 

@@ -245,72 +245,39 @@ class Driver_model extends CI_model
 
     function change_status_driver($idD, $stat_order)
     {
-
-
-
-
-
         $params = array(
-
             'status' => $stat_order
-
         );
-
         $this->db->where('id_driver', $idD);
-
         $upd = $this->db->update('config_driver', $params);
-
         if ($this->db->affected_rows() > 0) {
-
             return true;
         } else {
-
             return false;
         }
     }
 
-
-
     function get_data_driver_sync($id)
-
     {
-
-
-
         $this->db->select(""
-
             . "driver.*,"
-
             . "kendaraan.*,"
-
             . "driver.foto as foto,"
-
             . "saldo,"
-
             . "config_driver.status as status_config");
-
         $this->db->from('driver');
-
         $this->db->join('config_driver', 'driver.id = config_driver.id_driver');
-
         $this->db->join('saldo', 'driver.id = saldo.id_user');
-
         $this->db->join('kendaraan', 'driver.kendaraan = kendaraan.id_k');
-
         $this->db->where('driver.id', $id);
 
         $dataCon = $this->db->get();
 
         return array(
-
             'data_driver' => $dataCon,
-
             'status_order' => $this->check_status_order($id)
-
         );
     }
-
-
 
     function check_status_order($idDriver)
 
@@ -371,8 +338,6 @@ class Driver_model extends CI_model
     public function accept_request($cond)
 
     {
-
-
 
         $this->db->where('id_driver', 'D0');
 
@@ -454,9 +419,6 @@ class Driver_model extends CI_model
     public function start_request($cond)
 
     {
-
-
-
         $this->db->where($cond);
 
         $this->db->where('status', '2');
@@ -1067,72 +1029,39 @@ class Driver_model extends CI_model
 
 
     function get_data_last_transaksi($cond)
-
     {
-
         $this->db->select('id as id_transaksi,'
-
             . '(waktu_selesai - waktu_order) as lama,'
-
             . 'waktu_selesai,'
-
             . 'harga,'
-
             . 'biaya_akhir,'
-
             . 'kredit_promo,'
-
             . 'order_fitur,'
-
             . 'id_pelanggan,'
-
             . 'fitur.home, fitur.fitur,'
-
             . 'pakai_wallet');
 
         $this->db->from('transaksi');
-
         $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-
         $this->db->where($cond);
-
         $cek = $this->db->get();
 
         return $cek;
     }
 
-
-
-
-
-
-
     function all_transaksi($iduser)
-
     {
-
         $this->db->select('*');
-
         $this->db->from('transaksi');
-
         $this->db->join('transaksi_detail_merchant', 'transaksi.id = transaksi_detail_merchant.id_transaksi', 'left');
-
         $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
-
         $this->db->join('status_transaksi', 'history_transaksi.status = status_transaksi.id', 'left');
-
         $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-
         $this->db->where('transaksi.id_driver', $iduser);
-
         $this->db->where('history_transaksi.status != 1');
-
         $this->db->where('history_transaksi.status != 2');
-
         $this->db->where('history_transaksi.status != 3');
-
         $this->db->where('history_transaksi.status != 0');
-
         $this->db->order_by('transaksi.id', 'DESC');
 
         $trans = $this->db->get();
@@ -1141,495 +1070,250 @@ class Driver_model extends CI_model
     }
 
     function delete_chat($otherid, $userid)
-
     {
-
         $headers = array(
-
             "Accept: application/json",
-
             "Content-Type: application/json"
-
         );
 
         $data3 = array();
-
         $url3 = firebaseDb . '/chat/' . $otherid . '-' . $userid . '/.json';
-
         $ch3 = curl_init($url3);
 
-
-
         curl_setopt($ch3, CURLOPT_RETURNTRANSFER, true);
-
         curl_setopt($ch3, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
         curl_setopt($ch3, CURLOPT_POSTFIELDS, json_encode($data3));
-
         curl_setopt($ch3, CURLOPT_HTTPHEADER, $headers);
 
-
-
         $return3 = curl_exec($ch3);
-
-
-
         $json_data3 = json_decode($return3, true);
-
-
-
         $data2 = array();
 
-
-
         $url2 = firebaseDb . '/chat/' . $userid . '-' . $otherid . '/.json';
-
         $ch2 = curl_init($url2);
 
-
-
         curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
-
         curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
         curl_setopt($ch2, CURLOPT_POSTFIELDS, json_encode($data2));
-
         curl_setopt($ch2, CURLOPT_HTTPHEADER, $headers);
 
-
-
         $return2 = curl_exec($ch2);
-
-
-
         $json_data2 = json_decode($return2, true);
 
-
-
         $data1 = array();
-
-
-
         $url1 = firebaseDb . '/Inbox/' . $userid . '/' . $otherid . '/.json';
-
         $ch1 = curl_init($url1);
 
-
-
         curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-
         curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
         curl_setopt($ch1, CURLOPT_POSTFIELDS, json_encode($data1));
-
         curl_setopt($ch1, CURLOPT_HTTPHEADER, $headers);
 
-
-
         $return1 = curl_exec($ch1);
-
-
-
         $json_data1 = json_decode($return1, true);
-
-
-
         $data = array();
 
-
-
         $url = firebaseDb . '/Inbox/' . $otherid . '/' . $userid . '/.json';
-
         $ch = curl_init($url);
-
-
-
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-
-
         $return = curl_exec($ch);
-
-
-
         $json_data = json_decode($return, true);
     }
 
-
-
-
-
     public function getAlldriver()
-
     {
-
         $this->db->select('config_driver.status as status_job');
-
         $this->db->select('driver_job.driver_job');
-
+        $this->db->select('wa_province.name as province_name');
+        $this->db->select('wa_regency.name as regency_name');
         $this->db->select('driver.*');
-
         $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
-
         $this->db->join('driver_job', 'driver.job = driver_job.id', 'left');
+        $this->db->join('wa_province', 'driver.provinsi_id = wa_province.id', 'left');
+        $this->db->join('wa_regency', 'driver.regency_id = wa_regency.id', 'left');
 
         return  $this->db->get('driver')->result_array();
     }
 
-
-
     public function getdriverbyid($id)
-
     {
-
         $this->db->select('kendaraan.*');
-
         $this->db->select('saldo.saldo');
-
         $this->db->select('config_driver.status as status_job');
-
         $this->db->select('driver_job.driver_job');
-
         $this->db->select('berkas_driver.*');
-
         $this->db->select('driver.*');
-
         $this->db->join('kendaraan', 'driver.kendaraan = kendaraan.id_k', 'left');
-
         $this->db->join('saldo', 'driver.id = saldo.id_user', 'left');
-
         $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
-
         $this->db->join('driver_job', 'driver.job = driver_job.id', 'left');
-
         $this->db->join('berkas_driver', 'driver.id = berkas_driver.id_driver', 'left');
 
         return  $this->db->get_where('driver', ['driver.id' => $id])->row_array();
     }
 
-
-
     public function countorder($id)
-
     {
-
         $this->db->select('id_driver');
-
         $query = $this->db->get_where('transaksi', ['id_driver' => $id])->result_array();
-
         return count($query);
     }
 
-
-
     public function wallet($id)
-
     {
-
         $this->db->order_by('wallet.id', 'DESC');
-
         return $this->db->get_where('wallet', ['id_user' => $id])->result_array();
     }
 
-
-
     public function transaksi($id)
-
     {
-
         $this->db->select('status_transaksi.*');
-
         $this->db->select('history_transaksi.*');
-
         $this->db->select('fitur.*');
-
         $this->db->select('transaksi.*');
-
         $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
-
         $this->db->join('status_transaksi', 'history_transaksi.status = status_transaksi.id', 'left');
-
         $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-
         $this->db->order_by('transaksi.id', 'DESC');
-
         $this->db->where('history_transaksi.status != 1');
 
         return $this->db->get_where('transaksi', ['transaksi.id_driver' => $id])->result_array();
     }
 
-
-
     public function ubahdataid($data)
-
     {
-
         $this->db->set('nama_driver', $data['nama_driver']);
-
         $this->db->set('email', $data['email']);
-
         $this->db->set('countrycode', $data['countrycode']);
-
         $this->db->set('phone', $data['phone']);
-
         $this->db->set('no_telepon', $data['no_telepon']);
-
         $this->db->set('tempat_lahir', $data['tempat_lahir']);
-
         $this->db->set('tgl_lahir', $data['tgl_lahir']);
-
         $this->db->set('alamat_driver', $data['alamat_driver']);
-
-
-
         $this->db->where('id', $data['id']);
-
         $this->db->update('driver', $data);
     }
 
-
-
     public function ubahdatakendaraan($data, $data2)
-
     {
-
         $this->db->set('jenis', $data['jenis']);
-
         $this->db->set('merek', $data['merek']);
-
         $this->db->set('tipe', $data['tipe']);
-
         $this->db->set('nomor_kendaraan', $data['nomor_kendaraan']);
-
         $this->db->set('warna', $data['warna']);
-
-
-
-
-
         $this->db->where('id_k', $data['id_k']);
-
         $this->db->update('kendaraan', $data);
-
-
-
         $this->db->set('job', $data2['job']);
-
         $this->db->where('id', $data2['id']);
-
         $this->db->update('driver', $data2);
     }
 
-
-
     public function ubahdatafoto($data)
-
     {
-
         $this->db->set('foto', $data['foto']);
-
-
-
         $this->db->where('id', $data['id']);
-
         $this->db->update('driver', $data);
     }
-
-
 
     public function ubahdatapassword($data)
-
     {
-
         $this->db->set('password', $data['password']);
-
-
-
         $this->db->where('id', $data['id']);
-
         $this->db->update('driver', $data);
     }
 
-
-
     public function blockdriverbyid($id)
-
     {
-
         $this->db->set('status', 3);
-
         $this->db->where('id', $id);
-
         $this->db->update('driver');
-
-
-
         $this->db->set('status', 5);
-
         $this->db->where('id_driver', $id);
-
         $this->db->update('config_driver');
     }
 
-
-
     public function unblockdriverbyid($id)
-
     {
-
         $this->db->set('status', 1);
-
         $this->db->where('id', $id);
-
         $this->db->update('driver');
     }
-
-
 
     public function ubahdatacard($data, $data2)
-
     {
-
-
-
         $this->db->set('foto_ktp', $data['foto_ktp']);
-
         $this->db->set('foto_sim', $data['foto_sim']);
-
         $this->db->set('id_sim', $data['id_sim']);
-
         $this->db->where('id_driver', $data['id']);
-
         $this->db->update('berkas_driver');
-
-
-
         $this->db->set('no_ktp', $data2['no_ktp']);
-
         $this->db->where('id', $data2['id']);
-
         $this->db->update('driver');
     }
 
-
-
     public function driverjob()
-
     {
-
         return $this->db->get('driver_job')->result_array();
     }
 
-
-
     public function hapusdriverbyid($id)
-
     {
-
         $this->db->where('id', $id);
-
         $this->db->delete('driver');
 
-
-
         $this->db->where('id_driver', $id);
-
         $this->db->delete('config_driver');
 
-
-
         $this->db->where('id_driver', $id);
-
         $this->db->delete('transaksi');
 
-
-
         $this->db->where('id_user', $id);
-
         $this->db->delete('saldo');
 
-
-
         $this->db->where('id_driver', $id);
-
         $this->db->delete('history_transaksi');
 
-
-
         $this->db->where('id_driver', $id);
-
         $this->db->delete('berkas_driver');
 
-
-
         $this->db->where('userid', $id);
-
         $this->db->delete('forgot_password');
 
-
-
         $this->db->where('id_driver', $id);
-
         $this->db->delete('rating_driver');
 
-
-
         $this->db->where('id_user', $id);
-
         $this->db->delete('wallet');
     }
 
-
-
     public function tambahdatadriver($datadriver)
-
     {
-
         $this->db->insert('driver');
     }
 
-
-
     public function ubahstatusnewreg($id)
-
     {
-
         $this->db->set('status', 1);
-
         $this->db->where('id', $id);
-
         $this->db->update('driver');
     }
 
-
-
     public function get_trans_merchant($idtransaksi)
-
     {
-
         $this->db->select('mitra.*,transaksi_detail_merchant.id_merchant,transaksi_detail_merchant.total_biaya');
-
         $this->db->from('transaksi_detail_merchant');
-
         $this->db->join('mitra', 'transaksi_detail_merchant.id_merchant = mitra.id_merchant');
-
         $this->db->where('id_transaksi', $idtransaksi);
 
         return $this->db->get();
     }
 
-
-
     public function get_verify($data)
-
     {
-
         $this->db->select('*');
 
         $this->db->from('transaksi_detail_merchant');
@@ -1640,117 +1324,66 @@ class Driver_model extends CI_model
     }
 
     public function driver_cancel_request($cond)
-
     {
-
-
-
-
-
         $this->db->select(''
-
             . 'id_driver,'
-
             . 'status');
-
         $this->db->from('history_transaksi');
-
         $this->db->where('id_transaksi', $cond['id_transaksi']);
-
         $id = $this->db->get();
 
-
-
         $this->db->select('transaksi.*, fitur.home');
-
         $this->db->from('transaksi');
-
         $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-
         $this->db->where('id', $cond['id_transaksi']);
-
         $id2 = $this->db->get();
 
-
-
-
-
         if ($id->row('status') == 1 || $id->row('status') == 2) {
-
             $data = array(
-
                 'status' => '5'
-
             );
-
             if ($id2->row('home') == 4) {
-
                 $get_mitra = $this->get_trans_merchant($cond['id_transaksi']);
-
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_pelanggan'));
-
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_driver'));
             };
 
             if ($id2->row('home') == 3) {
-
                 $get_mitra = $this->get_trans_merchant($cond['id_transaksi']);
-
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_pelanggan'));
-
                 $this->delete_chat($get_mitra->row('id_merchant'), $id2->row('id_driver'));
             };
 
             $this->db->where($cond);
-
             $edit = $this->db->update('history_transaksi', $data);
-
             $data = array(
-
                 'status' => '1'
-
             );
 
             $this->db->where('id_driver', $id->row('id_driver'));
-
             $edit = $this->db->update('config_driver', $data);
 
             return array(
-
                 'status' => true,
-
                 'data' => [],
-
                 'iddriver' => $id->row('id_driver'),
-
                 'idpelanggan' => $id2->row('id_pelanggan')
-
             );
         } else {
-
             return array(
-
                 'status' => false,
-
                 'data' => []
-
             );
         }
     }
 
 
     public function check_minimum_wallet_job($cond)
-
     {
-
         $this->db->select('fitur, wallet_minimum');
-
         $this->db->from('fitur');
-
         $this->db->where('driver_job', $cond['driver_job']);
-
         $this->db->order_by('wallet_minimum', 'DESC');
-
         $trans = $this->db->get();
 
         return $trans;

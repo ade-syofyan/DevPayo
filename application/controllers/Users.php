@@ -13,6 +13,7 @@ class Users extends CI_Controller
         }
         // $this->load->model('Appsettings_model', 'app');
         $this->load->model('Users_model', 'user');
+        $this->load->model('address_model', 'address');
         $this->load->model('Pelanggan_model');
         $this->load->library('form_validation');
     }
@@ -20,6 +21,8 @@ class Users extends CI_Controller
     public function index()
     {
         $data['user'] = $this->user->getallusers();
+        $data['province'] = $this->address->getProvince();
+        
         // $data['transaksi']= $this->dashboard->getAlltransaksi();
         // $data['fitur']= $this->dashboard->getAllfitur();
         $this->load->view('includes/header');
