@@ -9,7 +9,7 @@ class Login extends CI_Controller
 	{
 
 		parent::__construct();
-		
+
 		$this->load->model('login_model', 'login');
 	}
 
@@ -41,7 +41,9 @@ class Login extends CI_Controller
 					'id' => $user['id'],
 					'user_name' => $user['user_name'],
 					'password' => $user['password'],
-					'image' => $user['image']
+					'image' => $user['image'],
+					'level_id' => $user['level_id'],
+					'regency' => $user['regency_id']
 				];
 				$this->session->set_userdata($data);
 				header('Location: ' . base_url());

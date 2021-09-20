@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <div>
-                    <a class="btn btn-info" href="<?= base_url(); ?>agen/tambah">
+                    <a class="btn btn-info" href="<?= base_url(); ?>Agent/tambah">
                         <i class="mdi mdi-plus-circle-outline"></i>Add Agent</a>
                 </div>
                 <br>
@@ -21,28 +21,6 @@
                     </div>
                 <?php endif; ?>
                 <h4 class="card-title">Agent</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <label><b>Fliter Province</b></label>
-                            <select class="js-example-basic-single" id="province">
-                                <option value="0">Choice Province</option>
-                                <!-- <?php foreach ($province as $prov) : ?>
-                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
-                                <?php endforeach; ?> -->
-                            </select>
-                        </td>
-                        <!-- <td>
-                            <label><b>Fliter Regency</b></label>
-                            <select name="regency" class="js-example-basic-single" id="regency">
-                                <option>Choice Regency</option>
-                                <?php foreach ($regency as $prov) : ?>
-                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td> -->
-                    </tr>
-                </table>
                 <div class="tab-minimal tab-minimal-success">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -60,7 +38,7 @@
                         <div class="tab-pane fade show active" id="allusers-2-1" role="tabpanel" aria-labelledby="tab-2-1">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Users</h4>
+                                    <h4 class="card-title">All Users Agent</h4>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -68,41 +46,37 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>Users Id</th>
                                                             <th>Profile Pic</th>
-                                                            <th>Full Name</th>
+                                                            <th>User Name</th>
                                                             <th>Email</th>
                                                             <th>Phone</th>
                                                             <th>From</th>
-                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php $i = 1;
-                                                        foreach ($agen as $ag) { ?>
+                                                        <?php foreach ($data as $no => $ag) : ?>
                                                             <tr>
-                                                                <td><?= $i ?></td>
-                                                                <td><?= $ag['id'] ?></td>
+                                                                <td><?= $no + 1 ?></td>
                                                                 <td>
-                                                                    <img src="<?= base_url('images/pelanggan/') . $ag['fotopelanggan']; ?>">
+                                                                    <img src="<?= base_url('images/agent/') . $ag['image']; ?>">
                                                                 </td>
-                                                                <td><?= $ag['fullnama'] ?></td>
+                                                                <td><?= $ag['user_name'] ?></td>
                                                                 <td><?= $ag['email'] ?></td>
-                                                                <td><?= $ag['no_telepon'] ?></td>
                                                                 <td><?= $ag['province_name'] ?>, <?= $ag['regency_name'] ?></td>
-                                                                <td>
+                                                                <td><?= $ag['countryCode'] ?><?= $ag['phone'] ?></td>
+                                                                <!-- <td>
                                                                     <?php if ($ag['status'] == 1) { ?>
                                                                         <label class="badge badge-success">Active</label>
                                                                     <?php } else { ?>
                                                                         <label class="badge badge-dark">Blocked</label>
                                                                     <?php } ?>
-                                                                </td>
+                                                                </td> -->
                                                                 <td>
                                                                     <a href="<?= base_url(); ?>users/detail/<?= $ag['id'] ?>">
                                                                         <button class="btn btn-outline-primary mr-2">View</button>
                                                                     </a>
-                                                                    <?php if ($ag['status'] == 0) { ?>
+                                                                    <!-- <?php if ($ag['status'] == 0) { ?>
                                                                         <a href="<?= base_url(); ?>users/userunblock/<?= $ag['id'] ?>">
                                                                             <button class="btn btn-outline-success text-red mr-2">Unblock</button>
                                                                         </a>
@@ -110,13 +84,12 @@
                                                                         <a href="<?= base_url(); ?>users/userblock/<?= $ag['id'] ?>">
                                                                             <button class="btn btn-outline-dark text-dark mr-2">Block</button>
                                                                         </a>
-                                                                    <?php } ?>
+                                                                    <?php } ?> -->
                                                                     <a href="<?= base_url(); ?>users/hapususers/<?= $ag['id'] ?>">
                                                                         <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
                                                                     </a>
                                                                 </td>
-                                                            <?php $i++;
-                                                        } ?>
+                                                            <?php endforeach; ?>
                                                             </tr>
 
                                                     </tbody>

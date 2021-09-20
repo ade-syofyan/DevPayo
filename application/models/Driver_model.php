@@ -1139,6 +1139,22 @@ class Driver_model extends CI_model
         return  $this->db->get('driver')->result_array();
     }
 
+    public function getDriverByAgent()
+    {
+        $regency = $this->session->userdata('regency');
+        $this->db->select('config_driver.status as status_job');
+        $this->db->select('driver_job.driver_job');
+        $this->db->select('wa_province.name as province_name');
+        $this->db->select('wa_regency.name as regency_name');
+        $this->db->select('driver.*');
+        $this->db->join('config_driver', 'driver.id = config_driver.id_driver', 'left');
+        $this->db->join('driver_job', 'driver.job = driver_job.id', 'left');
+        $this->db->join('wa_province', 'driver.provinsi_id = wa_province.id', 'left');
+        $this->db->join('wa_regency', 'driver.regency_id = wa_regency.id', 'left');
+
+        return  $this->db->get_where('driver', ['regency_id' => $regency])->result_array();
+    }
+
     public function getdriverbyid($id)
     {
         $this->db->select('kendaraan.*');

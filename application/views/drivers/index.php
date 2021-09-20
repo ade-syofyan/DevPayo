@@ -17,18 +17,19 @@
                     </div>
                 <?php endif; ?>
                 <h4 class="card-title">Drivers</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <label><b>Fliter Province</b></label>
-                            <select class="js-example-basic-single" id="province">
-                                <option value="0">Choice Province</option>
-                                <?php foreach ($province as $prov) : ?>
-                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td>
-                        <!-- <td>
+                <?php if ($this->session->userdata('level_id') == 1) { ?>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <label><b>Fliter</b></label>
+                                <select class="js-example-basic-single" id="regency">
+                                    <option value="0">Choice Regency</option>
+                                    <?php foreach ($regency as $reg) : ?>
+                                        <option value="<?= $reg['id'] ?>"><?= $reg['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <!-- <td>
                             <label><b>Fliter Regency</b></label>
                             <select name="regency" class="js-example-basic-single" id="regency">
                                 <option>Choice Regency</option>
@@ -37,8 +38,9 @@
                                 <?php endforeach; ?>
                             </select>
                         </td> -->
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
+                <?php } ?>
                 <div class="tab-minimal tab-minimal-success">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -67,23 +69,96 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
-                                                <table id="order-listing" class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Drivers ID</th>
-                                                            <th>Profile Pic</th>
-                                                            <th>Full Name</th>
-                                                            <th>Phone</th>
-                                                            <th>From</th>
-                                                            <th>Rating</th>
-                                                            <th>Job Service</th>
-                                                            <th>Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
+                                                <?php if ($this->session->userdata('level_id') == 1) { ?>
+                                                    <table id="order-listing" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Drivers ID</th>
+                                                                <th>Profile Pic</th>
+                                                                <th>Full Name</th>
+                                                                <th>Phone</th>
+                                                                <th>From</th>
+                                                                <th>Rating</th>
+                                                                <th>Job Service</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                <?php } else { ?>
+                                                    <table id="order-listing4" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Drivers ID</th>
+                                                                <th>Profile Pic</th>
+                                                                <th>Full Name</th>
+                                                                <th>Phone</th>
+                                                                <th>From</th>
+                                                                <th>Rating</th>
+                                                                <th>Job Service</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach ($driver as $no => $drv) : ?>
+                                                                <tr>
+                                                                    <td><?= $no + 1 ?></td>
+                                                                    <td><?= $drv['id'] ?></td>
+                                                                    <td><img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>"></td>
+                                                                    <td><?= $drv['nama_driver'] ?></td>
+                                                                    <td><?= $drv['no_telepon'] ?></td>
+                                                                    <td><?= $drv['province_name'] ?>, <?= $drv['regency_name'] ?></td>
+                                                                    <td><?= number_format($drv['rating'], 1) ?></td>
+                                                                    <td><?= $drv['driver_job'] ?></td>
+                                                                    <td>
+                                                                        <?php if ($drv['status'] == 3) { ?>
+                                                                            <label class="badge badge-dark">Banned</label>
+                                                                        <?php } elseif ($drv['status'] == 0) { ?>
+                                                                            <label class="badge badge-secondary text-dark">New Reg</label>
+                                                                            <?php } else {
+                                                                            if ($drv['status_job'] == 1) { ?>
+                                                                                <label class="badge badge-primary">Active</label>
+                                                                            <?php }
+                                                                            if ($drv['status_job'] == 2) { ?>
+                                                                                <label class="badge badge-info">Pick'up</label>
+                                                                            <?php }
+                                                                            if ($drv['status_job'] == 3) { ?>
+                                                                                <label class="badge badge-success">work</label>
+                                                                            <?php }
+                                                                            if ($drv['status_job'] == 4) { ?>
+                                                                                <label class="badge badge-danger">Non Active</label>
+                                                                            <?php }
+                                                                            if ($drv['status_job'] == 5) { ?>
+                                                                                <label class="badge badge-danger">Log Out</label>
+                                                                        <?php }
+                                                                        } ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
+                                                                            <button class="btn btn-outline-primary mr-2">View</button>
+                                                                        </a>
+                                                                        <?php
+                                                                        if ($drv['status'] != 0) {
+                                                                            if ($drv['status'] != 3) { ?>
+                                                                                <a href="<?= base_url(); ?>driver/block/<?= $drv['id'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
+                                                                            <?php } else { ?>
+                                                                                <a href="<?= base_url(); ?>driver/unblock/<?= $drv['id'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
+                                                                        <?php }
+                                                                        } ?>
+                                                                        <a href="<?= base_url(); ?>driver/hapus/<?= $drv['id'] ?>">
+                                                                            <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
+                                                                        </a>
+
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +433,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#province').change(function() {
+        $('#regency').change(function() {
             let a = $(this).val();
             // console.log(a);
             driver();
@@ -366,10 +441,10 @@
     });
 
     function driver() {
-        var province = $('#province').val();
+        var regency = $('#regency').val();
         $.ajax({
-            url: "<?= base_url('Driver/load_province') ?>",
-            data: "id=" + province,
+            url: "<?= base_url('Driver/load_regency') ?>",
+            data: "id=" + regency,
             success: function(data) {
                 // console.log(data);
                 $("#order-listing").html(data);

@@ -20,19 +20,26 @@ class Driver extends CI_Controller
 
     public function index()
     {
-        $data['driver']   = $this->driver->getalldriver();
-        $data['province'] = $this->address->getProvince();
-        // print_r($data['province']);die;
-        $data['regency']  = $this->address->getRegency();
-        $this->load->view('includes/header');
-        $this->load->view('drivers/index', $data, false);
-        $this->load->view('includes/footer');
+        if ($this->session->userdata('level_id') == 1) {
+            $data['driver']   = $this->driver->getalldriver();
+            $data['province'] = $this->address->getProvince();
+            // print_r($data['province']);die;
+            $data['regency']  = $this->address->getRegency();
+            $this->load->view('includes/header');
+            $this->load->view('drivers/index', $data, false);
+            $this->load->view('includes/footer');
+        } else {
+            $data['driver']   = $this->driver->getDriverByAgent();
+            $this->load->view('includes/header');
+            $this->load->view('drivers/index', $data);
+            $this->load->view('includes/footer');
+        }
     }
 
-    public function load_province()
+    public function load_regency()
     {
-        $prov = $_GET['id'];
-        if ($prov != 0) {
+        $reg = $_GET['id'];
+        if ($reg != 0) {
             $driver = $this->db->select('config_driver.status as status_job');
             $driver = $this->db->select('driver_job.driver_job');
             $driver = $this->db->select('wa_province.name as province_name');
@@ -43,7 +50,7 @@ class Driver extends CI_Controller
             $driver = $this->db->join('wa_province', 'driver.provinsi_id = wa_province.id', 'left');
             $driver = $this->db->join('wa_regency', 'driver.regency_id = wa_regency.id', 'left');
 
-            $driver = $this->db->get_where('driver', ['driver.provinsi_id' => $prov])->result_array();
+            $driver = $this->db->get_where('driver', ['driver.regency_id' => $reg])->result_array();
         } else {
             $driver = $this->driver->getalldriver();
         }

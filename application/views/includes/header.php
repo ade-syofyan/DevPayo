@@ -71,7 +71,11 @@
                         <li class="nav-item nav-profile">
                             <div class="nav-link">
                                 <div class="profile-image">
-                                    <img src="<?= base_url(); ?>images/admin/<?= $this->session->userdata('image') ?>" onerror="this.onerror=null;this.src='<?= base_url(); ?>asset/images/logo.png';" />
+                                    <?php if ($this->session->userdata('level_id') == 1) { ?>
+                                        <img src="<?= base_url(); ?>images/admin/<?= $this->session->userdata('image') ?>" onerror="this.onerror=null;this.src='<?= base_url(); ?>asset/images/logo.png';" />
+                                    <?php } else { ?>
+                                        <img src="<?= base_url(); ?>images/agent/<?= $this->session->userdata('image') ?>" onerror="this.onerror=null;this.src='<?= base_url(); ?>asset/images/logo.png';" />
+                                    <?php } ?>
                                     <span class="online-status online"></span>
                                     <!--change class online to offline or busy as needed-->
                                 </div>
@@ -81,7 +85,11 @@
                                         <?= $this->session->userdata('user_name') ?>
                                     </p>
                                     <p class="designation">
-                                        Super Admin
+                                        <?php if ($this->session->userdata('level_id') == 1) { ?>
+                                            Superadmin
+                                        <?php } else { ?>
+                                            Agent
+                                        <?php } ?>
                                     </p>
                                 </div>
                             </div>
@@ -93,135 +101,150 @@
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
+                        <?php if ($this->session->userdata('level_id') == 1) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>transaction">
+                                    <i class="icon-list menu-icon"></i>
+                                    <span class="menu-title">Transaksi</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>transaction">
-                                <i class="icon-list menu-icon"></i>
-                                <span class="menu-title">Transaksi</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                                    <i class="icon-wallet menu-icon"></i>
+                                    <span class="menu-title">Keuangan</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
+                                <div class="collapse" id="tables">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet">Wallet</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahtopup">Manual Top Up</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahwithdraw">Manual Withdraw</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>Agent">
+                                    <i class="icon-people menu-icon"></i>
+                                    <span class="menu-title">Agen</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#drivers" aria-expanded="false" aria-controls="drivers">
+                                    <i class="icon-people menu-icon"></i>
+                                    <span class="menu-title">Drivers</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                                <i class="icon-wallet menu-icon"></i>
-                                <span class="menu-title">Keuangan</span>
-                                <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
-                            </a>
-                            <div class="collapse" id="tables">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet">Wallet</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahtopup">Manual Top Up</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahwithdraw">Manual Withdraw</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>Agent">
-                                <i class="icon-people menu-icon"></i>
-                                <span class="menu-title">Agen</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#drivers" aria-expanded="false" aria-controls="drivers">
-                                <i class="icon-people menu-icon"></i>
-                                <span class="menu-title">Drivers</span>
-                                <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
-                            </a>
+                                <div class="collapse" id="drivers">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver/tracking_driver">Lacak Driver</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                            <div class="collapse" id="drivers">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>agen">Agent</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver/tracking_driver">Lacak Driver</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>users">
+                                    <i class="icon-people menu-icon"></i>
+                                    <span class="menu-title">User</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>users">
-                                <i class="icon-people menu-icon"></i>
-                                <span class="menu-title">User</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#tables2" aria-expanded="false" aria-controls="tables2">
+                                    <i class="icon-basket-loaded menu-icon"></i>
+                                    <span class="menu-title">Merchant</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
+                                <div class="collapse" id="tables2">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>categorymerchant">Kategori Mitra</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra">All Mitra</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra/newregmitra">Validasi Mitra Baru</a></li>
+                                    </ul>
+                                </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#tables2" aria-expanded="false" aria-controls="tables2">
-                                <i class="icon-basket-loaded menu-icon"></i>
-                                <span class="menu-title">Merchant</span>
-                                <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
-                            </a>
-                            <div class="collapse" id="tables2">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>categorymerchant">Kategori Mitra</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra">All Mitra</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra/newregmitra">Validasi Mitra Baru</a></li>
-                                </ul>
-                            </div>
+                            </li>
 
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#service" aria-expanded="false" aria-controls="tables2">
+                                    <i class="icon-layers menu-icon"></i>
+                                    <span class="menu-title">Layanan</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
+                                <div class="collapse" id="service">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>services">Layanan</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>partnerjob">Tipe Kendaraan</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#service" aria-expanded="false" aria-controls="tables2">
-                                <i class="icon-layers menu-icon"></i>
-                                <span class="menu-title">Layanan</span>
-                                <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
-                            </a>
-                            <div class="collapse" id="service">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>services">Layanan</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>partnerjob">Tipe Kendaraan</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>promocode">
+                                    <i class="icon-tag menu-icon"></i>
+                                    <span class="menu-title">Kode Voucher</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>promocode">
-                                <i class="icon-tag menu-icon"></i>
-                                <span class="menu-title">Kode Voucher</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>promoslider">
+                                    <i class="icon-screen-smartphone menu-icon"></i>
+                                    <span class="menu-title">Slider</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>news">
+                                    <i class="icon-docs menu-icon"></i>
+                                    <span class="menu-title">Berita</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>promoslider">
-                                <i class="icon-screen-smartphone menu-icon"></i>
-                                <span class="menu-title">Slider</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>news">
-                                <i class="icon-docs menu-icon"></i>
-                                <span class="menu-title">Berita</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>sendemail">
+                                    <i class="icon-envelope-letter menu-icon"></i>
+                                    <span class="menu-title">Kirim Email</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>sendemail">
-                                <i class="icon-envelope-letter menu-icon"></i>
-                                <span class="menu-title">Kirim Email</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>appnotification">
+                                    <i class="icon-paper-plane menu-icon"></i>
+                                    <span class="menu-title">Notifikasi Aplikasi</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>appnotification">
-                                <i class="icon-paper-plane menu-icon"></i>
-                                <span class="menu-title">Notifikasi Aplikasi</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>appsettings">
+                                    <i class="icon-settings menu-icon"></i>
+                                    <span class="menu-title">Pengaturan Aplikasi</span>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>appsettings">
-                                <i class="icon-settings menu-icon"></i>
-                                <span class="menu-title">Pengaturan Aplikasi</span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>profile">
+                                    <i class="icon-user-following menu-icon"></i>
+                                    <span class="menu-title">Profil Admin</span>
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#drivers" aria-expanded="false" aria-controls="drivers">
+                                    <i class="icon-people menu-icon"></i>
+                                    <span class="menu-title">Drivers</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url(); ?>profile">
-                                <i class="icon-user-following menu-icon"></i>
-                                <span class="menu-title">Profil Admin</span>
-                            </a>
-                        </li>
+                                <div class="collapse" id="drivers">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php } ?>
 
                         <li class="nav-item">
                             <a class="nav-link" href="<?= base_url(); ?>login/logout">

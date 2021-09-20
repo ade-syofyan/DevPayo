@@ -29,7 +29,7 @@
     </div>
 </div>
 <?php $this->load->view('includes/footer'); ?>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?= google_maps_api ?>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-P30NOaKJsVy7twUc3LcBHl6sW2bjtjE&callback=initMap" async defer></script>
 <script>
     initMap();
     var gmarkers = [];
