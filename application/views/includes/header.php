@@ -149,8 +149,8 @@
                                 <div class="collapse" id="agent">
                                     <ul class="nav flex-column sub-menu">
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent">List Agen</a></li>
-                                        <!-- <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent/transferkomisi">Transfer Komisi</a></li> -->
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent/list_komisi">List Komisi</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Adminsetting">Setting Komisi</a></li>
                                     </ul>
                                 </div>
                             </li>
