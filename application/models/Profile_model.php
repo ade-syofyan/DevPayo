@@ -8,6 +8,14 @@ class Profile_model extends CI_model
         return  $this->db->get('admin')->row_array();
     }
 
+    public function getagent()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->where('id', $id);
+        $this->db->where('level_id', 2);
+        return  $this->db->get('admin')->row_array();
+    }
+
     public function ubahdataadmin($data)
     {
         $this->db->set('user_name', $data['user_name']);

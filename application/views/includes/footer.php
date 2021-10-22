@@ -14,6 +14,15 @@
 
 <!-- container-scroller -->
 <!-- plugins:js -->
+<script>
+  function rupiah(angka) {
+    var rupiah = '';
+    var angkarev = angka.toString().split('').reverse().join('');
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+    return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+  }
+</script>
 
 <script src="<?= base_url(); ?>asset/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= base_url(); ?>asset/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -62,6 +71,8 @@
 <script src="<?= base_url(); ?>asset/js/editorDemo.js"></script>
 <script src="<?= base_url(); ?>asset/js/duit.js"></script>
 <!-- End custom js for this page-->
+<script src="<?= base_url(); ?>asset/js/bootstrap-toggle.min.js"></script>
+<!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
 
 </body>
 

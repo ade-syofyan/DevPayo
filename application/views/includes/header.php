@@ -5,7 +5,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Panel</title>
+    <title>
+        <?php if ($this->session->userdata('level_id') == 1) { ?>
+            Admin Panel
+        <?php } else { ?>
+            Agent Panel
+        <?php } ?>
+    </title>
     <!-- plugins:css -->
 
     <!-- endinject -->
@@ -27,6 +33,9 @@
     <link rel="stylesheet" href="<?= base_url(); ?>asset/node_modules/quill/dist/quill.snow.css">
     <link rel="stylesheet" href="<?= base_url(); ?>asset/node_modules/simplemde/dist/simplemde.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/css/intlTelInput.css" />
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="<?= base_url(); ?>asset/css/bootstrap-toggle.min.css">
+            
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/style.css">
@@ -43,6 +52,7 @@
 
 <body>
     <script src="<?= base_url(); ?>asset/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js" integrity="sha512-m2ssMAtdCEYGWXQ8hXVG4Q39uKYtbfaJL5QMTbhl2kc6vYyubrKHhr6aLLXW4ITeXSywQLn1AhsAaqrJl8Acfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -123,11 +133,26 @@
                                     </ul>
                                 </div>
                             </li>
+                            <!-- <li class="nav-item">
+                                    <a class="nav-link" href="<?= base_url(); ?>Agent">
+                                        <i class="icon-people menu-icon"></i>
+                                        <span class="menu-title">Agen</span>
+                                    </a>
+                                </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= base_url(); ?>Agent">
+                                <a class="nav-link" data-toggle="collapse" href="#agent" aria-expanded="false" aria-controls="agent">
                                     <i class="icon-people menu-icon"></i>
                                     <span class="menu-title">Agen</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
                                 </a>
+
+                                <div class="collapse" id="agent">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent">List Agen</a></li>
+                                        <!-- <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent/transferkomisi">Transfer Komisi</a></li> -->
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>Agent/list_komisi">List Komisi</a></li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#drivers" aria-expanded="false" aria-controls="drivers">
@@ -141,6 +166,7 @@
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver/tracking_driver">Lacak Driver</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>bank/requestdriver">Request Bank</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -163,6 +189,7 @@
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>categorymerchant">Kategori Mitra</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra">All Mitra</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra/newregmitra">Validasi Mitra Baru</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>bank/requestmitra">Request Bank</a></li>
                                     </ul>
                                 </div>
 
@@ -244,6 +271,24 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>profile/profileAgent">
+                                    <i class="icon-user-following menu-icon"></i>
+                                    <span class="menu-title">Profil</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>agent/komisi">
+                                    <i class="icon-wallet menu-icon"></i>
+                                    <span class="menu-title">Komisi</span>
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>agent/komisi">
+                                    <i class="icon-wallet menu-icon"></i>
+                                    <span class="menu-title">Komisi</span>
+                                </a>
+                            </li> -->
                         <?php } ?>
 
                         <li class="nav-item">

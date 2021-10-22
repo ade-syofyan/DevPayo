@@ -7,7 +7,7 @@ class Users extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        
+
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
         }
@@ -22,7 +22,7 @@ class Users extends CI_Controller
     {
         $data['user'] = $this->user->getallusers();
         $data['province'] = $this->address->getProvince();
-        
+
         // $data['transaksi']= $this->dashboard->getAlltransaksi();
         // $data['fitur']= $this->dashboard->getAllfitur();
         $this->load->view('includes/header');

@@ -7,7 +7,7 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-       
+
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
         }
@@ -16,6 +16,7 @@ class Dashboard extends CI_Controller
         $this->load->model('users_model', 'user');
         $this->load->model('driver_model', 'driver');
         $this->load->model('notification_model', 'notif');
+        $this->load->model('Bank_model', 'bank');
         // $this->load->library('form_validation');
     }
 
@@ -75,32 +76,28 @@ class Dashboard extends CI_Controller
 
 
         $data['harian'] = $this->dashboard->getbydate();
-
-        
-
-
-
-
         $data['currency'] = $this->app->getappbyid();
         $data['transaksi'] = $this->dashboard->getAlltransaksi();
+        $data['transaksibyagent'] = $this->dashboard->getAlltransaksibyAgent();
         $data['fitur'] = $this->dashboard->getAllfitur();
         $data['saldo'] = $this->dashboard->getallsaldo();
+        $data['saldoagent'] = $this->dashboard->getsaldoagent();
         $data['user'] = $this->user->getallusers();
         $data['driver'] = $this->driver->getalldriver();
         $data['mitra'] = $this->dashboard->countmitra();
         $data['hitungdriver'] = $this->dashboard->countdriver();
-
-
-
+        $data['hitungdriveragent'] = $this->dashboard->countdriverbyagent();
+        $data['bankdriver'] = $this->bank->dashboardDriver();
+        $data['bankmitra']  = $this->bank->dashboardMitra();
         $this->load->view('includes/header');
         $this->load->view('dashboard/index', $data);
     }
 
-    
+
 
     public function detail($id)
     {
-        
+
         $data['transaksi'] = $this->dashboard->gettransaksiById($id);
         $data['currency'] = $this->app->getappbyid();
         $data['transitem'] = $this->dashboard->getitem($id);

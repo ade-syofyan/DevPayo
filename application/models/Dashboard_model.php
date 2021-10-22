@@ -18,7 +18,27 @@ class Dashboard_model extends CI_model
     return $this->db->get()->result_array();
   }
 
+  public function getAlltransaksibyAgent()
+  {
+    $regency = $this->session->userdata('regency');
+    $this->db->select('transaksi.*,' . 'driver.nama_driver,' . 'pelanggan.fullnama,' . 'history_transaksi.*,' . 'status_transaksi.*,' . 'fitur.fitur');
+    $this->db->from('transaksi');
+    $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
+    $this->db->join('status_transaksi', 'history_transaksi.status = status_transaksi.id', 'left');
+    $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
+    $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id', 'left');
+    $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
+    $this->db->where('history_transaksi.status != 1');
+    $this->db->where('history_transaksi.status != 0');
+    $this->db->where('fitur.id_fitur', 15);
+    $this->db->where('driver.regency_id', $regency);
+    $this->db->order_by('transaksi.id', 'DESC');
+    return $this->db->get()->result_array();
+  }
+
   
+
+
   function getTotalTransaksiBulanan($bulan, $tahun, $typefitur)
   {
     //        lihat tranasksi tanpa limit 15
@@ -50,7 +70,7 @@ class Dashboard_model extends CI_model
                 AND tr.order_fitur = fitur.id_fitur
                 AND history_transaksi.status = 4) as hari
                 ");
-                $this->db->select("
+    $this->db->select("
                 (SELECT COUNT(tr.id)
                 FROM transaksi tr
                 left join history_transaksi on tr.id = history_transaksi.id_transaksi
@@ -58,7 +78,7 @@ class Dashboard_model extends CI_model
                 AND tr.order_fitur = fitur.id_fitur
                 AND history_transaksi.status = 4) as bulan
                 ");
-                $this->db->select("
+    $this->db->select("
                 (SELECT COUNT(tr.id)
                 FROM transaksi tr
                 left join history_transaksi on tr.id = history_transaksi.id_transaksi
@@ -68,7 +88,6 @@ class Dashboard_model extends CI_model
                 ");
     $this->db->from('fitur');
     return $this->db->get()->result_array();
-
   }
 
   function getTotalTransaksiharian($hari, $fitur)
@@ -90,6 +109,19 @@ class Dashboard_model extends CI_model
     $this->db->select('SUM(biaya_akhir)as total');
     $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
     $this->db->where('history_transaksi.status != 1');
+    return $this->db->get('transaksi')->row_array();
+  }
+
+  public function getsaldoagent()
+  {
+    $regency = $this->session->userdata('regency');
+    $this->db->select('SUM(biaya_akhir)as total');
+    $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
+    $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
+    $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
+    $this->db->where('history_transaksi.status != 1');
+    $this->db->where('fitur.id_fitur', 15);
+    $this->db->where('driver.regency_id', $regency);
     return $this->db->get('transaksi')->row_array();
   }
 
@@ -166,6 +198,14 @@ class Dashboard_model extends CI_model
   public function countdriver()
   {
     $this->db->where('status != 0');
+    return $this->db->get('driver')->result_array();
+  }
+
+  public function countdriverbyagent()
+  {
+    $regency = $this->session->userdata('regency');
+    $this->db->where('status != 0');
+    $this->db->where('regency_id', $regency);
     return $this->db->get('driver')->result_array();
   }
 

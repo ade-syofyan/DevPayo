@@ -26,6 +26,16 @@ class Profile extends CI_Controller
         $this->load->view('includes/footer');
     }
 
+    public function profileAgent()
+    {
+        // $data['news'] = $this->news->getallnews();
+        $data = $this->profile->getagent();
+
+        $this->load->view('includes/header');
+        $this->load->view('agen/profile', $data);
+        $this->load->view('includes/footer');
+    }
+
     public function ubah()
     {
 

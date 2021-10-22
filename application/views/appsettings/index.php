@@ -1,3 +1,15 @@
+<style>
+    .toggle.ios,
+    .toggle-on.ios,
+    .toggle-off.ios {
+        border-radius: 20px;
+    }
+
+    .toggle.ios .toggle-handle {
+        border-radius: 20px;
+    }
+</style>
+
 <div class="content-wrapper">
 
     <div class="row">
@@ -8,7 +20,15 @@
 
                 <div class="card-body">
 
-                    <h4 class="card-title">App Settings</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4 class="card-title">App Settings</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="checkbox" checked data-toggle="toggle" data-style="ios">
+
+                        </div>
+                    </div>
 
                     <?php if ($this->session->flashdata('send') or $this->session->flashdata('ubah')) : ?>
 
@@ -31,6 +51,7 @@
                         </div>
 
                     <?php endif; ?>
+
 
                     <div class="tab-minimal tab-minimal-success">
 
@@ -92,7 +113,7 @@
 
                             </li>
 
-                            
+
 
                         </ul>
 
@@ -116,25 +137,29 @@
 
                                                 <label for="appemail">App Email</label>
 
-                                                <input type="email" class="form-control" id="appemail" name="app_email" value="<?= $appsettings['app_email']; ?>" required></div>
+                                                <input type="email" class="form-control" id="appemail" name="app_email" value="<?= $appsettings['app_email']; ?>" required>
+                                            </div>
 
                                             <div class="form-group">
 
                                                 <label for="appname">App Name</label>
 
-                                                <input type="text" class="form-control" id="appname" name="app_name" value="<?= $appsettings['app_name']; ?>" required></div>
+                                                <input type="text" class="form-control" id="appname" name="app_name" value="<?= $appsettings['app_name']; ?>" required>
+                                            </div>
 
                                             <div class="form-group">
 
                                                 <label for="appcontact">App Contact</label>
 
-                                                <input type="text" class="form-control" id="appcontact" name="app_contact" value="<?= $appsettings['app_contact']; ?>" required></div>
+                                                <input type="text" class="form-control" id="appcontact" name="app_contact" value="<?= $appsettings['app_contact']; ?>" required>
+                                            </div>
 
                                             <div class="form-group">
 
                                                 <label for="appwebsite">App Website</label>
 
-                                                <input type="text" class="form-control" id="appwebsite" name="app_website" value="<?= $appsettings['app_website']; ?>" required></div>
+                                                <input type="text" class="form-control" id="appwebsite" name="app_website" value="<?= $appsettings['app_website']; ?>" required>
+                                            </div>
 
                                             <div class="form-group">
 
@@ -164,19 +189,22 @@
 
                                                 <label for="appaddress">App Address</label>
 
-                                                <textarea type="text" class="form-control" id="summernoteExample3" name="app_address" required><?= $appsettings['app_address']; ?></textarea></div>
+                                                <textarea type="text" class="form-control" id="summernoteExample3" name="app_address" required><?= $appsettings['app_address']; ?></textarea>
+                                            </div>
 
                                             <div class="form-group">
 
                                                 <label for="googlelink">Google Link</label>
 
-                                                <input type="text" class="form-control" id="googlelink" name="app_linkgoogle" value="<?= $appsettings['app_linkgoogle']; ?>" required></div>
+                                                <input type="text" class="form-control" id="googlelink" name="app_linkgoogle" value="<?= $appsettings['app_linkgoogle']; ?>" required>
+                                            </div>
 
                                             <div class="form-group">
 
                                                 <label for="appcurrency">App Currency</label>
 
-                                                <input type="text" class="form-control" id="appcurrency" name="app_currency" value="<?= $appsettings['app_currency']; ?>" required></div>
+                                                <input type="text" class="form-control" id="appcurrency" name="app_currency" value="<?= $appsettings['app_currency']; ?>" required>
+                                            </div>
 
                                             <button type="submit" class="btn btn-success mr-2">Submit</button>
 
@@ -777,7 +805,6 @@
 
 
                                                                 <?php $i++;
-
                                                                 } ?>
 
                                                             </tbody>
@@ -817,3 +844,11 @@
     </div>
 
 </div>
+
+<!-- <script>
+    $(document).ready(function() {
+        $(".switch").click(function() {
+            $(this).toggleClass("switchOn");
+        })
+    })
+</script> -->

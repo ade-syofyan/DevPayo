@@ -15,7 +15,7 @@
                     </div>
                 <?php endif; ?>
                 <?php if ($this->session->flashdata('ubah') or $this->session->flashdata('tambah')) : ?>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-success" role="alert">
                         <?php echo $this->session->flashdata('ubah'); ?>
                         <?php echo $this->session->flashdata('tambah'); ?>
                     </div>
@@ -47,10 +47,11 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Profile Pic</th>
-                                                            <th>User Name</th>
+                                                            <th>Full Name</th>
                                                             <th>Email</th>
                                                             <th>Phone</th>
                                                             <th>From</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
@@ -61,31 +62,22 @@
                                                                 <td>
                                                                     <img src="<?= base_url('images/agent/') . $ag['image']; ?>">
                                                                 </td>
-                                                                <td><?= $ag['user_name'] ?></td>
+                                                                <td><?= $ag['nama_lengkap'] ?></td>
                                                                 <td><?= $ag['email'] ?></td>
-                                                                <td><?= $ag['province_name'] ?>, <?= $ag['regency_name'] ?></td>
                                                                 <td><?= $ag['countryCode'] ?><?= $ag['phone'] ?></td>
-                                                                <!-- <td>
-                                                                    <?php if ($ag['status'] == 1) { ?>
+                                                                <td><?= $ag['regency_name'] ?>, <?= $ag['province_name'] ?></td>
+                                                                <td>
+                                                                    <?php if ($ag['status'] == 'A') { ?>
                                                                         <label class="badge badge-success">Active</label>
                                                                     <?php } else { ?>
-                                                                        <label class="badge badge-dark">Blocked</label>
+                                                                        <label class="badge badge-dark">Non Active</label>
                                                                     <?php } ?>
-                                                                </td> -->
+                                                                </td>
                                                                 <td>
-                                                                    <a href="<?= base_url(); ?>users/detail/<?= $ag['id'] ?>">
+                                                                    <a href="<?= base_url(); ?>Agent/detail/<?= $ag['id'] ?>">
                                                                         <button class="btn btn-outline-primary mr-2">View</button>
                                                                     </a>
-                                                                    <!-- <?php if ($ag['status'] == 0) { ?>
-                                                                        <a href="<?= base_url(); ?>users/userunblock/<?= $ag['id'] ?>">
-                                                                            <button class="btn btn-outline-success text-red mr-2">Unblock</button>
-                                                                        </a>
-                                                                    <?php } else { ?>
-                                                                        <a href="<?= base_url(); ?>users/userblock/<?= $ag['id'] ?>">
-                                                                            <button class="btn btn-outline-dark text-dark mr-2">Block</button>
-                                                                        </a>
-                                                                    <?php } ?> -->
-                                                                    <a href="<?= base_url(); ?>users/hapususers/<?= $ag['id'] ?>">
+                                                                    <a href="<?= base_url(); ?>Agent/hapus/<?= $ag['id'] ?>">
                                                                         <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
                                                                     </a>
                                                                 </td>
