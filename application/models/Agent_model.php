@@ -94,27 +94,36 @@ class Agent_model extends CI_model
         $this->db->insert('admin', $data);
     }
 
-    // public function walletID($data)
-    // {
-    //     $this->db->insert('wallet_agent', $data);
-    //     return $this->db->insert_id();
-    // }
+    public function ubahdatainfo($data)
+    {
+        $this->db->set('user_name', $data['user_name']);
+        $this->db->set('nama_lengkap', $data['nama_lengkap']);
+        $this->db->set('email', $data['email']);
+        $this->db->set('countrycode', $data['countrycode']);
+        $this->db->set('phone', $data['phone']);
+        $this->db->set('province_id', $data['province']);
+        $this->db->set('regency_id', $data['regency']);
+        $this->db->set('district_id', $data['district']);
+        $this->db->set('village_id', $data['village']);
+        $this->db->set('alamat', $data['alamat']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
+    }
 
+    public function ubahdatafoto($data)
+    {
+        $this->db->set('image', $data['image']);
 
-    // public function tambahwallet($data)
-    // {
-    //     $this->db->insert('wallet_agent', $data);
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
+    }
 
-    //     $id = $this->session->userdata('id');
-    //     $id_wallet = $this->db->insert_id();
-    //     $this->db->set('wallet_id', $id_wallet);
-    //     $this->db->where('id', $id);
-    //     $this->db->update('admin');
-
-    //     $this->db->insert('komisi', $komisi);
-
-    //     return $id_wallet;
-    // }
+    public function ubahdatapassword($data)
+    {
+        $this->db->set('password', $data['password']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
+    }
 
     public function insertKomisi($komisi, $id_wallet)
     {

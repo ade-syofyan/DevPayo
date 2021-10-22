@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-body avatar">
                             <div class="row">
-                                <h4 class="col-auto mr-auto card-title">Drivers Info</h4>
+                                <h4 class="col-auto mr-auto card-title">Agen Info</h4>
                                 <a class="col-auto btn btn-danger text-white" href="<?= base_url(); ?>agent">
                                     <i class="mdi mdi-keyboard-backspace text-white"></i>Back</a>
                             </div>
@@ -118,15 +118,15 @@
                         <hr>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
-                                <?= form_open_multipart('agent/ubahid'); ?>
+                                <?= form_open_multipart('agent/ubahinfo'); ?>
                                 <input type="hidden" name="id" value="<?= $agent['id'] ?>">
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
-                                    <input type="text" class="form-control" id="name" name="fullnama" value="<?= $agent['nama_lengkap'] ?>" required>
+                                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $agent['nama_lengkap'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">User Name</label>
-                                    <input type="text" class="form-control" id="username" name="username" value="<?= $agent['user_name'] ?>" required>
+                                    <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $agent['user_name'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
@@ -180,9 +180,9 @@
                                 <?= form_close(); ?>
                             </div>
                             <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                                <?= form_open_multipart('users/ubahfoto'); ?>
+                                <?= form_open_multipart('agent/ubahfoto'); ?>
                                 <input type="hidden" name="id" value="<?= $agent['id'] ?>">
-                                <input type="file" name="fotopelanggan" class="dropify" data-max-file-size="1mb" data-default-file="<?= base_url('images/agent/') . $agent['image'] ?>" />
+                                <input type="file" name="image" class="dropify" data-max-file-size="1mb" data-default-file="<?= base_url('images/agent/') . $agent['image'] ?>" />
                                 <div class="form-group mt-5">
                                     <button type="submit" class="btn btn-success mr-2">Update</button>
                                     <button class="btn btn-outline-danger">Cancel</button>
@@ -190,7 +190,7 @@
                                 <?= form_close(); ?>
                             </div>
                             <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                                <?= form_open_multipart('users/ubahpass'); ?>
+                                <?= form_open_multipart('agent/ubahpassword'); ?>
                                 <input type="hidden" name="id" value="<?= $agent['id'] ?>">
                                 <div class="form-group">
                                     <input type="password" class="form-control" id="new-password" name="password" placeholder="Enter you new password" required>

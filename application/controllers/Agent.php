@@ -148,6 +148,146 @@ class Agent extends CI_Controller
         $this->load->view('includes/footer');
     }
 
+    public function ubahinfo()
+    {
+        $username = html_escape($this->input->post('user_name', TRUE));
+        $fullname = html_escape($this->input->post('nama_lengkap', TRUE));
+        $email    = html_escape($this->input->post('email', TRUE));
+        $province = html_escape($this->input->post('province', TRUE));
+        $regency  = html_escape($this->input->post('regency', TRUE));
+        $district = html_escape($this->input->post('district', TRUE));
+        $village  = html_escape($this->input->post('village', TRUE));
+        $alamat   = html_escape($this->input->post('alamat', TRUE));
+
+        $this->form_validation->set_rules('nama_lengkap', 'nama_lengkap', 'trim|prep_for_form');
+        $this->form_validation->set_rules('phone', 'PHONE', 'trim|prep_for_form');
+        $this->form_validation->set_rules('email', 'EMAIL', 'trim|prep_for_form');
+
+        if ($this->form_validation->run() == TRUE) {
+
+            $data = [
+                // 'foto_ktp'            => $ktp,
+                // 'foto_selfie_ktp'     => $selfie,
+                // 'nik'                 => $nik,
+                'id'                  => html_escape($this->input->post('id', TRUE)),
+                'user_name'           => $username,
+                'nama_lengkap'        => $fullname,
+                // 'password'            => sha1($password),
+                'email'               => $email,
+                'countryCode'         => html_escape($this->input->post('countrycode', TRUE)),
+                'phone'               => html_escape($this->input->post('phone', TRUE)),
+                'province_id'         => $province,
+                'regency_id'          => $regency,
+                'district_id'         => $district,
+                'village_id'          => $village,
+                'alamat'              => $alamat,
+                // 'image'               => $foto,
+            ];
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('agent/detail/' . $this->input->post('id', TRUE));
+            } else {
+                $id = html_escape($this->input->post('id', TRUE));
+                $this->agenmodel->ubahdatainfo($data);
+                $this->session->set_flashdata('ubah', 'Agent Info Has Been Changed');
+                redirect('agent/detail/' . $id);
+            }
+        } else {
+            $data = $this->user->getcurrency();
+            $data['agent']  = $this->agenmodel->getagentbyid($id);
+            $data['prov']   = $this->agenmodel->getDataProv();
+            $data['komisi'] = $this->agenmodel->komisi($id);
+
+            $this->load->view('includes/header');
+            $this->load->view('Agen/detail/' . $data);
+            $this->load->view('includes/footer');
+        }
+    }
+
+    public function ubahfoto()
+    {
+
+        $config['upload_path']     = './images/agent/';
+        $config['allowed_types']   = 'gif|jpg|png|jpeg';
+        $config['max_size']        = '10000';
+        $config['file_name']       = 'name';
+        $config['encrypt_name']    = true;
+        $this->load->library('upload', $config);
+
+        $id = $id = html_escape($this->input->post('id', TRUE));
+        $data = $this->agenmodel->getagentbyid($id);
+        // var_dump($data);die;
+
+        if ($this->upload->do_upload('image')) {
+            if ($data['image'] != 'noimage.jpg') {
+                $gambar = $data['image'];
+                unlink('images/agent/' . $gambar);
+            }
+
+            $foto = html_escape($this->upload->data('file_name'));
+
+            $data = [
+                'image' => $foto,
+                'id'    => html_escape($this->input->post('id', TRUE))
+            ];
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('agent/detail/' . $id);
+            } else {
+                $this->agenmodel->ubahdatafoto($data);
+                $this->session->set_flashdata('ubah', 'Agent Image Has Been Change');
+                redirect('agent/detail/' . $id);
+            }
+        } else {
+
+            $data = $this->user->getcurrency();
+            $data['agent']  = $this->agenmodel->getagentbyid($id);
+            $data['prov']   = $this->agenmodel->getDataProv();
+            $data['komisi'] = $this->agenmodel->komisi($id);
+
+            $this->load->view('includes/header');
+            $this->load->view('agen/detail', $data);
+            $this->load->view('includes/footer');
+        }
+    }
+
+    public function ubahpassword()
+    {
+        $this->form_validation->set_rules('password', 'password', 'trim|prep_for_form');
+
+        if ($this->form_validation->run() == TRUE) {
+            $id = $this->input->post('id');
+            $data = $this->input->post('password');
+            $dataencrypt = sha1($data);
+
+            $data = [
+                'id'       => html_escape($this->input->post('id', TRUE)),
+                'password' => $dataencrypt
+            ];
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('agent/detail/' . $id);
+            } else {
+
+                $this->agenmodel->ubahdatapassword($data);
+                $this->session->set_flashdata('ubah', 'Agent Password Has Been Changed');
+                redirect('agent/detail/' . $id);
+            }
+        } else {
+            $data = $this->user->getcurrency();
+            $data['agent']  = $this->agenmodel->getagentbyid($id);
+            $data['prov']   = $this->agenmodel->getDataProv();
+            $data['komisi'] = $this->agenmodel->komisi($id);
+
+            $this->load->view('includes/header');
+            $this->load->view('agen/detail', $data);
+            $this->load->view('includes/footer');
+        }
+    }
+
+
     public function hapus($id)
     {
         if (demo == TRUE) {

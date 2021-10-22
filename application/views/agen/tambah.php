@@ -37,11 +37,11 @@
                     </div>
                     <div class="form-group">
                         <label for="user_name">No NIK</label>
-                        <input type="text" class="form-control" id="nik" name="nik" placeholder="input no nik sesuai ktp" <?php if ($_POST != NULL) { ?> value="<?= $_POST['nik']; ?>" <?php } ?> required>
+                        <input type="number" class="form-control" id="nik" name="nik" placeholder="input no nik sesuai ktp" <?php if ($_POST != NULL) { ?> value="<?= $_POST['nik']; ?>" <?php } ?> required>
                     </div>
                     <div class="form-group">
                         <label for="fullname">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="enter fullname" <?php if ($_POST != NULL) { ?> value="<?= $_POST['nama_lengkap']; ?>" <?php } ?> required>
+                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="enter fullname" <?php if ($_POST != NULL) { ?> value="<?= $_POST['fullname']; ?>" <?php } ?> required>
                     </div>
                     <div class="form-group">
                         <label for="user_name">Username</label>
@@ -54,7 +54,7 @@
 
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="text" class="form-control" id="password" name="password" placeholder="enter a password " <?php if ($_POST != NULL) { ?> value="<?= $_POST['password']; ?>" <?php } ?> required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="enter a password " <?php if ($_POST != NULL) { ?> value="<?= $_POST['password']; ?>" <?php } ?> required>
                     </div>
 
 
@@ -65,7 +65,7 @@
                             <input type="tel" id="txtPhone" class="form-control" name="countrycode" placeholder="+1 " <?php if ($_POST != NULL) { ?> value="<?= $_POST['countrycode']; ?>" <?php } ?> required>
                         </div>
                         <div class=" form-group col-10">
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="enter phone number" <?php if ($_POST != NULL) { ?> value="<?= $_POST['phone']; ?>" <?php } ?>>
+                            <input type="number" class="form-control" id="phone" name="phone" placeholder="enter phone number" <?php if ($_POST != NULL) { ?> value="<?= $_POST['phone']; ?>" <?php } ?>>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Alamat</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="enter address " <?php if ($_POST != NULL) { ?> value="<?= $_POST['alamat']; ?>" <?php } ?> required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="enter address " <?php if ($_POST != NULL) { ?> value="<?= $_POST['address']; ?>" <?php } ?> required>
                     </div>
                     <button type="submit" class="btn btn-success mr-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
