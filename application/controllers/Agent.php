@@ -383,9 +383,6 @@ class Agent extends CI_Controller
         $agent = $this->agenmodel->get_regency_agent($id);
         $reg_id = $agent['regency_id'];
         $data  = $this->agenmodel->getKomisiAgent($reg_id);
-        // foreach($data as $data){
-
-        // }
 
         echo json_encode($data);
     }
@@ -393,7 +390,6 @@ class Agent extends CI_Controller
     public function list_komisi()
     {
         $data['data'] = $this->agenmodel->getListKomisi();
-
 
         $this->load->view('includes/header');
         $this->load->view('agen/list_komisi', $data, false);
@@ -403,15 +399,16 @@ class Agent extends CI_Controller
     public function load_komisi()
     {
         $bulan = $_GET['bulan'];
+        $fee = $this->agenmodel->getadminsetting();
+        $komisi = $fee['komisi_agent'];
         if ($bulan == 0) {
             $data = $this->agenmodel->getListKomisi();
-            // var_dump($data);
         } else {
             $data = $this->db->query('SELECT a.nama_lengkap, a.id, a.image, sum(t.biaya_akhir) as total FROM transaksi t LEFT JOIN driver d ON t.id_driver = d.id LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND f.id_fitur = 15 AND MONTH(t.waktu_selesai) = ' . $bulan . ' GROUP BY d.regency_id')->result_array();
         }
 
         foreach ($data as $no => $ag) : ?>
-            <?php $fee = $ag['total'] * 2 / 100 ?>
+            <?php $fee = $ag['total'] * $komisi / 100 ?>
             <tr>
                 <td><?= $no + 1 ?></td>
                 <td>

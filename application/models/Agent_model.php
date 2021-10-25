@@ -179,4 +179,10 @@ class Agent_model extends CI_model
         $this->db->select('wallet_id');
         return $this->db->get_where('admin', ['id' => $id])->row_array();
     }
+
+    public function getadminsetting()
+    {
+        $this->db->select('komisi_agent');
+        return $this->db->get_where('admin_setting', ['id' => 1])->row_array();
+    }
 }

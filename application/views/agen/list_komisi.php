@@ -84,7 +84,6 @@
                             </div>
                         </div>
                         <!-- end of all users -->
-
                     </div>
                 </div>
             </div>
