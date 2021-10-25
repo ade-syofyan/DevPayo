@@ -91,6 +91,18 @@
                                 <i class="mdi mdi-account-settings"></i>Mitra</a>
                         </li>
                     </ul>
+                    <?php if ($this->session->flashdata('demo') or $this->session->flashdata('reject')) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $this->session->flashdata('demo'); ?>
+                            <?php echo $this->session->flashdata('reject'); ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($this->session->flashdata('confirm') or $this->session->flashdata('confirm')) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <?php echo $this->session->flashdata('ubah'); ?>
+                            <?php echo $this->session->flashdata('confirm'); ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="tab-content">
                         <!-- driver -->
                         <div class="tab-pane fade show active" id="driver-2-1" role="tabpanel" aria-labelledby="tab-2-1">
@@ -113,7 +125,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
                                                         <?php foreach ($bankdriver as $no => $bd) : ?>
                                                             <tr>
                                                                 <td><?= $no + 1 ?></td>
@@ -124,7 +135,7 @@
                                                                 <td><?= $bd['norek'] ?></td>
                                                                 <td><?= $bd['atas_nama'] ?></td>
                                                                 <td>
-                                                                    <a href="<?= base_url(); ?>bank/confirm/<?= $bd['id_data_bank'] ?>" class="btn btn-success btn-lg mr-2" style="height: 25px">
+                                                                    <a href="<?= base_url(); ?>bank/confirmDriver/<?= $bd['id_data_bank'] ?>" class="btn btn-success btn-lg mr-2" style="height: 25px">
                                                                         <i class="fa fa-check-circle" style="margin: auto"></i>
                                                                     </a>
                                                                     <a href="#" class="btn btn-danger btn-lg" type="buton" data-toggle="modal" data-target="#driver<?= $bd['id_data_bank'] ?>" style="height: 25px">
@@ -144,19 +155,20 @@
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form action="module/user/aksi_simpan.php" method="POST">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <textarea name="alasan" id="alasan" rows="5" class="form-control"></textarea>
-                                                                                        </div>
+                                                                            <?= form_open_multipart('bank/rejectDriver'); ?>
+                                                                            <input type="hidden" name="idbank" value="<?= $bd['id_data_bank'] ?>">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <textarea name="catatan_reject" id="catatan_reject" rows="5" class="form-control"></textarea>
                                                                                     </div>
                                                                                 </div>
-                                                                            </form>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                            </div>
+                                                                            <?= form_close(); ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -207,11 +219,11 @@
                                                                 <td><?= $bm['norek'] ?></td>
                                                                 <td><?= $bm['atas_nama'] ?></td>
                                                                 <td>
-                                                                    <a href="<?= base_url(); ?>bank/confirm/<?= $bm['id_data_bank'] ?>" class="btn btn-success btn-lg mr-2" style="height: 25px">
+                                                                    <a href="<?= base_url(); ?>bank/confirmMitra/<?= $bm['id_data_bank'] ?>" class="btn btn-success btn-lg mr-2" style="height: 25px">
                                                                         <i class="fa fa-check-circle" style="margin: auto"></i>
                                                                     </a>
-                                                                    <a href="#" class="btn btn-danger btn-lg" type="buton" data-toggle="modal" data-target="#mitra<?= $bm['id_data_bank'] ?>">
-                                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                    <a href="#" class="btn btn-danger btn-lg" type="buton" data-toggle="modal" data-target="#mitra<?= $bm['id_data_bank'] ?>" style="height: 25px">
+                                                                        <i class="fa fa-times-circle" aria-hidden="true" style="margin:auto"></i>
                                                                     </a>
                                                                 </td>
                                                                 <!-- Modal -->
@@ -225,19 +237,20 @@
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <form action="module/user/aksi_simpan.php" method="POST">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-12">
-                                                                                            <div class="form-group">
-                                                                                                <textarea name="alasan" id="alasan" rows="5" class="form-control"></textarea>
-                                                                                            </div>
+                                                                                <?= form_open_multipart('bank/rejectMitra'); ?>
+                                                                                <input type="hidden" name="idbank" value="<?= $bm['id_data_bank'] ?>">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <textarea name="catatan_reject" id="catatan_reject" rows="5" class="form-control"></textarea>
                                                                                         </div>
                                                                                     </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                                <?= form_close(); ?>
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -11,116 +11,72 @@
 </style>
 
 <div class="content-wrapper">
-
     <div class="row">
-
         <div class="col-md-8 offset-md-2 grid-margin stretch-card">
-
             <div class="card">
-
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-md-9">
                             <h4 class="card-title">App Settings</h4>
                         </div>
+                        <!-- toogle switch  -->
                         <div class="col-md-3">
-                            <input type="checkbox" checked data-toggle="toggle" data-style="ios">
-
+                            <input type="checkbox" name="app_maintenance" value="<?= $appsettings['app_maintenance'] ?>" checked data-toggle="toggle" data-style="ios">
                         </div>
                     </div>
-
                     <?php if ($this->session->flashdata('send') or $this->session->flashdata('ubah')) : ?>
-
                         <div class="alert alert-success" role="alert">
-
                             <?php echo $this->session->flashdata('send'); ?>
-
                             <?php echo $this->session->flashdata('ubah'); ?>
-
                         </div>
-
                     <?php endif; ?>
 
                     <?php if ($this->session->flashdata('demo')) : ?>
-
                         <div class="alert alert-danger" role="alert">
-
                             <?php echo $this->session->flashdata('demo'); ?>
-
                         </div>
-
                     <?php endif; ?>
 
-
                     <div class="tab-minimal tab-minimal-success">
-
                         <ul class="nav nav-tabs" role="tablist">
-
                             <li class="nav-item">
-
                                 <a class="nav-link active" id="tab-2-1" data-toggle="tab" href="#app-2-1" role="tab" aria-controls="app-2-1" aria-selected="true">
-
                                     <i class="mdi mdi-cellphone-android"></i>App</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-2" data-toggle="tab" href="#email-2-2" role="tab" aria-controls="email-2-2" aria-selected="false">
-
                                     <i class="mdi mdi-email-outline"></i>Email</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-3" data-toggle="tab" href="#smtp-2-3" role="tab" aria-controls="smtp-2-3" aria-selected="false">
-
                                     <i class="mdi mdi-message-text-outline"></i>SMTP</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-4" data-toggle="tab" href="#stripe-2-4" role="tab" aria-controls="stripe-2-4" aria-selected="false">
-
                                     <i class="mdi mdi-credit-card"></i>Stripe</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-5" data-toggle="tab" href="#paypal-2-5" role="tab" aria-controls="paypal-2-5" aria-selected="false">
-
                                     <i class="icon-paypal menu-icon"></i>PayPal</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-6" data-toggle="tab" href="#payumoney-2-6" role="tab" aria-controls="#payumoney-2-6" aria-selected="false">
-
                                     <i class="icon-credit-card menu-icon"></i>Pay U Money</a>
-
                             </li>
 
                             <li class="nav-item">
-
                                 <a class="nav-link" id="tab-2-7" data-toggle="tab" href="#banktransfer-2-7" role="tab" aria-controls="banktransfer-2-7" aria-selected="false">
-
                                     <i class="icon-credit-card menu-icon"></i>Bank Transfer</a>
-
                             </li>
-
-
-
                         </ul>
 
                         <div class="tab-content col-12 justify-content-center">
-
                             <div class="tab-pane fade show active" id="app-2-1" role="tabpanel" aria-labelledby="tab-2-1">
-
                                 <div class="col-12 grid-margin">
 
                                     <div class="card">
@@ -283,112 +239,56 @@
                                             </div>
 
                                             <div class="form-group">
-
                                                 <label for="emailtext2">Email Text 2</label>
-
                                                 <textarea type="email" class="form-control" id="summernoteExample7" name="email_text4" required><?= $appsettings['email_text4']; ?></textarea>
-
                                             </div>
-
-
-
-
-
                                             <button type="submit" class="btn btn-success mr-2">Submit</button>
-
-
-
                                             <?= form_close(); ?>
-
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="tab-pane fade" id="smtp-2-3" role="tabpanel" aria-labelledby="tab-2-3">
-
                                 <div class="col-12 grid-margin">
-
                                     <div class="card">
-
                                         <div class="card-body">
-
                                             <h4 class="card-title">SMTP Settings</h4>
-
                                             <br>
-
-
-
                                             <?php if (demo == TRUE) { ?>
-
                                                 <?= form_open_multipart('appsettings/ubahsmtp'); ?>
-
                                                 <div class="form-group">
-
                                                     <label for="smtphost">SMTP Host</label>
-
                                                     <input type="text" class="form-control" id="smtphost" name="smtp_host" required>
-
                                                 </div>
-
                                                 <div class="form-group">
-
                                                     <label for="smtpport">SMTP Port</label>
-
                                                     <input type="text" class="form-control" id="smtpport" name="smtp_port" required>
-
                                                 </div>
-
                                                 <div class="form-group">
-
                                                     <label for="smtpusername">SMTP User Name</label>
-
                                                     <input type="text" class="form-control" id="smtpusername" name="smtp_username" required>
-
                                                 </div>
 
                                                 <div class="form-group">
-
                                                     <label for="smtppassword">SMTP Password</label>
-
                                                     <input type="password" class="form-control" id="smtppassword" name="smtp_password" required>
-
                                                 </div>
-
                                                 <div class="form-group">
-
                                                     <label for="smtpform">SMTP Form</label>
-
                                                     <input type="text" class="form-control" id="smtpfrom" name="smtp_from" required>
-
                                                 </div>
 
                                                 <div class="form-group">
-
                                                     <label for="smtp_secure">SMTP Secure</label>
-
                                                     <select class="form-control border-primary" name="smtp_secure" id="smtp_secure">
-
                                                         <option value="tls" <?php if ($appsettings['smtp_secure'] == 'tls') { ?>selected<?php } ?>>TLS</option>
-
                                                         <option value="ssl" <?php if ($appsettings['smtp_secure'] == 'ssl') { ?>selected<?php } ?>>SSL</option>
-
                                                     </select>
-
                                                 </div>
-
                                                 <button type="submit" class="btn btn-success mr-2">Submit</button>
-
-
-
                                                 <?= form_close(); ?>
-
                                             <?php } else { ?>
-
-
 
                                                 <?= form_open_multipart('appsettings/ubahsmtp'); ?>
 
@@ -573,10 +473,6 @@
                                                 </a>
 
                                             </div>
-
-
-
-
 
                                             <div class="form-group">
 

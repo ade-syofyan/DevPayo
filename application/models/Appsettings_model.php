@@ -1,127 +1,61 @@
 <?php
-
-
-
-
-
 class Appsettings_model extends CI_model
-
 {
-
     public function getappbyid()
-
     {
-
         return $this->db->get_where('app_settings', ['id' => '1'])->row_array();
-
     }
-
-
 
     public function gettransfer()
-
     {
-
         $this->db->select('*');
-
         $this->db->from('list_bank');
-
         return $this->db->get()->result_array();
-
     }
-
-
 
     public function getbankid($id)
-
     {
-
         $this->db->select('*');
-
         $this->db->from('list_bank');
-
         $this->db->where('id_bank', $id);
-
         return $this->db->get()->row_array();
-
     }
-
-
 
     public function ubahdataappsettings($data)
-
     {
-
         $this->db->set('app_logo', $data['app_logo']);
-
         $this->db->set('app_email', $data['app_email']);
-
         $this->db->set('app_website', $data['app_website']);
-
-
-
         $this->db->set('app_privacy_policy', $data['app_privacy_policy']);
-
         $this->db->set('app_book_guide', $data['app_book_guide']);
-
         $this->db->set('app_aboutus', $data['app_aboutus']);
-
         $this->db->set('app_address', $data['app_address']);
-
         $this->db->set('app_name', $data['app_name']);
-
         $this->db->set('app_linkgoogle', $data['app_linkgoogle']);
-
         $this->db->set('app_currency', $data['app_currency']);
-
-
-
         $this->db->where('id', '1');
-
         $this->db->update('app_settings', $data);
-
     }
-
-
 
     public function ubahdatarekening($data, $id)
-
     {
-
         $this->db->where('id_bank', $id);
-
         $this->db->update('list_bank', $data);
-
     }
-
-
 
     public function hapusrekening($id)
-
     {
-
         $this->db->where('id_bank', $id);
-
         $this->db->delete('list_bank');
-
     }
-
-
 
     public function adddatarekening($data)
-
     {
-
         $this->db->insert('list_bank', $data);
-
     }
 
-
-
     public function ubahdataemail($data)
-
     {
-
         $this->db->set('email_subject', $data['email_subject']);
 
         $this->db->set('email_text1', $data['email_text1']);

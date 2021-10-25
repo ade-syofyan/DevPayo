@@ -16,7 +16,7 @@
                         <?php echo $this->session->flashdata('hapus'); ?>
                     </div>
                 <?php endif; ?>
-                <h4 class="card-title">Request Bank Driver</h4>
+                <h4 class="card-title">Request Bank Mitra</h4>
                 <div class="tab-minimal tab-minimal-success">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -42,7 +42,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>Nama Mitra</th>
+                                                                <th>Nama</th>
                                                                 <th>Nama Bank</th>
                                                                 <th>No Rekening</th>
                                                                 <th>Atas Nama</th>
@@ -81,7 +81,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>Nama Mitra</th>
+                                                            <th>Nama</th>
                                                             <th>Nama Bank</th>
                                                             <th>No Rekening</th>
                                                             <th>Atas Nama</th>

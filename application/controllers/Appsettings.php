@@ -240,231 +240,114 @@ class Appsettings extends CI_Controller
     public function ubahstripe()
 
     {
-
-
-
         $this->form_validation->set_rules('stripe_secret_key', 'stripe_secret_key', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('stripe_published_key', 'stripe_published_key', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('stripe_status', 'stripe_status', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('stripe_active', 'stripe_active', 'trim|prep_for_form');
 
-
-
         if ($this->form_validation->run() == TRUE) {
-
             $data             = [
-
                 'stripe_secret_key'                    => html_escape($this->input->post('stripe_secret_key', TRUE)),
-
                 'stripe_published_key'                => html_escape($this->input->post('stripe_published_key', TRUE)),
-
                 'stripe_status'                        => html_escape($this->input->post('stripe_status', TRUE)),
-
                 'stripe_active'                        => html_escape($this->input->post('stripe_active', TRUE))
-
             ];
-
             if (demo == TRUE) {
-
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-
                 redirect('appsettings/index');
             } else {
-
-
-
-
-
                 $this->app->ubahdatastripe($data);
-
                 $this->session->set_flashdata('ubah', 'Stripe Has Been Change');
-
                 redirect('appsettings');
             }
         } else {
-
-
-
             $data['appsettings'] = $this->app->getappbyid();
-
-
-
             $this->load->view('includes/header');
-
             $this->load->view('appsettings/index', $data);
-
             $this->load->view('includes/footer');
         }
     }
-
-
 
     public function ubahpaypal()
-
     {
-
-
-
         $this->form_validation->set_rules('paypal_key', 'paypal_key', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('app_currency_text', 'app_currency_text', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('paypal_mode', 'paypal_mode', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('paypal_active', 'paypal_active', 'trim|prep_for_form');
 
-
-
         if ($this->form_validation->run() == TRUE) {
-
             $data             = [
-
                 'paypal_key'                    => html_escape($this->input->post('paypal_key', TRUE)),
-
                 'app_currency_text'                => html_escape($this->input->post('app_currency_text', TRUE)),
-
                 'paypal_mode'                        => html_escape($this->input->post('paypal_mode', TRUE)),
-
                 'paypal_active'                        => html_escape($this->input->post('paypal_active', TRUE))
-
             ];
 
             if (demo == TRUE) {
-
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-
                 redirect('appsettings/index');
             } else {
-
-
-
-
-
                 $this->app->ubahdatapaypal($data);
-
                 $this->session->set_flashdata('ubah', 'Paypal Has Been Change');
-
                 redirect('appsettings');
             }
         } else {
-
-
-
             $data['appsettings'] = $this->app->getappbyid();
-
-
-
             $this->load->view('includes/header');
-
             $this->load->view('appsettings/index', $data);
-
             $this->load->view('includes/footer');
         }
     }
 
-
-
     public function addbank()
-
-
-
     {
-
         $this->load->view('includes/header');
-
         $this->load->view('appsettings/addbank');
-
         $this->load->view('includes/footer');
     }
-
-
 
     public function editbank($id)
-
-
-
     {
-
         $data['transfer'] = $this->app->getbankid($id);
-
         $this->load->view('includes/header');
-
         $this->load->view('appsettings/editbank', $data);
-
         $this->load->view('includes/footer');
     }
-
-
-
 
 
     public function ubahpayumoney()
-
     {
-
-
-
         $this->form_validation->set_rules('payu_key', 'payu_key', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('payu_id', 'payu_id', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('payu_salt', 'payu_salt', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('payu_debug', 'payu_debug', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('active', 'active', 'trim|prep_for_form');
 
-
-
         if ($this->form_validation->run() == TRUE) {
-
             $data             = [
-
                 'payu_key'                    => html_escape($this->input->post('payu_key', TRUE)),
-
                 'payu_id'                => html_escape($this->input->post('payu_id', TRUE)),
-
                 'payu_salt'                        => html_escape($this->input->post('payu_salt', TRUE)),
-
                 'payu_debug'                        => html_escape($this->input->post('payu_debug', TRUE)),
-
                 'active'                        => html_escape($this->input->post('active', TRUE))
-
             ];
-
             if (demo == TRUE) {
-
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-
                 redirect('appsettings/index');
             } else {
-
-
-
-
-
                 $this->app->ubahdatapayu($data);
-
                 $this->session->set_flashdata('ubah', 'Pay U Money Has Been Change');
-
                 redirect('appsettings');
             }
         } else {
-
-
-
             $data['payusettings'] = $this->app->getpayubyid();
-
-
-
             $this->load->view('includes/header');
-
             $this->load->view('appsettings/index', $data);
-
             $this->load->view('includes/footer');
         }
+    }
+
+    public function ubahstatus()
+    {
     }
 }

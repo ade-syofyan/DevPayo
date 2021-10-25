@@ -63,4 +63,34 @@ class Bank_model extends CI_model
         $this->db->limit(20);
         return  $this->db->get()->result_array();
     }
+
+    public function accdriver($id)
+    {
+        $this->db->set('status_aprrove', 1);
+        $this->db->where('id_data_bank', $id);
+        $this->db->update('data_bank');
+    }
+
+    public function accmitra($id)
+    {
+        $this->db->set('status_aprrove', 1);
+        $this->db->where('id_data_bank', $id);
+        $this->db->update('data_bank');
+    }
+
+    public function rejectbankdriver($data)
+    {
+        $this->db->set('catatan_reject', $data['catatan_reject']);
+        $this->db->set('status_aprrove', 2);
+        $this->db->where('id_data_bank', $data['id_data_bank']);
+        $this->db->update('data_bank', $data);
+    }
+
+    public function rejectbankmitra($data)
+    {
+        $this->db->set('catatan_reject', $data['catatan_reject']);
+        $this->db->set('status_aprrove', 2);
+        $this->db->where('id_data_bank', $data['id_data_bank']);
+        $this->db->update('data_bank', $data);
+    }
 }

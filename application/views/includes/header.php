@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/css/intlTelInput.css" />
     <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/bootstrap-toggle.min.css">
-            
+
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/style.css">
@@ -172,11 +172,25 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="users">
+                                    <i class="icon-people menu-icon"></i>
+                                    <span class="menu-title">Users</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
+                                <div class="collapse" id="users">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>users">List User</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>bank/requestmitra">Request Bank</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url(); ?>users">
                                     <i class="icon-people menu-icon"></i>
                                     <span class="menu-title">User</span>
                                 </a>
-                            </li>
+                            </li> -->
 
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#tables2" aria-expanded="false" aria-controls="tables2">
