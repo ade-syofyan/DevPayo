@@ -41,7 +41,7 @@
                 </div>
                 <!-- <?= form_close(); ?> -->
                 <hr>
-                
+
                 <div class="tab-minimal tab-minimal-success">
                     <!-- <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -89,6 +89,36 @@
             </div>
         </div>
     </div>
+
+    <?php foreach ($data as $a) : ?>
+        <div class="modal fade" id="bayar<?= $a['id'] ?>" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editLabel">Konfirmasi Pembayaran</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="module/user/aksi_edit.php" method="POST">
+                            <div class="form-group">
+                                <label for="nilai">Ganti Status</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="">Pilih Status</option>
+                                    <option value="P">Paid</option>
+                                    <option value="U">Unpaid</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-warning" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-outline-success" type="submit" name="update">Save</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
 
 </div>
 <!-- content-wrapper ends -->

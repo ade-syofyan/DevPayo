@@ -45,7 +45,7 @@
 <script src="<?= base_url(); ?>asset/node_modules/select2/dist/js/select2.min.js"></script>
 <script src="<?= base_url(); ?>asset/node_modules/dragula/dist/dragula.min.js"></script>
 <script src="<?= base_url(); ?>asset/node_modules/summernote/dist/summernote-bs4.min.js"></script>
-<script src="<?= base_url(); ?>asset/node_modules/tinymce/tinymce.min.js"></script>
+<!-- <script src="<?= base_url(); ?>asset/node_modules/tinymce/tinymce.min.js"></script> -->
 <script src="<?= base_url(); ?>asset/node_modules/quill/dist/quill.min.js"></script>
 <script src="<?= base_url(); ?>asset/node_modules/simplemde/dist/simplemde.min.js"></script>
 <!-- End plugin js for this page-->

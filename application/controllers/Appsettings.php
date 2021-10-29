@@ -347,7 +347,12 @@ class Appsettings extends CI_Controller
         }
     }
 
-    public function ubahstatus()
+
+    public function changeStatus()
     {
+        $status = $_GET['app_maintenance'];
+        $data = $this->db->query('UPDATE app_settings SET app_maintenance = ' . $status . ' WHERE id = 1');
+        // $data = $this->app->changeAppStatus($status);
+        echo json_encode($data);
     }
 }

@@ -120,7 +120,7 @@ class Dashboard_model extends CI_model
     $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
     $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
     $this->db->where('history_transaksi.status != 1');
-    $this->db->where('fitur.id_fitur', 15);
+    // $this->db->where('fitur.id_fitur', 15);
     $this->db->where('driver.regency_id', $regency);
     return $this->db->get('transaksi')->row_array();
   }

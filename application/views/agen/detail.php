@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-body avatar">
                             <div class="row">
-                                <h4 class="col-auto mr-auto card-title">Agen Info</h4>
+                                <h4 class="col-auto mr-auto card-title">Info Agen</h4>
                                 <a class="col-auto btn btn-danger text-white" href="<?= base_url(); ?>agent">
                                     <i class="mdi mdi-keyboard-backspace text-white"></i>Back</a>
                             </div>
@@ -121,18 +121,18 @@
                                 <?= form_open_multipart('agent/ubahinfo'); ?>
                                 <input type="hidden" name="id" value="<?= $agent['id'] ?>">
                                 <div class="form-group">
-                                    <label for="name">Full Name</label>
+                                    <label for="name">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $agent['nama_lengkap'] ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">User Name</label>
+                                    <label for="name">Nama Pengguna</label>
                                     <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $agent['user_name'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="email" class="form-control" id="email" name="email" value="<?= $agent['email'] ?>" placeholder="Change email address" required>
                                 </div>
-                                <label class="text-small">Phone Number</label>
+                                <label class="text-small">No Hp</label>
                                 <div class="row">
                                     <div class="form-group col-2">
                                         <input type="tel" id="txtPhone" class="form-control" name="countrycode" value="<?= $agent['countryCode'] ?>" required>
@@ -142,9 +142,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="province">Province</label>
+                                    <label for="province">Provinsi</label>
                                     <select id="province" class="js-example-basic-single" style="width:100%" name="province">
-                                        <option value="0">Choice Province</option>
+                                        <option value="0">Pilih Provinsi</option>
                                         <?php foreach ($prov as $pv) : ?>
                                             <option value="<?= $pv['id'] ?>" <?= $pv['id'] == $agent['province_id'] ? 'selected' : '' ?>><?= $pv['name'] ?></option>
                                         <?php endforeach; ?>
@@ -152,21 +152,21 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="regency">Regency</label>
+                                    <label for="regency">Kota / Kabupaten</label>
                                     <select id="regency" class="js-example-basic-single regency" style="width:100%" name="regency">
-                                        <option value="0">Choice Regency</option>
+                                        <option value="0">Pilih Kota / Kabupaten</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="district">District</label>
+                                    <label for="district">Kecamatan</label>
                                     <select id="district" class="js-example-basic-single district" style="width:100%" name="district">
-                                        <option value="0">Choice District</option>
+                                        <option value="0">Pilih Kecamatan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="village">Village</label>
+                                    <label for="village">Kelurahan / Desa</label>
                                     <select id="village" class="js-example-basic-single village" style="width:100%" name="village">
-                                        <option value="0">Choice Village</option>
+                                        <option value="0">Pilih Kelurahan / Desa</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
