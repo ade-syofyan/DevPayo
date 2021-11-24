@@ -149,9 +149,9 @@
                                                                                 <a href="<?= base_url(); ?>driver/unblock/<?= $drv['id'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
                                                                         <?php }
                                                                         } ?>
-                                                                        <a href="<?= base_url(); ?>driver/hapus/<?= $drv['id'] ?>">
+                                                                        <!-- <a href="<?= base_url(); ?>driver/hapus/<?= $drv['id'] ?>">
                                                                             <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
-                                                                        </a>
+                                                                        </a> -->
 
                                                                     </td>
                                                                 </tr>

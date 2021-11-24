@@ -26,4 +26,16 @@ class Profile_model extends CI_model
         $this->db->where('id', '1');
         $this->db->update('admin', $data);
     }
+
+    public function ubahdataagent($data)
+    {
+        $this->db->set('nama_lengkap', $data['nama_lengkap']);
+        $this->db->set('email', $data['email']);
+        $this->db->set('image', $data['image']);
+        $this->db->set('phone', $data['phone']);
+        $this->db->set('password', $data['password']);
+
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
+    }
 }

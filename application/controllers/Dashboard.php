@@ -85,6 +85,7 @@ class Dashboard extends CI_Controller
         $data['user'] = $this->user->getallusers();
         $data['driver'] = $this->driver->getalldriver();
         $data['mitra'] = $this->dashboard->countmitra();
+        $data['mitrabyagent'] = $this->dashboard->countmitraagent();
         $data['hitungdriver'] = $this->dashboard->countdriver();
         $data['hitungdriveragent'] = $this->dashboard->countdriverbyagent();
         $data['bankdriver'] = $this->bank->dashboardDriver();

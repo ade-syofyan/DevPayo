@@ -36,7 +36,7 @@ class Dashboard_model extends CI_model
     return $this->db->get()->result_array();
   }
 
-  
+
 
 
   function getTotalTransaksiBulanan($bulan, $tahun, $typefitur)
@@ -212,6 +212,14 @@ class Dashboard_model extends CI_model
   public function countmitra()
   {
     $this->db->where('status_mitra != 0');
+    return $this->db->get('mitra')->result_array();
+  }
+
+  public function countmitraagent()
+  {
+    $regency = $this->session->userdata('regency');
+    $this->db->where('status_mitra != 0');
+    $this->db->where('regency_id', $regency);
     return $this->db->get('mitra')->result_array();
   }
 }

@@ -58,48 +58,87 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php $i = 1;
-                                                        foreach ($mitra as $mtr) {
-                                                            if ($mtr['status_mitra'] != 0) { ?>
-                                                                <tr>
-                                                                    <td>
-                                                                        <?= $i ?>
-                                                                    </td>
-                                                                    <td><?= $mtr['id_mitra'] ?></td>
-                                                                    <td><?= $mtr['nama_mitra'] ?></td>
-                                                                    <td><?= $mtr['telepon_mitra'] ?></td>
-                                                                    <td><?= $mtr['nama_merchant'] ?></td>
-                                                                    <td>
-                                                                        <img src="<?= base_url('images/merchant/') . $mtr['foto_merchant']; ?>">
-                                                                    </td>
-                                                                    <td><?= $mtr['fitur'] ?></td>
-                                                                    <td><?= $mtr['nama_kategori'] ?></td>
-                                                                    <td>
-                                                                        <?php if ($mtr['status_mitra'] == 3) { ?>
-                                                                            <label class="badge badge-dark">Banned</label>
-                                                                        <?php } else { ?>
-                                                                            <label class="badge badge-primary">Active</label>
-                                                                        <?php } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="<?= base_url(); ?>mitra/detail/<?= $mtr['id_mitra'] ?>">
-                                                                            <button class="btn btn-outline-primary mr-2">View</button>
-                                                                        </a>
-                                                                        <?php
-                                                                        if ($mtr['status_mitra'] == 1) { ?>
-                                                                            <a href="<?= base_url(); ?>mitra/block/<?= $mtr['id_mitra'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
-                                                                        <?php } else { ?>
-                                                                            <a href="<?= base_url(); ?>mitra/unblock/<?= $mtr['id_mitra'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
-                                                                        <?php } ?>
-                                                                        <a href="<?= base_url(); ?>mitra/hapus/<?= $mtr['id_mitra'] ?>">
-                                                                            <button onclick="return confirm ('Are you sure want to delete this Partner?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
-                                                                        </a>
+                                                        <?php if ($this->session->userdata('level_id') == 1) { ?>
+                                                            <?php foreach ($mitra as $no => $mtr) {
+                                                                if ($mtr['status_mitra'] != 0) { ?>
+                                                                    <tr>
+                                                                        <td><?= $no + 1 ?></td>
+                                                                        <td><?= $mtr['id_mitra'] ?></td>
+                                                                        <td><?= $mtr['nama_mitra'] ?></td>
+                                                                        <td><?= $mtr['telepon_mitra'] ?></td>
+                                                                        <td><?= $mtr['nama_merchant'] ?></td>
+                                                                        <td>
+                                                                            <img src="<?= base_url('images/merchant/') . $mtr['foto_merchant']; ?>">
+                                                                        </td>
+                                                                        <td><?= $mtr['fitur'] ?></td>
+                                                                        <td><?= $mtr['nama_kategori'] ?></td>
+                                                                        <td>
+                                                                            <?php if ($mtr['status_mitra'] == 3) { ?>
+                                                                                <label class="badge badge-dark">Banned</label>
+                                                                            <?php } else { ?>
+                                                                                <label class="badge badge-primary">Active</label>
+                                                                            <?php } ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="<?= base_url(); ?>mitra/detail/<?= $mtr['id_mitra'] ?>">
+                                                                                <button class="btn btn-outline-primary mr-2">View</button>
+                                                                            </a>
+                                                                            <?php
+                                                                            if ($mtr['status_mitra'] == 1) { ?>
+                                                                                <a href="<?= base_url(); ?>mitra/block/<?= $mtr['id_mitra'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
+                                                                            <?php } else { ?>
+                                                                                <a href="<?= base_url(); ?>mitra/unblock/<?= $mtr['id_mitra'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
+                                                                            <?php } ?>
+                                                                            <a href="<?= base_url(); ?>mitra/hapus/<?= $mtr['id_mitra'] ?>">
+                                                                                <button onclick="return confirm ('Are you sure want to delete this Partner?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
+                                                                            </a>
 
-                                                                    </td>
-                                                                </tr>
-                                                        <?php $i++;
+                                                                        </td>
+                                                                    </tr>
+                                                            <?php }
                                                             }
-                                                        } ?>
+                                                            ?>
+                                                        <?php } else { ?>
+                                                            <?php foreach ($mitrabyagent as $no => $mta) {
+                                                                echo $mta['status_mitra'];
+                                                                if ($mta['status_mitra'] != 0) { ?>
+                                                                    <tr>
+                                                                        <td><?= $no + 1 ?></td>
+                                                                        <td><?= $mta['id_mitra'] ?></td>
+                                                                        <td><?= $mta['nama_mitra'] ?></td>
+                                                                        <td><?= $mta['telepon_mitra'] ?></td>
+                                                                        <td><?= $mta['nama_merchant'] ?></td>
+                                                                        <td>
+                                                                            <img src="<?= base_url('images/merchant/') . $mta['foto_merchant']; ?>">
+                                                                        </td>
+                                                                        <td><?= $mta['fitur'] ?></td>
+                                                                        <td><?= $mta['nama_kategori'] ?></td>
+                                                                        <td>
+                                                                            <?php if ($mta['status_mitra'] == 3) { ?>
+                                                                                <label class="badge badge-dark">Banned</label>
+                                                                            <?php } else { ?>
+                                                                                <label class="badge badge-primary">Active</label>
+                                                                            <?php } ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="<?= base_url(); ?>mitra/detail/<?= $mta['id_mitra'] ?>">
+                                                                                <button class="btn btn-outline-primary mr-2">View</button>
+                                                                            </a>
+                                                                            <?php
+                                                                            if ($mta['status_mitra'] == 1) { ?>
+                                                                                <a href="<?= base_url(); ?>mitra/block/<?= $mta['id_mitra'] ?>"><button class="btn btn-outline-dark text-red mr-2">Block</button></a>
+                                                                            <?php } else { ?>
+                                                                                <a href="<?= base_url(); ?>mitra/unblock/<?= $mta['id_mitra'] ?>"><button class="btn btn-outline-success text-red mr-2">Unblock</button></a>
+                                                                            <?php } ?>
+                                                                            <a href="<?= base_url(); ?>mitra/hapus/<?= $mta['id_mitra'] ?>">
+                                                                                <button onclick="return confirm ('Are you sure want to delete this Partner?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
+                                                                            </a>
+
+                                                                        </td>
+                                                                    </tr>
+                                                            <?php }
+                                                            } ?>
+                                                        <?php } ?>
                                                     </tbody>
                                                 </table>
                                             </div>

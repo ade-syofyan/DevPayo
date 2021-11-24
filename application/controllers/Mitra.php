@@ -6,7 +6,7 @@ class Mitra extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-       
+
 
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
@@ -23,6 +23,8 @@ class Mitra extends CI_Controller
     public function index()
     {
         $data['mitra'] = $this->mitra->getallmitra();
+        $data['mitrabyagent'] = $this->mitra->getallmitrabyagent();
+        // var_dump($data['mitrabyagent']);die;
 
         $this->load->view('includes/header');
         $this->load->view('mitra/index', $data);

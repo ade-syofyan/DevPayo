@@ -44,12 +44,12 @@
             $district = html_escape($this->input->post('district', TRUE));
             $village  = html_escape($this->input->post('village', TRUE));
             $alamat   = html_escape($this->input->post('address', TRUE));
-            $this->form_validation->set_rules('nik', 'nik', 'trim|prep_for_form|is_unique[admin.nik]');
-            $this->form_validation->set_rules('user_name', 'username', 'trim|prep_for_form|is_unique[admin.user_name]');
-            $this->form_validation->set_rules('phone', 'phone', 'trim|prep_for_form|is_unique[admin.phone]');
-            $this->form_validation->set_rules('email', 'email', 'trim|prep_for_form|is_unique[admin.email]');
-            $this->form_validation->set_rules('regency', 'kota', 'trim|prep_for_form|is_unique[admin.regency_id]');
-            $this->form_validation->set_rules('password', 'password', 'trim|prep_for_form');
+            $this->form_validation->set_rules('nik', 'NIK', 'trim|prep_for_form|is_unique[admin.nik]');
+            $this->form_validation->set_rules('user_name', 'NAME', 'trim|prep_for_form');
+            $this->form_validation->set_rules('phone', 'PHONE', 'trim|prep_for_form|is_unique[admin.phone]');
+            $this->form_validation->set_rules('email', 'EMAIL', 'trim|prep_for_form|is_unique[admin.email]');
+            $this->form_validation->set_rules('regency', 'REGENCY', 'trim|prep_for_form|is_unique[admin.regency_id]');
+            $this->form_validation->set_rules('password', 'PASSWORD', 'trim|prep_for_form');
 
             if ($this->form_validation->run() == TRUE) {
 
@@ -389,8 +389,6 @@
         public function list_komisi()
         {
             $data['data'] = $this->agenmodel->getListKomisi();
-            $data['fee'] = $this->agenmodel->getadminsetting();
-            // $komisi = ;
 
             $this->load->view('includes/header');
             $this->load->view('agen/list_komisi', $data, false);
@@ -419,7 +417,7 @@
                     <td><?= formatRupiah($ag['total']) ?></td>
                     <td><?= formatRupiah($fee) ?></td>
                     <td>
-                        <a href="#" type="button" class="btn btn-outline-primary mr-2" onclick="bayar(<?= $ag['id'] ?>)">Bayar
+                        <a href="#" type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#bayar<?= $ag['id'] ?>">Bayar
                         </a>
                     </td>
                 </tr>
@@ -427,40 +425,5 @@
             <?php endforeach; ?>
     <?php
 
-        }
-
-        public function bayarKomisi()
-        {
-            $this->form_validation->set_rules('status', 'status', 'trim|prep_for_form');
-
-            if ($this->form_validation->run() == TRUE) {
-                $id = $this->input->post('id');
-                $status = $this->input->post('status');
-                // $dataencrypt = sha1($data);
-
-                $data = [
-                    'id'     => $id,
-                    'status' => $status
-                ];
-
-                if (demo == TRUE) {
-                    $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-                    redirect('agent/list_komisi');
-                } else {
-
-                    $this->agenmodel->bayarKomisiAgent($data);
-                    $this->session->set_flashdata('ubah', 'Komisi Agent Berhasil Dibayarkan');
-                    redirect('agent/list_komisi');
-                }
-            } else {
-                // $data = $this->user->getcurrency();
-                $data['agent']  = $this->agenmodel->getagentbyid($id);
-                $data['prov']   = $this->agenmodel->getDataProv();
-                $data['komisi'] = $this->agenmodel->komisi($id);
-
-                $this->load->view('includes/header');
-                $this->load->view('agen/detail', $data);
-                $this->load->view('includes/footer');
-            }
         }
     }

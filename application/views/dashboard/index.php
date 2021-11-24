@@ -421,7 +421,7 @@
 
     <?php } else { ?>
         <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
@@ -437,7 +437,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 grid-margin stretch-card">
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
@@ -453,7 +453,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 grid-margin stretch-card">
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
@@ -463,6 +465,19 @@
                                 <h6>
                                     <?= count($hitungdriveragent); ?>
                                 </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-md-center">
+                            <i class="mdi mdi-store icon-lg text-primary"></i>
+                            <div class="ml-3">
+                                <p class="mb-0">Total Merchant</p>
+                                <h6><?= count($mitrabyagent); ?></h6>
                             </div>
                         </div>
                     </div>

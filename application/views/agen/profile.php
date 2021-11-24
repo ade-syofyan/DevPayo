@@ -26,7 +26,7 @@
                         <hr>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
-                                <?= form_open_multipart('profile/ubah'); ?>
+                                <?= form_open_multipart('profile/ubahagent'); ?>
                                 <div class="form-group">
                                     <label>Image Profile</label>
                                     <input type="file" class="dropify" data-max-file-size="1mb" name="image" data-default-file="<?= base_url('images/agent/') . $image ?>" />
@@ -37,18 +37,13 @@
                                         <input type="text" class="form-control" name="fullname" id="fullname" value="<?= $nama_lengkap ?>" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">User Name</label>
-                                        <input type="text" class="form-control" name="user_name" id="name" value="<?= $user_name ?>" required>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" name="email" id="email" value="<?= $email ?>" required>
                                     </div>
                                     <label class="text-small">Phone Number</label>
                                     <div class="row">
-
                                         <div class="form-group col-2">
-                                            <input type="tel" id="txtPhone" class="form-control" name="countrycode" placeholder="+1 " <?php if ($_POST != NULL) { ?> value="<?= $_POST['countryCode']; ?>" <?php } ?> required>
+                                            <input type="tel" id="txtPhone" class="form-control" name="countrycode" placeholder="+1 " <?php if ($_POST != NULL) { ?> value="<?= $_POST['countryCode']; ?>" <?php } ?>>
                                         </div>
                                         <div class=" form-group col-10">
                                             <input type="text" class="form-control" id="phone" name="phone" placeholder="enter phone number" value="<?= $phone ?>">
@@ -56,7 +51,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Password</label>
-                                        <input type="password" class="form-control" name="password" id="email" placeholder="change password here" required>
+                                        <input type="password" class="form-control" name="password" id="email" placeholder="change password here">
                                     </div>
                                     <div class="form-group mt-5">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>

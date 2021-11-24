@@ -40,8 +40,10 @@ class Login extends CI_Controller
 				$data = [
 					'id' => $user['id'],
 					'user_name' => $user['user_name'],
+					'nama_lengkap' => $user['nama_lengkap'],
 					'password' => $user['password'],
 					'image' => $user['image'],
+					'wallet_id' => $user['wallet_id'],
 					'level_id' => $user['level_id'],
 					'regency' => $user['regency_id']
 				];

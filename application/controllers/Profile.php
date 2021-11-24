@@ -94,4 +94,63 @@ class Profile extends CI_Controller
             $this->load->view('includes/footer');
         }
     }
+
+    public function ubahagent()
+    {
+        $this->form_validation->set_rules('fullname', 'fullname', 'trim|prep_for_form');
+        $this->form_validation->set_rules('email', 'email', 'trim|prep_for_form');
+        $this->form_validation->set_rules('phone', 'phone', 'trim|prep_for_form');
+        // $this->form_validation->set_rules('email', 'email', 'trim|prep_for_form|is_unique[admin.email]');
+        // $this->form_validation->set_rules('phone', 'phone', 'trim|prep_for_form|is_unique[admin.phone]');
+        // $this->form_validation->set_rules('password', 'password', 'trim|prep_for_form');
+
+        $data = $this->profile->getagent();
+
+        if ($this->form_validation->run() == TRUE) {
+            $config['upload_path']     = './images/agent/';
+            $config['allowed_types']   = 'gif|jpg|png|jpeg';
+            $config['max_size']        = '10000';
+            $config['file_name']       = 'name';
+            $config['encrypt_name']    = true;
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                if ($data['image'] != 'noimage.jpg') {
+                    $image = $data['image'];
+                    unlink('images/agent/' . $image);
+                }
+                $gambar = html_escape($this->upload->data('file_name'));
+            } else {
+                $gambar = $data['image'];
+            }
+
+            if ($this->input->post('password', TRUE) == NULL) {
+                $pass = $data['password'];
+            } else {
+                $pass = html_escape(sha1($this->input->post('password', TRUE)));
+            }
+            $data = [
+                'id'           => $data['id'],
+                'image'        => $gambar,
+                'nama_lengkap' => html_escape($this->input->post('fullname', TRUE)),
+                'email'        => html_escape($this->input->post('email', TRUE)),
+                'phone'        => html_escape($this->input->post('phone', TRUE)),
+                'password'     => $pass
+            ];
+
+            if (demo == TRUE) {
+                $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
+                redirect('agen/profile');
+            } else {
+                $this->profile->ubahdataagent($data);
+                $this->session->set_userdata($data);
+                $this->session->set_flashdata('diubah', 'Has Been Changed');
+                redirect('profile/profileAgent');
+            }
+        } else {
+            $this->load->view('includes/header');
+            $this->load->view('login', $data);
+            $this->load->view('includes/footer');
+        }
+    }
 }

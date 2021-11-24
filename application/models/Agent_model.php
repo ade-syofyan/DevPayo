@@ -21,14 +21,14 @@ class Agent_model extends CI_model
     public function getListKomisi()
     {
         $month = date('m');
-        $query = $this->db->query('SELECT a.nama_lengkap, a.id, a.image, sum(t.biaya_akhir) as total FROM transaksi t LEFT JOIN driver d ON t.id_driver = d.id LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND f.id_fitur = 15 AND MONTH(t.waktu_selesai) = "' . $month . '" GROUP BY d.regency_id');
+        $query = $this->db->query('SELECT a.nama_lengkap, a.id, a.image, sum(t.biaya_akhir) as total FROM transaksi t LEFT JOIN driver d ON t.id_driver = d.id LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND MONTH(t.waktu_selesai) = "' . $month . '" GROUP BY d.regency_id');
 
         return $query->result_array();
     }
 
     public function filterMonth($month)
     {
-        $query = $this->db->query('SELECT a.nama_lengkap, a.id, a.image, sum(t.biaya_akhir) as total FROM transaksi t LEFT JOIN driver d ON t.id_driver = d.id LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND f.id_fitur = 15 AND MONTH(t.waktu_selesai) = "' . $month . '" GROUP BY d.regency_id');
+        $query = $this->db->query('SELECT a.nama_lengkap, a.id, a.image, sum(t.biaya_akhir) as total FROM transaksi t LEFT JOIN driver d ON t.id_driver = d.id LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND MONTH(t.waktu_selesai) = "' . $month . '" GROUP BY d.regency_id');
 
         return $query->result_array();
     }
@@ -184,5 +184,23 @@ class Agent_model extends CI_model
     {
         $this->db->select('komisi_agent');
         return $this->db->get_where('admin_setting', ['id' => 1])->row_array();
+    }
+
+    public function ubahdata($data)
+    {
+        $this->db->set('image', $data['image']);
+        $this->db->set('email', $data['email']);
+        $this->db->set('password', $data['password']);
+
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
+    }
+
+    public function bayarKomisiAgent($data)
+    {
+        
+        $this->db->set('status', $data['status']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
     }
 }
