@@ -30,11 +30,11 @@
             <?php endif; ?>
 
             <div>
-                <button onclick="gantian();" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i>Add Merchant</button>
+                <button onclick="gantian();" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i>Tambah Merchant</button>
             </div>
             <br>
             <div id="isitable" style="display:block;">
-                <h4 class="card-title">New Registration Merchant</h4>
+                <h4 class="card-title">Merchant Baru</h4>
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
@@ -42,23 +42,22 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Owners Name</th>
-                                        <th>Phone</th>
-                                        <th>Merchant Name</th>
-                                        <th>Merchant Pic</th>
-                                        <th>Service</th>
-                                        <th>Category</th>
+                                        <th>Nama Pemilik</th>
+                                        <th>No Hp</th>
+                                        <th>Nama >Merchant</thNama>
+                                        <th>Foto Merchant</th>
+                                        <th>Layanan</th>
+                                        <th>Kategori</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i = 1;
-                                    foreach ($mitra as $mtr) {
-                                        if ($mtr['status_mitra'] == 0) { ?>
+                                    <?php foreach ($mitra as $i => $mtr) : ?>
+                                        <?php if ($mtr['status_mitra'] == 0) : ?>
                                             <tr>
                                                 <td>
-                                                    <?= $i ?>
+                                                    <?= $i + 1 ?>
                                                 </td>
                                                 <td><?= $mtr['nama_mitra'] ?></td>
                                                 <td><?= $mtr['telepon_mitra'] ?></td>
@@ -83,15 +82,16 @@
                                                     if ($mtr['status_mitra'] == 0) { ?>
                                                         <a href="<?= base_url(); ?>mitra/confirmmitra/<?= $mtr['id_mitra'] ?>"><button class="btn btn-outline-success mr-2">Confirm</button></a>
                                                     <?php }  ?>
-                                                    <a href="<?= base_url(); ?>mitra/hapus/<?= $mtr['id_mitra'] ?>">
-                                                        <button onclick="return confirm ('Are you sure want to delete this Partner?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
-                                                    </a>
+                                                    <?php if ($this->session->userdata('level_id') == 1) : ?>
+                                                        <a href="<?= base_url(); ?>mitra/hapus/<?= $mtr['id_mitra'] ?>">
+                                                            <button onclick="return confirm ('Are you sure want to delete this Partner?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
+                                                        </a>
+                                                    <?php endif; ?>
 
                                                 </td>
                                             </tr>
-                                    <?php $i++;
-                                        }
-                                    } ?>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
@@ -99,23 +99,23 @@
                 </div>
             </div>
             <div id="isiform" style="display:none;">
-                <h4 class="card-title">Add Merchant</h4>
+                <h4 class="card-title">Tambah Merchant</h4>
                 <?= form_open_multipart('mitra/tambahmitra'); ?>
                 <h4 class="card-title">Owners Info</h4>
                 <br>
                 <div class="form-group">
-                    <label for="name">Owners Name</label>
+                    <label for="name">Nama Pemilik</label>
                     <input type="text" class="form-control" id="name" name="nama_mitra" required>
                 </div>
                 <div class="form-group">
-                    <label for="ads">Address</label>
+                    <label for="ads">Alamat</label>
                     <input type="text" class="form-control" id="ads" name="alamat_mitra" required>
                 </div>
                 <div class="form-group">
                     <label for="ads">Email</label>
                     <input type="email" class="form-control" id="ads" name="email_mitra" required>
                 </div>
-                <label class="text-small">Phone Number</label>
+                <label class="text-small">No HP</label>
                 <div class="row">
                     <div class="form-group col-2">
                         <input type="tel" id="txtPhone" class="form-control" name="country_code_mitra" required>
@@ -125,35 +125,35 @@
                     </div>
                 </div>
                 <br>
-                <h4 class="card-title">Owners File</h4>
+                <h4 class="card-title">Data File Pemilik</h4>
                 <br>
                 <div class="form-group">
-                    <label for="ic">Type of Id Card</label>
+                    <label for="ic">Jenis Tanda Pengenal</label>
                     <input type="text" class="form-control" id="ic" name="jenis_identitas_mitra" required>
                 </div>
                 <div class="form-group">
-                    <label for="nc">Number of Id Card</label>
+                    <label for="nc">No Tanda Pengenal</label>
                     <input type="text" class="form-control" id="nc" name="nomor_identitas_mitra" required>
                 </div>
                 <div class="form-group">
-                    <label class=mt-2 for="name">Id Card Picture</label>
+                    <label class=mt-2 for="name">Foto Kartu Pengenal</label>
                     <input type="file" class="dropify" name="katepe" data-max-file-size="3mb" required />
                 </div>
                 <br>
-                <h4 class="card-title">Merchant Data</h4>
+                <h4 class="card-title">Data Merchant</h4>
                 <br>
                 <div class="form-group">
-                    <label class=mt-2 for="name">Merchant Picture</label>
+                    <label class=mt-2 for="name">Foto Merchant</label>
                     <input type="file" class="dropify" name="foto_merchant" data-max-file-size="3mb" required />
                 </div>
 
 
                 <div class="form-group">
-                    <label class=mt-2 for="name">Merchant Name</label>
+                    <label class=mt-2 for="name">Nama Merchant</label>
                     <input type="text" class="form-control" id="name" name="nama_merchant" required>
                 </div>
                 <div class="form-group">
-                    <label class=mt-2 for="ftr">Service</label>
+                    <label class=mt-2 for="ftr">Layanan</label>
                     <select class=" js-example-basic-single fiturService" style="width:100%" name="id_fitur">
                         <?php foreach ($fitur as $ftr) { ?>
                             <option id="<?= $ftr['fitur'] ?>" value="<?= $ftr['id_fitur'] ?>"><?= $ftr['fitur'] ?></option>
@@ -161,7 +161,7 @@
                     </select>
                 </div>
                 <divclass="form-group">
-                    <label class=mt-2 for=" ftr">Category Service</label>
+                    <label class=mt-2 for=" ftr">Kategori Layanan</label>
                     <select class="js-example-basic-single" name="category_merchant" style="width:100%">
                         <?php foreach ($merchantk as $mck) { ?>
                             <option value="<?= $mck['id_kategori_merchant'] ?>"><?= $mck['nama_kategori'] ?></option>
@@ -171,7 +171,7 @@
                     </divclass=>
 
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>Alamat</label>
                         <input type="text" class="form-control" name="alamat_merchant" id="us3-address" />
                     </div>
                     <div class="form-group">

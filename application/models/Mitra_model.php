@@ -32,13 +32,10 @@ class Mitra_model extends CI_model
         $this->db->join('merchant', 'mitra.id_merchant = merchant.id_merchant', 'left');
         $this->db->join('category_merchant', 'merchant.category_merchant = category_merchant.id_kategori_merchant', 'left');
         $this->db->join('fitur', 'merchant.id_fitur = fitur.id_fitur', 'left');
-        $this->db->where('merchant.regency_id', $regency);
-        // return  $this->db->get_where('merchant', ['merchant.regency_id' => $regency])->result_array();
-        return  $this->db->get('mitra')->result_array();
-
-        $query = $this->db->query('SELECT cm.nama_kategori, f.fitur, mc.*, m.* FROM mitra m LEFT JOIN merchant mc ON m.id_merchant = mc.id_merchant LEFT JOIN admin a ON d.regency_id = a.regency_id LEFT JOIN history_transaksi ht ON t.id = ht.id_transaksi LEFT JOIN fitur f ON t.order_fitur = f.id_fitur WHERE a.level_id = 2 AND ht.status != 1 AND MONTH(t.waktu_selesai) = "' . $month . '" GROUP BY d.regency_id');
-
-        return $query->result_array();
+        // $this->db->where('mitra.regency_id', $regency);
+        // return $this->db->get() ? $this->db->get()->result_array() : [];
+        return  $this->db->get_where('mitra', ['mitra.regency_id' => $regency])->result_array();
+        // return $this->db->get_where('mitra', ['mitra.regency_id' => $regency]) ? $this->db->get_where('mitra', ['mitra.regency_id' => $regency])->result_array() : [];
     }
 
 

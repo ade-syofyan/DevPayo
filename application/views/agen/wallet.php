@@ -30,8 +30,8 @@
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>Bulan</th>
-                                                                <th>Tangggal Paid</th>
-                                                                <th>Fee</th>
+                                                                <th>Tanggal Pembayaran</th>
+                                                                <th>Jumlah Komisi</th>
                                                                 <th>Status</th>
                                                             </tr>
                                                         </thead>
@@ -39,11 +39,11 @@
                                                             <?php foreach ($komisi as $no => $ag) : ?>
                                                                 <?php
                                                                 if ($ag['status'] == 'P') {
-                                                                    $status = 'Paid';
+                                                                    $status = 'Sudah dibayar';
                                                                     $color  = 'success';
                                                                     $waktu  = tanggal_indonesia($ag['waktu']);
                                                                 } else {
-                                                                    $status = 'Unpaid';
+                                                                    $status = 'Belum dibayar';
                                                                     $color  = 'warning';
                                                                     $waktu  = "-";
                                                                 }

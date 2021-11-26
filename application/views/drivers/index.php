@@ -16,14 +16,14 @@
                         <?php echo $this->session->flashdata('hapus'); ?>
                     </div>
                 <?php endif; ?>
-                <h4 class="card-title">Drivers</h4>
+                <h4 class="card-title">Driver</h4>
                 <?php if ($this->session->userdata('level_id') == 1) { ?>
                     <table class="table">
                         <tr>
                             <td>
                                 <label><b>Fliter</b></label>
                                 <select class="js-example-basic-single" id="regency">
-                                    <option value="0">Choice Regency</option>
+                                    <option value="0">Pilih Kota / Kabupaten</option>
                                     <?php foreach ($regency as $reg) : ?>
                                         <option value="<?= $reg['id'] ?>"><?= $reg['name'] ?></option>
                                     <?php endforeach; ?>
@@ -45,19 +45,19 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="tab-2-1" data-toggle="tab" href="#alldrivers-2-1" role="tab" aria-controls="alldrivers-2-1" aria-selected="true">
-                                <i class="mdi mdi-motorbike"></i>All Drivers</a>
+                                <i class="mdi mdi-motorbike"></i>Semua Driver</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="tab-2-2" data-toggle="tab" href="#active-2-2" role="tab" aria-controls="active-2-2" aria-selected="false">
-                                <i class="mdi mdi-account-settings"></i>Active Drivers</a>
+                                <i class="mdi mdi-account-settings"></i>Driver Aktif</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="tab-2-3" data-toggle="tab" href="#nonactive-2-3" role="tab" aria-controls="nonactive-2-3" aria-selected="false">
-                                <i class="mdi mdi-sleep"></i>NonActive Drivers</a>
+                                <i class="mdi mdi-sleep"></i>Driver Tidak Aktif</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="tab-2-4" data-toggle="tab" href="#suspended-2-4" role="tab" aria-controls="suspended-2-4" aria-selected="false">
-                                <i class="mdi mdi-account-off"></i>Suspended Drivers</a>
+                                <i class="mdi mdi-account-off"></i>Driver Ditangguhkan</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -74,13 +74,13 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>Drivers ID</th>
-                                                                <th>Profile Pic</th>
-                                                                <th>Full Name</th>
-                                                                <th>Phone</th>
-                                                                <th>From</th>
+                                                                <th>ID Driver</th>
+                                                                <th>Foto Profil</th>
+                                                                <th>Nama Lengkap</th>
+                                                                <th>No Hp</th>
+                                                                <th>Alamat</th>
                                                                 <th>Rating</th>
-                                                                <th>Job Service</th>
+                                                                <th>Layanan</th>
                                                                 <th>Status</th>
                                                                 <th>Actions</th>
                                                             </tr>
@@ -92,13 +92,13 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>Drivers ID</th>
-                                                                <th>Profile Pic</th>
-                                                                <th>Full Name</th>
-                                                                <th>Phone</th>
-                                                                <th>From</th>
+                                                                <th>Foto</th>
+                                                                <th>ID Driver</th>
+                                                                <th>Nama</th>
+                                                                <th>No Hp</th>
+                                                                <!-- <th>Alamat</th> -->
                                                                 <th>Rating</th>
-                                                                <th>Job Service</th>
+                                                                <th>Layanan</th>
                                                                 <th>Status</th>
                                                                 <th>Actions</th>
                                                             </tr>
@@ -107,11 +107,11 @@
                                                             <?php foreach ($driver as $no => $drv) : ?>
                                                                 <tr>
                                                                     <td><?= $no + 1 ?></td>
-                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td><img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>"></td>
+                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td><?= $drv['nama_driver'] ?></td>
-                                                                    <td><?= $drv['no_telepon'] ?></td>
-                                                                    <td><?= $drv['province_name'] ?>, <?= $drv['regency_name'] ?></td>
+                                                                    <td>+<?= $drv['no_telepon'] ?></td>
+                                                                    <!-- <td><?= strtolower($drv['province_name']) ?>, <?= strtolower($drv['regency_name']) ?></td> -->
                                                                     <td><?= number_format($drv['rating'], 1) ?></td>
                                                                     <td><?= $drv['driver_job'] ?></td>
                                                                     <td>
@@ -179,12 +179,12 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>drivers Id</th>
-                                                            <th>Profile Pic</th>
-                                                            <th>Full Name</th>
-                                                            <th>Phone</th>
+                                                            <th>Foto</th>
+                                                            <th>ID Driver</th>
+                                                            <th>Nama</th>
+                                                            <th>No HP</th>
                                                             <th>Rating</th>
-                                                            <th>Job Service</th>
+                                                            <th>Layanan</th>
                                                             <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
@@ -198,10 +198,10 @@
                                                                         <td>
                                                                             <?= $i ?>
                                                                         </td>
-                                                                        <td><?= $drv['id'] ?></td>
                                                                         <td>
                                                                             <img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>">
                                                                         </td>
+                                                                        <td><?= $drv['id'] ?></td>
                                                                         <td><?= $drv['nama_driver'] ?></td>
                                                                         <td><?= $drv['no_telepon'] ?></td>
                                                                         <td><?= number_format($drv['rating'], 1) ?></td>
@@ -264,12 +264,12 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>drivers Id</th>
-                                                            <th>Profile Pic</th>
-                                                            <th>Full Name</th>
-                                                            <th>Phone</th>
+                                                            <th>Foto</th>
+                                                            <th>ID Driver</th>
+                                                            <th>Nama</th>
+                                                            <th>No HP</th>
                                                             <th>Rating</th>
-                                                            <th>Job Service</th>
+                                                            <th>Layanan</th>
                                                             <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
@@ -282,10 +282,10 @@
                                                                     <td>
                                                                         <?= $i ?>
                                                                     </td>
-                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td>
                                                                         <img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>">
                                                                     </td>
+                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td><?= $drv['nama_driver'] ?></td>
                                                                     <td><?= $drv['no_telepon'] ?></td>
                                                                     <td><?= number_format($drv['rating'], 1) ?></td>
@@ -351,12 +351,12 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>drivers Id</th>
-                                                            <th>Profile Pic</th>
-                                                            <th>Full Name</th>
-                                                            <th>Phone</th>
+                                                            <th>Foto</th>
+                                                            <th>ID Driver</th>
+                                                            <th>Nama</th>
+                                                            <th>No HP</th>
                                                             <th>Rating</th>
-                                                            <th>Job Service</th>
+                                                            <th>Layanan</th>
                                                             <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
@@ -369,10 +369,10 @@
                                                                     <td>
                                                                         <?= $i ?>
                                                                     </td>
-                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td>
                                                                         <img src="<?= base_url('images/fotodriver/') . $drv['foto']; ?>">
                                                                     </td>
+                                                                    <td><?= $drv['id'] ?></td>
                                                                     <td><?= $drv['nama_driver'] ?></td>
                                                                     <td><?= $drv['no_telepon'] ?></td>
                                                                     <td><?= number_format($drv['rating'], 1) ?></td>

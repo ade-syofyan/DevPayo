@@ -15,7 +15,7 @@
                     <?php endif; ?>
                     <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
 
-                        <h4 class="card-title mb-0">Profile</h4>
+                        <h4 class="card-title mb-0">Agen Profile</h4>
                         <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <span class="nav-link active" id="info-tab" data-toggle="tab" role="tab" aria-controls="info" aria-expanded="true">Info</span>
@@ -28,19 +28,19 @@
                             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
                                 <?= form_open_multipart('profile/ubahagent'); ?>
                                 <div class="form-group">
-                                    <label>Image Profile</label>
+                                    <label>Foto Agen</label>
                                     <input type="file" class="dropify" data-max-file-size="1mb" name="image" data-default-file="<?= base_url('images/agent/') . $image ?>" />
                                     <div class="form-group mt-5">
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">Fullname</label>
+                                        <label for="name">Nama Lengkap</label>
                                         <input type="text" class="form-control" name="fullname" id="fullname" value="<?= $nama_lengkap ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" name="email" id="email" value="<?= $email ?>" required>
                                     </div>
-                                    <label class="text-small">Phone Number</label>
+                                    <label class="text-small">Nomer Telpon Agen</label>
                                     <div class="row">
                                         <div class="form-group col-2">
                                             <input type="tel" id="txtPhone" class="form-control" name="countrycode" placeholder="+1 " <?php if ($_POST != NULL) { ?> value="<?= $_POST['countryCode']; ?>" <?php } ?>>
@@ -51,10 +51,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Password</label>
-                                        <input type="password" class="form-control" name="password" id="email" placeholder="change password here">
+                                        <input type="password" class="form-control" name="password" id="email" placeholder="Masukan password baru disini">
                                     </div>
                                     <div class="form-group mt-5">
-                                        <button type="submit" class="btn btn-success mr-2">Update</button>
+                                        <button type="submit" class="btn btn-success mr-2">Simpan</button>
                                     </div>
                                     <?= form_close(); ?>
                                 </div>

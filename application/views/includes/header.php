@@ -90,32 +90,42 @@
                                     <!--change class online to offline or busy as needed-->
                                 </div>
                                 <?php
-                                $id    = $this->session->userdata('regency');
+                                // $id = '';
+                                $id = $this->session->userdata('regency');
+                                // var_dump($id);
+                                // die;
+                                if ($id != 0) :
+                                    $kota  = $this->db->query('SELECT name as aby FROM wa_regency WHERE id = ' . $id . '')->row_array();
+                                else :
+                                    $kota = '';
+                                endif;
                                 $id_wa = $this->session->userdata('wallet_id');
-                                $kota  = $this->db->query('SELECT name as aby FROM wa_regency WHERE id = ' . $id . '')->row_array();
-                                $norek = $this->db->query('SELECT no_rekening FROM wallet_agent WHERE id_wa = ' . $id_wa . '')->row_array();
-                                $uncang = $norek['no_rekening'];
-                                $null = '';
+                                // var_dump($id_wa);
+                                // die;
+                                if ($id_wa === NULL) :
+                                    $null = '';
+                                else :
+                                    $norek = $this->db->query('SELECT no_rekening FROM wallet_agent WHERE id_wa = ' . $id_wa . '')->row_array();
+                                endif;
                                 ?>
                                 <div class="profile-name">
                                     <p class="name">
                                         <?= $this->session->userdata('nama_lengkap') ?>
                                     </p>
                                     <p class="designation">
-                                        <?php if ($this->session->userdata('level_id') == 1) { ?>
+                                        <?php if ($this->session->userdata('level_id') == 1) : ?>
                                             Superadmin
-                                        <?php } else { ?>
+                                        <?php else : ?>
                                             Agent <?= $kota['aby'] ?>
-                                        <?php } ?>
+                                        <?php endif; ?>
                                     </p>
-
-                                    <?php if ($uncang === NULL) { ?>
+                                    <?php if ($this->session->userdata('level_id') == 1) : ?>
                                         <?= $null ?>
-                                    <?php } else { ?>
+                                    <?php else : ?>
                                         <p class="name">
                                             Rek Uncang : <?= $norek['no_rekening'] ?>
                                         </p>
-                                    <?php } ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </li>
@@ -296,20 +306,20 @@
                                 <div class="collapse" id="drivers">
                                     <ul class="nav flex-column sub-menu">
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
-                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Driver Baru</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#tables2" aria-expanded="false" aria-controls="tables2">
                                     <i class="icon-basket-loaded menu-icon"></i>
-                                    <span class="menu-title">Merchant</span>
+                                    <span class="menu-title">Mitra</span>
                                     <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
                                 </a>
                                 <div class="collapse" id="tables2">
                                     <ul class="nav flex-column sub-menu">
-                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra">List Merchant</a></li>
-                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra/newregmitra">Validasi Merchant</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra">List Mitra</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>mitra/newregmitra">Validasi Mitra Baru</a></li>
                                     </ul>
                                 </div>
 

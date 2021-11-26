@@ -14,29 +14,30 @@
                     <div class="card">
                         <div class="card-body avatar">
                             <div class="row">
-                                <h4 class="col-auto mr-auto card-title">Owners Info</h4>
+                                <h4 class="col-auto mr-auto card-title">Info Pemilik</h4>
                                 <a class="col-auto btn btn-danger text-white" href="<?= base_url(); ?>mitra">
-                                    <i class="mdi mdi-keyboard-backspace text-white"></i>Back</a>
+                                    <i class="mdi mdi-keyboard-backspace text-white"></i>Kembali</a>
                             </div>
                             <p class="name"><?= $mitra['nama_mitra'] ?></p>
                             <h4 class="text-center text-primary">
-                                <i class="mdi mdi-wallet mr-1 text-primary "></i>Wallet</h4>
+                                <i class="mdi mdi-wallet mr-1 text-primary "></i>Dompet Payo Pay
+                            </h4>
                             <p class="text-center"><?= $currency['app_currency'] ?>
-                                <?= number_format($mitra['saldo'] ,0, ".", ".") ?></p>
+                                <?= number_format($mitra['saldo'], 0, ".", ".") ?></p>
                             <div class="info-links">
-                                <i class="mdi mdi-account-box-outline text-gray mr-2">type Of IDcard :
+                                <i class="mdi mdi-account-box-outline text-gray mr-2">Dokumen Pengenal :
                                 </i>
                                 <p><?= $mitra['jenis_identitas_mitra'] ?></p>
-                                <i class="mdi mdi-numeric text-gray"> Number Of IDcard :
+                                <i class="mdi mdi-numeric text-gray"> No KTP/ Paspor :
                                 </i>
                                 <p><?= $mitra['nomor_identitas_mitra'] ?></p>
-                                <i class="mdi mdi-home-outline text-gray"> Address :
+                                <i class="mdi mdi-home-outline text-gray"> Alamat :
                                 </i>
                                 <p><?= $mitra['alamat_mitra'] ?></p>
                                 <i class="mdi mdi-email-outline text-gray"> Email :
                                 </i>
                                 <p><?= $mitra['email_mitra'] ?></p>
-                                <i class="mdi mdi-phone text-gray"> Phone
+                                <i class="mdi mdi-phone text-gray"> No HP
                                 </i>
                                 <p><?= $mitra['telepon_mitra'] ?></p>
                             </div>
@@ -49,14 +50,14 @@
                 <div class="col-12 stretch-card">
                     <div class="card">
                         <div class="card-body overview">
-                            <h4 class="col-auto mr-auto card-title">Merchant Info</h4>
+                            <h4 class="col-auto mr-auto card-title">Info Merchant</h4>
                             <ul class="achivements">
                                 <li>
-                                    <p class="text-success">Service</p>
+                                    <p class="text-success">Layanan</p>
                                     <p><?= $mitra['fitur'] ?></p>
                                 </li>
                                 <li>
-                                    <p class="text-success">Category</p>
+                                    <p class="text-success">Kategori</p>
                                     <p><?= $mitra['nama_kategori'] ?></p>
                                 </li>
                                 <li>
@@ -85,13 +86,13 @@
                                 <p class="name"><?= $mitra['nama_merchant'] ?></p>
                                 <img src="<?= base_url('images/merchant/') . $mitra['foto_merchant'] ?>">
                                 <div class="info-links">
-                                    <i class="mdi mdi-store text-gray"> Address</i>
+                                    <i class="mdi mdi-store text-gray"> Alamat</i>
                                     <p><?= $mitra['alamat_merchant'] ?></p>
-                                    <i class="mdi mdi-phone text-gray"> Phone</i>
+                                    <i class="mdi mdi-phone text-gray"> No HP</i>
                                     <p><?= $mitra['telepon_mitra'] ?></p>
-                                    <i class="mdi mdi-update text-gray"> Open</i>
+                                    <i class="mdi mdi-update text-gray"> Jam Buka</i>
                                     <p><?= $mitra['jam_buka'] ?></p>
-                                    <i class="mdi mdi-update text-gray"> Close</i>
+                                    <i class="mdi mdi-update text-gray"> Jam Tutup</i>
                                     <p><?= $mitra['jam_tutup'] ?></p>
                                 </div>
                             </div>
@@ -120,23 +121,25 @@
                     <?php endif; ?>
                     <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
 
-                        <h4 class="card-title mb-0">Detail Merchant</h4>
+                        <h4 class="card-title mb-0">Detail Mitra</h4>
                         <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="mitra-tab" data-toggle="tab" href="#mitra" role="tab" aria-controls="mitra">Owners</a>
+                                <a class="nav-link active" id="mitra-tab" data-toggle="tab" href="#mitra" role="tab" aria-controls="mitra">Pemilik / Pengelola</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="merchant-tab" data-toggle="tab" href="#merchant" role="tab" aria-controls="merchant">Merchant</a>
+                                <a class="nav-link" id="merchant-tab" data-toggle="tab" href="#merchant" role="tab" aria-controls="merchant">Toko</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " id="item-tab" data-toggle="tab" href="#item" role="tab" aria-controls="item" aria-expanded="true">Menus</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="transactionhistory-tab" data-toggle="tab" href="#transactionhistory" role="tab" aria-controls="transactionhistory">Transaction History</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="wallet-tab" data-toggle="tab" href="#wallet" role="tab" aria-controls="wallet">Wallet</a>
-                            </li>
+                            <?php if ($this->session->userdata('level_id') == 1) : ?>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="item-tab" data-toggle="tab" href="#item" role="tab" aria-controls="item" aria-expanded="true">Menus</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="transactionhistory-tab" data-toggle="tab" href="#transactionhistory" role="tab" aria-controls="transactionhistory">Transaction History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="wallet-tab" data-toggle="tab" href="#wallet" role="tab" aria-controls="wallet">Wallet</a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     <div class="wrapper">
@@ -251,7 +254,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="Hargaitem">Price(<?= $currency['app_currency'] ?>)</label>
-                                                <input type="text"  class="form-control" id="Hargaitem" name="harga_item" required>
+                                                <input type="text" class="form-control" id="Hargaitem" name="harga_item" required>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -266,7 +269,7 @@
                                                 <div class="col-lg-10">
                                                     <div id="yescheck" style="display:block;" class="form-group">
                                                         <label for="yes">Promo Price(<?= $currency['app_currency'] ?>)</label>
-                                                        <input type="text"  class="form-control" id="yes" name="harga_promo">
+                                                        <input type="text" class="form-control" id="yes" name="harga_promo">
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,20 +303,19 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php $i = 1;
-                                                            foreach ($item as $it) {
-                                                                if ($itk['id_kategori_item'] == $it['kategori_item']) { ?>
+                                                            <?php foreach ($item as $no => $it) :
+                                                                if ($itk['id_kategori_item'] == $it['kategori_item']) : ?>
                                                                     <tr>
-                                                                        <td><?= $i ?></td>
+                                                                        <td><?= $no + 1 ?></td>
                                                                         <td><img src="<?= base_url('images/itemmerchant/') . $it['foto_item']; ?>"></td>
                                                                         <td id="namaitem<?= $i ?>"><?= $it['nama_item'] ?></td>
                                                                         <?php if ($it['status_promo'] == 0) { ?>
-                                                                            <td><?= $currency['app_currency'] ?><?= number_format($it['harga_item'] ,0, ".", ".") ?></td>
+                                                                            <td><?= $currency['app_currency'] ?><?= number_format($it['harga_item'], 0, ".", ".") ?></td>
                                                                         <?php } else { ?>
-                                                                            <td style="text-decoration: line-through;"><?= $currency['app_currency'] ?><?= number_format($it['harga_item'] ,0, ".", ".") ?></td>
+                                                                            <td style="text-decoration: line-through;"><?= $currency['app_currency'] ?><?= number_format($it['harga_item'], 0, ".", ".") ?></td>
                                                                         <?php } ?>
                                                                         <?php if ($it['status_promo'] == 1) { ?>
-                                                                            <td class="text-success"><?= $currency['app_currency'] ?><?= number_format($it['harga_promo'] ,0, ".", ".") ?></td>
+                                                                            <td class="text-success"><?= $currency['app_currency'] ?><?= number_format($it['harga_promo'], 0, ".", ".") ?></td>
                                                                         <?php } else { ?>
                                                                             <td><label class="badge badge-danger">Not Promo</label></td>
                                                                         <?php } ?>
@@ -329,14 +331,12 @@
                                                                             <a class="btn btn-outline-danger text-red mr-2" onclick="return confirm ('Are You Sure Want To Delete This Item?')" href=" <?= base_url(); ?>mitra/hapusitem/<?= $it['id_item'] ?>">
                                                                                 Delete</a>
                                                                         </td>
-                                                                <?php }
-                                                                $i++;
-                                                            } ?>
                                                                     </tr>
+                                                                <?php endif ?>
+                                                            <?php endforeach; ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
-
                                                 <!-- End -->
                                             </div>
                                         <?php $index++;
@@ -347,10 +347,10 @@
                             <div class="tab-pane fade" id="merchant" role="tabpanel" aria-labelledby="merchant">
                                 <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
 
-                                    <h4 class="card-title mb-0">Merchant</h4>
+                                    <h4 class="card-title mb-0">Toko</h4>
                                     <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab3" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-expanded="true">Merchant Detail</a>
+                                            <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-expanded="true">Informasi Toko</a>
                                         </li>
 
                                 </div>
@@ -369,7 +369,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <label class=mt-2 for="name">Merchant Name</label>
+                                                    <label class=mt-2 for="name">Nama Toko</label>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <input type="text" class="form-control" id="name" name="nama_merchant" value="<?= $mitra['nama_merchant'] ?>" required>
@@ -377,7 +377,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <label class=mt-2 for="ftr">Service</label>
+                                                    <label class=mt-2 for="ftr">Kategori</label>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <select class=" js-example-basic-single fiturService" style="width:100%" name="id_fitur">
@@ -390,7 +390,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <label class=mt-2 for="ftr">Category Service</label>
+                                                    <label class=mt-2 for="ftr">Jenis Kategori</label>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <select class="js-example-basic-single" style="width:100%" name="category_merchant">
@@ -405,7 +405,7 @@
 
 
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Alamat</label>
                                                 <input type="text" class="form-control" name="alamat_merchant" id="us3-address" />
                                             </div>
                                             <div class="form-group">
@@ -423,7 +423,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <label class=mt-2 for="op">Open</label>
+                                                    <label class=mt-2 for="op">Buka</label>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <input type="time" class="form-control" id="op" name="jam_buka" value="<?= $mitra['jam_buka'] ?>" required>
@@ -431,7 +431,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <label class=mt-2 for="cl">Close</label>
+                                                    <label class=mt-2 for="cl">Tutup</label>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <input type="time" class="form-control" id="cl" name="jam_tutup" value="<?= $mitra['jam_tutup'] ?>" required>
@@ -454,17 +454,19 @@
                             </div>
                             <div class="tab-pane show active" id="mitra" role="tabpanel" aria-labelledby="mitra">
                                 <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="card-title mb-0">Owners</h4>
+                                    <h4 class="card-title mb-0">Pemilik / Pengelola</h4>
                                     <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab4" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="mitdeta-tab" data-toggle="tab" href="#mitdeta" role="tab" aria-controls="mitdeta" aria-expanded="true">Detail</a>
+                                            <a class="nav-link active" id="mitdeta-tab" data-toggle="tab" href="#mitdeta" role="tab" aria-controls="mitdeta" aria-expanded="true">Data Diri</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="mitfil-tab" data-toggle="tab" href="#mitfil" role="tab" aria-controls="mitfil">files</a>
+                                            <a class="nav-link" id="mitfil-tab" data-toggle="tab" href="#mitfil" role="tab" aria-controls="mitfil">Dokumen Pribadi</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="mitpass-tab" data-toggle="tab" href="#mitpass" role="tab" aria-controls="mitpass">Password</a>
-                                        </li>
+                                        <?php if ($this->session->userdata('level_id') == 1) : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="mitpass-tab" data-toggle="tab" href="#mitpass" role="tab" aria-controls="mitpass">Password</a>
+                                            </li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                                 <div class="tab-content" id="myTab3Content">
@@ -473,60 +475,61 @@
                                         <input type="hidden" class="form-control" name="id_mitra" value="<?= $mitra['id_mitra'] ?>">
                                         <input type="hidden" class="form-control" name="id_merchant" value="<?= $mitra['id_merchant'] ?>">
                                         <div class="form-group">
-                                            <label for="name">Mitra Name</label>
+                                            <label for="name">Nama Pemilik / Pengelola</label>
                                             <input type="text" class="form-control" id="name" name="nama_mitra" value="<?= $mitra['nama_mitra'] ?>" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class=mt-2 for="ftr">Partner</label>
+                                            <label class=mt-2 for="ftr">Jenis Kemitraan</label>
                                             <select id="pilih" class=" js-example-basic-single" style="width:100%" name="partner">
 
-                                                <option id="partner" value="1" <?php if ($mitra['partner'] == 1) { ?>selected<?php } ?>>Partner</option>
-                                                <option id="non" value="0" <?php if ($mitra['partner'] == 0) { ?>selected<?php } ?>>non Partner</option>
+                                                <option id="partner" value="1" <?php if ($mitra['partner'] == 1) { ?>selected<?php } ?>>Kerjasama</option>
+                                                <option id="non" value="0" <?php if ($mitra['partner'] == 0) { ?>selected<?php } ?>>Mandiri</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Address</label>
+                                            <label>Alamat</label>
                                             <input type="text" class="form-control" name="alamat_mitra" value="<?= $mitra['alamat_mitra'] ?>" required>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" name="email_mitra" value="<?= $mitra['email_mitra'] ?>" required>
-                                        </div>
-                                        <label class="text-small">Phone Number</label>
+                                        <?php if ($this->session->userdata('level_id') == 1) : ?>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" name="email_mitra" value="<?= $mitra['email_mitra'] ?>" required>
+                                            </div>
+                                        <?php endif; ?>
+                                        <label class="text-small">No HP</label>
                                         <div class="row">
                                             <div class="form-group col-2">
                                                 <input type="tel" id="txtPhone1" class="form-control" name="country_code_mitra" value="<?= $mitra['country_code_mitra'] ?>" required>
                                             </div>
                                             <div class=" form-group col-10">
                                                 <input type="text" class="form-control" name="phone_mitra" value="<?= $mitra['phone_mitra'] ?>"" required>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button type=" submit" class="btn btn-success mr-2">Update
-                                                </button>
+                                            <button type=" submit" class="btn btn-success mr-2">Simpan</button>
                                                 <?= form_close(); ?>
                                             </div>
                                             <div class=" tab-pane" id="mitfil" role="tabpanel" aria-labelledby="mitfil">
                                                 <?= form_open_multipart('mitra/editmitrafile'); ?>
                                                 <input type="hidden" class="form-control" name="id_mitra" value="<?= $mitra['id_mitra'] ?>">
                                                 <div class="form-group">
-                                                    <label for="ic">Type of Id Card</label>
+                                                    <label for="ic">Dokumen Pengenal</label>
                                                     <input type="text" class="form-control" id="ic" name="jenis_identitas_mitra" value="<?= $mitra['jenis_identitas_mitra'] ?>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nc">Number of Id Card</label>
+                                                    <label for="nc">No KTP / Paspor</label>
                                                     <input type="text" class="form-control" id="nc" name="nomor_identitas_mitra" value="<?= $mitra['nomor_identitas_mitra'] ?>" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="file" class="dropify" name="foto_ktp" data-max-file-size="3mb" data-default-file="<?= base_url('images/fotoberkas/ktp/') . $mitra['foto_ktp'] ?>" />
                                                 </div>
-                                                <button type=" submit" class="btn btn-success mr-2">Update</button>
+                                                <button type=" submit" class="btn btn-success mr-2">Simpan</button>
                                                 <?= form_close(); ?>
                                             </div>
                                             <div class="tab-pane" id="mitpass" role="tabpanel" aria-labelledby="mitpass">
                                                 <?= form_open_multipart('mitra/editmitrapass'); ?>
                                                 <input type="hidden" class="form-control" name="id_mitra" value="<?= $mitra['id_mitra'] ?>">
                                                 <div class="form-group">
-                                                    <label for="ic">Type of Id Card</label>
+                                                    <label for="ic">Password</label>
                                                     <input type="password" class="form-control" id="ic" name="password" placeholder="Enter Your New Password" required>
                                                 </div>
                                                 <button type=" submit" class="btn btn-success mr-2">Update</button>
@@ -559,7 +562,7 @@
                                                             <td><?= $tr['jumlah_item'] ?></td>
                                                             <td>
                                                                 <?= $currency['app_currency'] ?>
-                                                                <?= number_format($tr['total_biaya'] ,0, ".", ".") ?>
+                                                                <?= number_format($tr['total_biaya'], 0, ".", ".") ?>
                                                             </td>
                                                             <td>
                                                                 <a href="<?= base_url(); ?>dashboard/detail/<?= $tr['id_transaksi'] ?>" class="btn btn-outline-primary">View</a>
@@ -596,13 +599,13 @@
                                                             <?php if ($wl['type'] == 'topup' or $wl['type'] == 'Order+') { ?>
                                                                 <td class="text-success">
                                                                     <?= $currency['app_currency'] ?>
-                                                                    <?= number_format($wl['jumlah'] ,0, ".", ".") ?>
+                                                                    <?= number_format($wl['jumlah'], 0, ".", ".") ?>
                                                                 </td>
 
                                                             <?php } else { ?>
                                                                 <td class="text-danger">
                                                                     <?= $currency['app_currency'] ?>
-                                                                    <?= number_format($wl['jumlah'] ,0, ".", ".") ?>
+                                                                    <?= number_format($wl['jumlah'], 0, ".", ".") ?>
                                                                 </td>
                                                             <?php } ?>
 

@@ -3,10 +3,10 @@
         <div class="card-body">
             <div>
                 <a class="btn btn-info" href="<?= base_url(); ?>driver/tambah">
-                    <i class="mdi mdi-plus-circle-outline"></i>Add Drivers</a>
+                    <i class="mdi mdi-plus-circle-outline"></i>Tambah Driver</a>
             </div>
             <br>
-            <h4 class="card-title">New Registration Drivers</h4>
+            <h4 class="card-title">Driver Baru</h4>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
@@ -14,13 +14,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>drivers Id</th>
-                                    <th>Profile Pic</th>
-                                    <th>Full Name</th>
-                                    <th>Phone</th>
-                                    <th>From</th>
+                                    <th>ID Driver</th>
+                                    <th>Foto</th>
+                                    <th>Nama Driver</th>
+                                    <th>No HP</th>
+                                    <th>Alamat</th>
                                     <th>Rating</th>
-                                    <th>Job Service</th>
+                                    <th>Layanan</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>

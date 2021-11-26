@@ -218,8 +218,11 @@ class Dashboard_model extends CI_model
   public function countmitraagent()
   {
     $regency = $this->session->userdata('regency');
-    $this->db->where('status_mitra != 0');
-    $this->db->where('regency_id', $regency);
-    return $this->db->get('mitra')->result_array();
+    $this->db->select('merchant.*,' . 'mitra.id_mitra,' . 'mitra.status_mitra,');
+    $this->db->from('merchant');
+    $this->db->join('mitra', 'merchant.id_merchant = mitra.id_merchant', 'left');
+    $this->db->where('mitra.status_mitra != 0');
+    $this->db->where('mitra.regency_id', $regency);
+    return $this->db->get()->result_array();
   }
 }

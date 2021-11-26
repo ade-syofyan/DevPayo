@@ -9,7 +9,7 @@
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-chart-areaspline icon-lg text-success"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaction</p>
+                                <p class="mb-0">Total Transaksi</p>
                                 <h6>
                                     <?= count($transaksi); ?>
                                 </h6>
@@ -24,7 +24,7 @@
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-square-inc-cash icon-lg text-warning"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaction Value</p>
+                                <p class="mb-0">Total Pendapatan</p>
                                 <h6>
                                     <?= $currency['app_currency'] ?>
                                     <?= number_format($saldo['total'], 0, ".", ".") ?>
@@ -427,7 +427,7 @@
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-chart-areaspline icon-lg text-success"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaction</p>
+                                <p class="mb-0">Total Transaksi</p>
                                 <h6>
 
                                     <?= count($transaksibyagent); ?>
@@ -443,7 +443,7 @@
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-square-inc-cash icon-lg text-warning"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaction Value</p>
+                                <p class="mb-0">Total Pendapatan Agen</p>
                                 <h6>
                                     <?= $currency['app_currency'] ?>
                                     <?= number_format($saldoagent['total'], 0, ".", ".") ?>
@@ -477,7 +477,14 @@
                             <i class="mdi mdi-store icon-lg text-primary"></i>
                             <div class="ml-3">
                                 <p class="mb-0">Total Merchant</p>
-                                <h6><?= count($mitrabyagent); ?></h6>
+                                <h6>
+                                    <?php if ($mitrabyagent === NULL) : ?>
+                                        0
+                                    <?php else : ?>
+                                        <?= count($mitrabyagent); ?>
+                                    <?php endif ?>
+
+                                </h6>
                             </div>
                         </div>
                     </div>
