@@ -79,10 +79,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php $i = 1;
-                                                        foreach ($user as $us) { ?>
+                                                        <?php foreach ($user as $no => $us) : ?>
                                                             <tr>
-                                                                <td><?= $i ?></td>
+                                                                <td><?= $no + 1 ?></td>
                                                                 <td><?= $us['id'] ?></td>
                                                                 <td>
                                                                     <img src="<?= base_url('images/pelanggan/') . $us['fotopelanggan']; ?>">
@@ -115,10 +114,8 @@
                                                                         <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
                                                                     </a>
                                                                 </td>
-                                                            <?php $i++;
-                                                        } ?>
                                                             </tr>
-
+                                                        <?php endforeach ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -133,7 +130,7 @@
                         <div class="tab-pane fade" id="blocked-2-2" role="tabpanel" aria-labelledby="tab-2-2">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Users</h4>
+                                    <h4 class="card-title">Blocked Users</h4>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -152,7 +149,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1;
-                                                        foreach ($user as $us) {
+                                                        foreach ($user as $no => $us) {
                                                             if ($us['status'] == 0) { ?>
                                                                 <tr>
                                                                     <td><?= $i ?></td>

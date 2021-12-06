@@ -3,13 +3,13 @@
 <div class="content-wrapper">
     <?php if ($this->session->userdata('level_id') == 1) { ?>
         <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-chart-areaspline icon-lg text-success"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaksi</p>
+                                <p class="mb-0">Jumlah Transaksi</p>
                                 <h6>
                                     <?= count($transaksi); ?>
                                 </h6>
@@ -18,13 +18,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-square-inc-cash icon-lg text-warning"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Pendapatan</p>
+                                <p class="mb-0">Total Transaksi</p>
+                                <h6>
+                                    <?= $currency['app_currency'] ?>
+                                    <?= number_format($saldo['total'], 0, ".", ".") ?>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-md-center">
+                            <i class="mdi mdi-square-inc-cash icon-lg text-success"></i>
+                            <div class="ml-3">
+                                <p class="mb-0">Total Transaksi</p>
                                 <h6>
                                     <?= $currency['app_currency'] ?>
                                     <?= number_format($saldo['total'], 0, ".", ".") ?>
@@ -421,13 +437,13 @@
 
     <?php } else { ?>
         <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-chart-areaspline icon-lg text-success"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Transaksi</p>
+                                <p class="mb-0">Jumlah Transaksi</p>
                                 <h6>
 
                                     <?= count($transaksibyagent); ?>
@@ -437,16 +453,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-md-center">
                             <i class="mdi mdi-square-inc-cash icon-lg text-warning"></i>
                             <div class="ml-3">
-                                <p class="mb-0">Total Pendapatan Agen</p>
+                                <p class="mb-0">Total Komisi</p>
                                 <h6>
                                     <?= $currency['app_currency'] ?>
-                                    <?= number_format($saldoagent['total'], 0, ".", ".") ?>
+                                    <?php $komisia = round($saldoagent['total'] * $nilaikomisi['komisi_agent'] / 100, 2) ?>
+                                    <?= number_format($komisia, 0, ".", ".") ?>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-md-center">
+                            <i class="mdi mdi-square-inc-cash icon-lg text-success"></i>
+                            <div class="ml-3">
+                                <p class="mb-0">Komisi Bulan Ini</p>
+                                <h6>
+                                    <?= $currency['app_currency'] ?>
+                                    <?php $komisia = round($saldobulanini['total'] * $nilaikomisi['komisi_agent'] / 100, 2) ?>
+                                    <?= number_format($komisia, 0, ".", ".") ?>
                                 </h6>
                             </div>
                         </div>

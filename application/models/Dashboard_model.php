@@ -12,8 +12,8 @@ class Dashboard_model extends CI_model
     $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
     $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id', 'left');
     $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-    $this->db->where('history_transaksi.status != 1');
-    $this->db->where('history_transaksi.status != 0');
+    $this->db->where('history_transaksi.status = 4');
+    // $this->db->where('history_transaksi.status != 0');
     $this->db->order_by('transaksi.id', 'DESC');
     return $this->db->get()->result_array();
   }
@@ -108,7 +108,7 @@ class Dashboard_model extends CI_model
   {
     $this->db->select('SUM(biaya_akhir)as total');
     $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
-    $this->db->where('history_transaksi.status != 1');
+    $this->db->where('history_transaksi.status = 4');
     return $this->db->get('transaksi')->row_array();
   }
 
@@ -119,9 +119,22 @@ class Dashboard_model extends CI_model
     $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
     $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
     $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
-    $this->db->where('history_transaksi.status != 1');
-    // $this->db->where('fitur.id_fitur', 15);
+    $this->db->where('history_transaksi.status = 4');
     $this->db->where('driver.regency_id', $regency);
+    return $this->db->get('transaksi')->row_array();
+  }
+
+  public function getkomisibulansekarang()
+  {
+    $month = date('m');
+    $regency = $this->session->userdata('regency');
+    $this->db->select('SUM(biaya_akhir)as total');
+    $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
+    $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
+    $this->db->join('fitur', 'transaksi.order_fitur = fitur.id_fitur', 'left');
+    $this->db->where('history_transaksi.status = 4');
+    $this->db->where('driver.regency_id', $regency);
+    $this->db->where('MONTH(history_transaksi.waktu)', $month);
     return $this->db->get('transaksi')->row_array();
   }
 
@@ -224,5 +237,12 @@ class Dashboard_model extends CI_model
     $this->db->where('mitra.status_mitra != 0');
     $this->db->where('mitra.regency_id', $regency);
     return $this->db->get()->result_array();
+  }
+
+  public function agenkomisi()
+  {
+    $this->db->select('komisi_agent');
+    $this->db->from('admin_setting');
+    return $this->db->get()->row_array();
   }
 }

@@ -198,9 +198,16 @@ class Agent_model extends CI_model
 
     public function bayarKomisiAgent($data)
     {
-        
+
         $this->db->set('status', $data['status']);
         $this->db->where('id', $data['id']);
         $this->db->update('admin', $data);
+    }
+
+    public function agenkomisi()
+    {
+        $this->select('komisi_agent');
+        // $this->from('admin_setting');
+        return $this->db->get('admin_setting')->row_array();
     }
 }

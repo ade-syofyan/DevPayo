@@ -82,6 +82,8 @@ class Dashboard extends CI_Controller
         $data['fitur'] = $this->dashboard->getAllfitur();
         $data['saldo'] = $this->dashboard->getallsaldo();
         $data['saldoagent'] = $this->dashboard->getsaldoagent();
+        $data['saldobulanini'] = $this->dashboard->getkomisibulansekarang();
+        $data['nilaikomisi'] = $this->dashboard->agenkomisi();
         $data['user'] = $this->user->getallusers();
         $data['driver'] = $this->driver->getalldriver();
         $data['mitra'] = $this->dashboard->countmitra();

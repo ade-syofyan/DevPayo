@@ -3,20 +3,12 @@ class Users_model extends CI_model
 {
     public function getAllusers()
     {
-        // $this->db->select('transaksi.*,'.'driver.nama_driver,'.'pelanggan.fullnama,'.'history_transaksi.*,'.'status_transaksi.*');
-        // $this->db->from('transaksi');
-        // $this->db->join('history_transaksi', 'transaksi.id = history_transaksi.id_transaksi', 'left');
-        // $this->db->join('status_transaksi', 'history_transaksi.status = status_transaksi.id', 'left');
-        // $this->db->join('driver', 'transaksi.id_driver = driver.id', 'left');
-        // $this->db->join('pelanggan', 'transaksi.id_pelanggan = pelanggan.id', 'left');
-        // $this->db->where('history_transaksi.status != 1');
-        // $this->db->order_by('transaksi.id', 'DESC');
         $this->db->select('wa_province.name as province_name');
         $this->db->select('wa_regency.name as regency_name');
         $this->db->select('pelanggan.*');
         $this->db->join('wa_province', 'pelanggan.provinsi_id = wa_province.id', 'left');
         $this->db->join('wa_regency', 'pelanggan.regency_id = wa_regency.id', 'left');
-
+        $this->db->where('pelanggan.status = 1');
         return $this->db->get('pelanggan')->result_array();
     }
 

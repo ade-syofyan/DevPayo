@@ -87,19 +87,24 @@
                                 <?php echo $this->session->flashdata('demo'); ?>
                             </div>
                         <?php endif; ?>
-                        <h4 class="card-title">Wallet</h4>
+                        <h4 class="card-title">Rekening Uncang</h4>
                         <?= form_open_multipart('agent/komisi'); ?>
 
                         <div class="form-group">
-                            <label for="nama">Name</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Enter your name" value="">
+                            <label for="nama">Nama Pemilik Rekening</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama pemilik Rekening" value="">
                         </div>
                         <div class="form-group">
-                            <label for="no_rekening">Wallet Number</label>
-                            <input type="number" class="form-control" id="no_rekening" name="no_rekening" placeholder="enter wallet number" value="">
+                            <label for="no_rekening">No Rekening Uncang</label>
+                            <input type="number" class="form-control" id="no_rekening" name="no_rekening" placeholder="Masukkan Nomer rekening Uncang" value="">
                         </div>
-                        <button type="submit" class="btn btn-success mr-2">Submit</button>
-                        <a class="btn btn-danger text-white" href="<?= base_url(); ?>wallet">Cancel</a>
+                        <div class="blockquote-footer mb-3">
+                            <span>
+                                <be>NB:</be> Rekening ini digunakan untuk pencairan komisi Agen, Silahkan bikin akun Uncang bagi yang belum memiliki. Pastikan Rekening Uncang Anda benar. Untuk mengganti Nomer Rekening Uncang hanya bisa dilakukan oleh Admin Kantor Pusat.
+                            </span>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Daftar</button>
+                        <a class="btn btn-danger text-white" href="<?= base_url(); ?>wallet">Batal</a>
                         <?= form_close(); ?>
                     </div>
                 </div>
