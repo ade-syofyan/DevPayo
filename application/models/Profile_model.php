@@ -8,6 +8,13 @@ class Profile_model extends CI_model
         return  $this->db->get('admin')->row_array();
     }
 
+    public function getkeuangan()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->where('id', $id);
+        return $this->db->get('admin')->row_array();
+    }
+
     public function getagent()
     {
         $id = $this->session->userdata('id');
@@ -24,6 +31,17 @@ class Profile_model extends CI_model
         $this->db->set('password', $data['password']);
 
         $this->db->where('id', '1');
+        $this->db->update('admin', $data);
+    }
+
+    public function ubahdatakeuangan($data)
+    {
+        $this->db->set('user_name', $data['user_name']);
+        $this->db->set('email', $data['email']);
+        $this->db->set('image', $data['image']);
+        $this->db->set('password', $data['password']);
+
+        $this->db->where('id', $data['id']);
         $this->db->update('admin', $data);
     }
 

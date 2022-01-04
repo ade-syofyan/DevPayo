@@ -6,11 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
-        <?php if ($this->session->userdata('level_id') == 1) { ?>
+        <?php if ($this->session->userdata('level_id') == 1) : ?>
             Admin Panel
-        <?php } else { ?>
+        <?php elseif ($this->session->userdata('level_id') == 2) : ?>
             Agent Panel
-        <?php } ?>
+        <?php else : ?>
+            Keuangan Panel
+        <?php endif ?>
     </title>
     <!-- plugins:css -->
 
@@ -115,13 +117,15 @@
                                     <p class="designation">
                                         <?php if ($this->session->userdata('level_id') == 1) : ?>
                                             Superadmin
-                                        <?php else : ?>
+                                        <?php elseif ($this->session->userdata('level_id') == 2) : ?>
                                             Agent <?= $kota['aby'] ?>
+                                        <?php else : ?>
+                                            Keuangan
                                         <?php endif; ?>
                                     </p>
                                     <?php if ($this->session->userdata('level_id') == 1) : ?>
                                         <?= $null ?>
-                                    <?php else : ?>
+                                    <?php elseif ($this->session->userdata('level_id') == 2) : ?>
                                         <p class="name">
                                             Rek Uncang : <?= $norek['no_rekening'] ?>
                                         </p>
@@ -136,7 +140,7 @@
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
-                        <?php if ($this->session->userdata('level_id') == 1) { ?>
+                        <?php if ($this->session->userdata('level_id') == 1) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url(); ?>transaction">
                                     <i class="icon-list menu-icon"></i>
@@ -295,7 +299,7 @@
                                     <span class="menu-title">Profil Admin</span>
                                 </a>
                             </li>
-                        <?php } else { ?>
+                        <?php elseif ($this->session->userdata('level_id') == 2) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#drivers" aria-expanded="false" aria-controls="drivers">
                                     <i class="icon-people menu-icon"></i>
@@ -342,7 +346,28 @@
                                     <span class="menu-title">Komisi</span>
                                 </a>
                             </li> -->
-                        <?php } ?>
+                        <?php else : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                                    <i class="icon-wallet menu-icon"></i>
+                                    <span class="menu-title">Keuangan</span>
+                                    <span class="badge badge-white"><i class="mdi mdi-menu-down mdi-24px text-primary"></i></span>
+                                </a>
+                                <div class="collapse" id="tables">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet">Wallet</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahtopup">Manual Top Up</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>wallet/tambahwithdraw">Manual Withdraw</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url(); ?>profile/keuangan">
+                                    <i class="icon-user-following menu-icon"></i>
+                                    <span class="menu-title">Profil</span>
+                                </a>
+                            </li>
+                        <?php endif ?>
 
                         <li class="nav-item">
                             <a class="nav-link" href="<?= base_url(); ?>login/logout">
