@@ -193,7 +193,7 @@
                                 <div class="collapse" id="drivers">
                                     <ul class="nav flex-column sub-menu">
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver">Drivers</a></li>
-                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Mitra Baru</a></li>
+                                        <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>newregistration">Validasi Driver Baru</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>driver/tracking_driver">Lacak Driver</a></li>
                                         <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>bank/requestdriver">Request Bank</a></li>
                                     </ul>

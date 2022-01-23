@@ -227,7 +227,7 @@
                                                                             } ?>
                                                                         </td>
                                                                         <td>
-                                                                            <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
+                                                                            <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] . '/edit' ?>">
                                                                                 <button class="btn btn-outline-primary mr-2">View</button>
                                                                             </a>
                                                                             <a href="<?= base_url(); ?>driver/block/<?= $drv['id'] ?>">

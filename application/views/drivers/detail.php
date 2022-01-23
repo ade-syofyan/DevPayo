@@ -158,6 +158,7 @@
                             <?php } ?>
                         </ul>
                     </div>
+
                     <div class="wrapper">
                         <hr>
                         <div class="tab-content" id="myTabContent">
@@ -200,6 +201,22 @@
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
                                     <textarea name="alamat_driver" rows="6" class="form-control" required><?= $driver['alamat_driver'] ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="provinsi">Provinsi</label>
+                                    <select id="provinsi" class="js-example-basic-single" style="width:100%" name="provinsi">
+                                        <option value="0">Pilih Provinsi</option>
+                                        <?php foreach ($prov as $pv) : ?>
+                                            <option value="<?= $pv['id'] ?>" <?= $pv['id'] == $driver['provinsi_id'] ? 'selected' : '' ?>><?= $pv['name'] ?></option>
+                                        <?php endforeach; ?>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kabupaten">Kota / Kabupaten</label>
+                                    <select id="kabupaten" class="js-example-basic-single" style="width:100%" name="kabupaten">
+                                        <option value="0">Pilih Kota / Kabupaten</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-success mr-2">Update</button>
                                 <button class="btn btn-outline-danger">Cancel</button>
@@ -434,6 +451,40 @@
             preferredCountries: ['US'],
             separateDialCode: false
         });
-        console.log(code)
+        // console.log(code)
+    });
+
+    $(document).ready(function() {
+        $('#provinsi').change(function() {
+            var id = $(this).val();
+            var kabupaten = "<?= $driver['regency_id'] ?>";
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url(); ?>index.php/Driver/get_regency",
+                data: {
+                    id: id,
+                    kabupaten: kabupaten
+                },
+                dataType: 'JSON',
+                // async: false,
+                success: function(response) {
+                    console.log(response);
+                    $('#kabupaten').html(response);
+                }
+            });
+        });
+
+        var driverId = "<?= $driver['id'] ?>";
+        $.ajax({
+            type: "GET",
+            url: "<?= base_url('index.php/Driver/detail/') ?>" + driverId + "/json",
+            dataType: "JSON",
+            success: function(response) {
+                // console.log(response);
+                $('[name="provinsi"]').val(response.provinsi_id).trigger('change');
+                $('[name="kabupaten"]').val(response.regency_id).trigger('change');
+
+            }
+        });
     });
 </script>

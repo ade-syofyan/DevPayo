@@ -13,6 +13,7 @@ class Driver extends CI_Controller
         $this->load->model('driver_model', 'driver');
         $this->load->model('address_model', 'address');
         $this->load->model('appsettings_model', 'app');
+        $this->load->model('select_model', 'select');
         $this->load->model('Pelanggan_model');
         $this->load->library('form_validation');
         $this->load->library('upload');
@@ -92,7 +93,7 @@ class Driver extends CI_Controller
                             } ?>
                         </td>
                         <td>
-                            <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
+                            <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] . '/edit' ?>">
                                 <button class="btn btn-outline-primary mr-2">View</button>
                             </a>
                             <?php
@@ -126,25 +127,57 @@ class Driver extends CI_Controller
         $this->load->view('drivers/tracking_driver');
     }
 
-    public function detail($id)
+    public function getById($id)
     {
-        $data['driver'] = $this->driver->getdriverbyid($id);
+    }
+
+    public function detail($id, $type)
+    {
+        $data['prov']   = $this->select->getDataProv();
+        $dataDriver = $this->driver->getdriverbyid($id);
         $data['currency'] = $this->app->getappbyid();
         $data['countorder'] = $this->driver->countorder($id);
         $data['transaksi'] = $this->driver->transaksi($id);
         $data['wallet'] = $this->driver->wallet($id);
         $data['driverjob'] = $this->driver->driverjob();
 
-        $this->load->view('includes/header');
-        $this->load->view('drivers/detail', $data);
-        $this->load->view('includes/footer');
+        if ($type == 'edit') {
+            $data['driver'] = $dataDriver;
+            $this->load->view('includes/header');
+            $this->load->view('drivers/detail', $data);
+            $this->load->view('includes/footer');
+        } else {
+            $this->output->set_content_type('application/json')->set_output(json_encode($dataDriver));
+        }
     }
+
+    public function get_regency()
+    {
+        $kabupatenId = $this->input->post('kabupaten');
+        $idprov = $this->input->post('id');
+        $data = $this->select->getDataRegency($idprov);
+        $output = '<option value="">--Pilih Kabupaten / Kota--</option>';
+        foreach ($data as $row) :
+            if ($kabupatenId) :
+                if ($kabupatenId == $row->id) :
+                    $output .= '<option value="' . $row->id . '" selected>' . $row->name . '</option>';
+                else :
+                    $output .= '<option value="' . $row->id . '">' . $row->name . '</option>';
+                endif;
+            else :
+                $output .= '<option value="' . $row->id . '">' . $row->name . '</option>';
+            endif;
+
+        endforeach;
+        $this->output->set_content_type('application/json')->set_output(json_encode($output));
+    }
+
+
 
     public function ubahid()
     {
 
         $this->form_validation->set_rules('nama_driver', 'nama_driver', 'trim|prep_for_form');
-
         $this->form_validation->set_rules('email', 'email', 'trim|prep_for_form');
         $this->form_validation->set_rules('tempat_lahir', 'tempat_lahir', 'trim|prep_for_form');
         $this->form_validation->set_rules('tgl_lahir', 'tgl_lahir', 'trim|prep_for_form');
@@ -158,18 +191,19 @@ class Driver extends CI_Controller
             $countrycode = html_escape($this->input->post('countrycode', TRUE));
 
             $data             = [
-                'id'                    => html_escape($this->input->post('id', TRUE)),
-                'nama_driver'           => html_escape($this->input->post('nama_driver', TRUE)),
-                'email'                 => html_escape($this->input->post('email', TRUE)),
-                'countrycode'           => html_escape($this->input->post('countrycode', TRUE)),
-                'phone'                 => html_escape($this->input->post('phone', TRUE)),
-                'no_telepon'            => str_replace("+", "", $countrycode) . $phone,
-                'tempat_lahir'          => html_escape($this->input->post('tempat_lahir', TRUE)),
-                'tgl_lahir'             => html_escape($this->input->post('tgl_lahir', TRUE)),
-                'gender'                => html_escape($this->input->post('gender', TRUE)),
-                'alamat_driver'         => html_escape($this->input->post('alamat_driver', TRUE))
+                'id'            => html_escape($this->input->post('id', TRUE)),
+                'nama_driver'   => html_escape($this->input->post('nama_driver', TRUE)),
+                'email'         => html_escape($this->input->post('email', TRUE)),
+                'countrycode'   => html_escape($this->input->post('countrycode', TRUE)),
+                'phone'         => html_escape($this->input->post('phone', TRUE)),
+                'no_telepon'    => str_replace("+", "", $countrycode) . $phone,
+                'tempat_lahir'  => html_escape($this->input->post('tempat_lahir', TRUE)),
+                'tgl_lahir'     => html_escape($this->input->post('tgl_lahir', TRUE)),
+                'gender'        => html_escape($this->input->post('gender', TRUE)),
+                'alamat_driver' => html_escape($this->input->post('alamat_driver', TRUE)),
+                'provinsi_id'   => html_escape($this->input->post('provinsi', TRUE)),
+                'regency_id'    => html_escape($this->input->post('kabupaten', TRUE))
             ];
-
 
             if (demo == TRUE) {
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
@@ -178,7 +212,7 @@ class Driver extends CI_Controller
                 $id = html_escape($this->input->post('id', TRUE));
                 $this->driver->ubahdataid($data);
                 $this->session->set_flashdata('ubah', 'Driver ID Has Been Changed');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             }
         } else {
 
@@ -228,7 +262,7 @@ class Driver extends CI_Controller
                 $id = html_escape($this->input->post('id', TRUE));
                 $this->driver->ubahdatakendaraan($data, $data2);
                 $this->session->set_flashdata('ubah', 'Driver Vechile Has Been Changed');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             }
         } else {
 
@@ -279,11 +313,11 @@ class Driver extends CI_Controller
 
             if (demo == TRUE) {
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             } else {
                 $this->driver->ubahdatafoto($data);
                 $this->session->set_flashdata('ubah', 'Driver Picture Has Been Changed');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             }
         } else {
 
@@ -315,12 +349,12 @@ class Driver extends CI_Controller
 
             if (demo == TRUE) {
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             } else {
 
                 $this->driver->ubahdatapassword($data);
                 $this->session->set_flashdata('ubah', 'Driver Password Has Been Changed');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             }
         } else {
             $data['driver'] = $this->driver->getdriverbyid($id);
@@ -415,11 +449,11 @@ class Driver extends CI_Controller
 
             if (demo == TRUE) {
                 $this->session->set_flashdata('demo', 'NOT ALLOWED FOR DEMO');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             } else {
                 $this->driver->ubahdatacard($data, $data2);
                 $this->session->set_flashdata('ubah', 'Driver Licence Has Been Changed');
-                redirect('driver/detail/' . $id);
+                redirect('driver/detail/' . $id . '/edit');
             }
         } else {
             $data['driver'] = $this->driver->getdriverbyid($id);

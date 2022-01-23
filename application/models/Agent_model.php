@@ -57,7 +57,7 @@ class Agent_model extends CI_model
     public function getDataProv()
     {
         $this->db->select('wa_province.*');
-        $this->db->order_by('name');
+        $this->db->order_by('name', 'ASC');
 
         return $this->db->get('wa_province')->result_array();
     }

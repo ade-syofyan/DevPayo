@@ -7,7 +7,7 @@ class newregistration extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-       
+
 
         if ($this->session->userdata('user_name') == NULL && $this->session->userdata('password') == NULL) {
             redirect(base_url() . "login");
@@ -20,7 +20,15 @@ class newregistration extends CI_Controller
 
     public function index()
     {
-        $data['driver'] = $this->driver->getalldriver();
+        $regency = $this->session->userdata('regency');
+        if ($regency == 0) {
+            $data['driver'] = $this->driver->getAlldriver();
+        } else {
+            $data['driver'] = $this->driver->getAlldriverbyagent();
+        }
+
+        // echo $data['driver'];
+
 
 
         $this->load->view('includes/header');
