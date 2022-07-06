@@ -3,10 +3,10 @@
         <div class="card-body">
             <div>
                 <a class="btn btn-info" href="<?= base_url(); ?>driver/tambah">
-                    <i class="mdi mdi-plus-circle-outline"></i>Add Drivers</a>
+                    <i class="mdi mdi-plus-circle-outline"></i>Tambah Driver</a>
             </div>
             <br>
-            <h4 class="card-title">New Registration Drivers</h4>
+            <h4 class="card-title">Driver Baru</h4>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
@@ -14,12 +14,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>drivers Id</th>
-                                    <th>Profile Pic</th>
-                                    <th>Full Name</th>
-                                    <th>Phone</th>
+                                    <th>ID Driver</th>
+                                    <th>Foto</th>
+                                    <th>Nama Driver</th>
+                                    <th>No HP</th>
+                                    <th>Alamat</th>
                                     <th>Rating</th>
-                                    <th>Job Service</th>
+                                    <th>Layanan</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -38,30 +39,14 @@
                                             </td>
                                             <td><?= $drv['nama_driver'] ?></td>
                                             <td><?= $drv['no_telepon'] ?></td>
+                                            <td><?= $drv['province_name'] ?>, <?= $drv['regency_name'] ?></td>
                                             <td><?= number_format($drv['rating'], 1) ?></td>
                                             <td><?= $drv['driver_job'] ?></td>
                                             <td>
-                                                <?php if ($drv['status'] == 3) { ?>
-                                                    <label class="badge badge-dark">Banned</label>
-                                                <?php } elseif ($drv['status'] == 0) { ?>
-                                                    <label class="badge badge-secondary text-dark">New Reg</label>
-                                                    <?php } else {
-                                                    if ($drv['status_job'] == 1) { ?>
-                                                        <label class="badge badge-primary">Active</label>
-                                                    <?php }
-                                                    if ($drv['status_job'] == 2) { ?>
-                                                        <label class="badge badge-info">Pick'up</label>
-                                                    <?php }
-                                                    if ($drv['status_job'] == 3) { ?>
-                                                        <label class="badge badge-success">work</label>
-                                                    <?php }
-                                                    if ($drv['status_job'] == 4) { ?>
-                                                        <label class="badge badge-danger">Non Active</label>
-                                                <?php }
-                                                } ?>
+                                                <label class="badge badge-secondary text-dark">New Reg</label>
                                             </td>
                                             <td>
-                                                <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] ?>">
+                                                <a href="<?= base_url(); ?>driver/detail/<?= $drv['id'] . '/edit' ?>">
                                                     <button class="btn btn-outline-info mr-2">View</button>
                                                 </a>
                                                 <a href="<?= base_url(); ?>newregistration/confirm/<?= $drv['id'] ?>">

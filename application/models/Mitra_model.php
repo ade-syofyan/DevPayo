@@ -22,6 +22,24 @@ class Mitra_model extends CI_model
         return  $this->db->get('mitra')->result_array();
     }
 
+    public function getallmitrabyagent()
+    {
+        $regency = $this->session->userdata('regency');
+        $this->db->select('category_merchant.nama_kategori');
+        $this->db->select('fitur.fitur');
+        $this->db->select('merchant.*');
+        $this->db->select('mitra.*');
+        $this->db->join('merchant', 'mitra.id_merchant = merchant.id_merchant', 'left');
+        $this->db->join('category_merchant', 'merchant.category_merchant = category_merchant.id_kategori_merchant', 'left');
+        $this->db->join('fitur', 'merchant.id_fitur = fitur.id_fitur', 'left');
+        // $this->db->where('mitra.regency_id', $regency);
+        // return $this->db->get() ? $this->db->get()->result_array() : [];
+        return  $this->db->get_where('mitra', ['mitra.regency_id' => $regency])->result_array();
+        // return $this->db->get_where('mitra', ['mitra.regency_id' => $regency]) ? $this->db->get_where('mitra', ['mitra.regency_id' => $regency])->result_array() : [];
+    }
+
+
+
     public function getmitrabyid($id)
     {
         $this->db->select('berkas_driver.foto_ktp');

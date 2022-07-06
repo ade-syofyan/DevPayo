@@ -205,6 +205,8 @@ class Pelanggan extends REST_Controller
                     'phone' => $dec_data->phone,
                     'password' => sha1($dec_data->password),
                     'tgl_lahir' => $dec_data->tgl_lahir,
+                    'provinsi_id' => $dec_data->provinsi_id,
+                    'regency_id' => $dec_data->regency_id,
                     'countrycode' => $dec_data->countrycode,
                     'fotopelanggan' => $namafoto,
                     'token' => $dec_data->token,

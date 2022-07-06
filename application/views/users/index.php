@@ -21,6 +21,28 @@
                     </div>
                 <?php endif; ?>
                 <h4 class="card-title">Users</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <label><b>Fliter Province</b></label>
+                            <select class="js-example-basic-single" id="province">
+                                <option value="0">Choice Province</option>
+                                <?php foreach ($province as $prov) : ?>
+                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <!-- <td>
+                            <label><b>Fliter Regency</b></label>
+                            <select name="regency" class="js-example-basic-single" id="regency">
+                                <option>Choice Regency</option>
+                                <?php foreach ($regency as $prov) : ?>
+                                    <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td> -->
+                    </tr>
+                </table>
                 <div class="tab-minimal tab-minimal-success">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -51,15 +73,15 @@
                                                             <th>Full Name</th>
                                                             <th>Email</th>
                                                             <th>Phone</th>
+                                                            <th>From</th>
                                                             <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php $i = 1;
-                                                        foreach ($user as $us) { ?>
+                                                        <?php foreach ($user as $no => $us) : ?>
                                                             <tr>
-                                                                <td><?= $i ?></td>
+                                                                <td><?= $no + 1 ?></td>
                                                                 <td><?= $us['id'] ?></td>
                                                                 <td>
                                                                     <img src="<?= base_url('images/pelanggan/') . $us['fotopelanggan']; ?>">
@@ -67,6 +89,7 @@
                                                                 <td><?= $us['fullnama'] ?></td>
                                                                 <td><?= $us['email'] ?></td>
                                                                 <td><?= $us['no_telepon'] ?></td>
+                                                                <td><?= $us['province_name'] ?>, <?= $us['regency_name'] ?></td>
                                                                 <td>
                                                                     <?php if ($us['status'] == 1) { ?>
                                                                         <label class="badge badge-success">Active</label>
@@ -91,10 +114,8 @@
                                                                         <button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Delete</button>
                                                                     </a>
                                                                 </td>
-                                                            <?php $i++;
-                                                        } ?>
                                                             </tr>
-
+                                                        <?php endforeach ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -109,7 +130,7 @@
                         <div class="tab-pane fade" id="blocked-2-2" role="tabpanel" aria-labelledby="tab-2-2">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Users</h4>
+                                    <h4 class="card-title">Blocked Users</h4>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -128,7 +149,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1;
-                                                        foreach ($user as $us) {
+                                                        foreach ($user as $no => $us) {
                                                             if ($us['status'] == 0) { ?>
                                                                 <tr>
                                                                     <td><?= $i ?></td>
